@@ -1,4 +1,3 @@
-import React from 'react';
 import LazyWrapper from '../LazyWrapper';
 
 export default LazyWrapper(() =>
