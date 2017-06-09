@@ -1,22 +1,24 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import AnimatedLogo from './AnimatedLogo';
 import logo from './logo.svg';
+import About from './components/about/About';
+
+import './css/normalize.css';
+import './css/skeleton.css';
+import './css/index.css';
+
 import './App.css';
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to GuitarThinker, Bro.</h2>
-        </div>
-        <p className="App-intro">
-          Latest <code>react-scripts</code> and everything.
-        </p>
-        <h4>Here's another logo, just for fun.</h4>
-        <AnimatedLogo/>
-      </div>
+        <Router>
+            <div className="container">
+                <Route exact path="/" render={() => (<h1>HOME!!</h1>)} />
+                <Route path="/about" component={About} />
+            </div>
+        </Router>
     );
   }
 }
