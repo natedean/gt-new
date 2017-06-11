@@ -1,5 +1,5 @@
 import LazyWrapper from '../LazyWrapper';
 
 export default LazyWrapper(() =>
-    import('./About').then(module => module.default)
+    import('./index').then(module => module.default)
 )

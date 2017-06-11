@@ -1,0 +1,13 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    margin: 1rem 0 3rem;
+}
+
+.nav__logo .art-guitar svg {
+    height: 50px;
+}
+
+.nav__links a:not(:first-child) {
+    margin-left: 1rem;
+}
