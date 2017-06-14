@@ -6,14 +6,15 @@ const isO = string => string.fret === 0;
 
 export default class extends Component {
     interval;
-    speed = 2000;
+    speed = 1000;
 
     chords = [
         [{fret: 0, finger: 0},{fret: 2, finger: 2},{fret: 2,finger: 3},{fret: 1, finger: 1},{fret: 0, finger: 0},{fret: 0, finger: 0}], //E
         [{fret: 0, finger: "x"},{fret: 0, finger: 0},{fret: 2,finger: 1},{fret: 2, finger: 2},{fret: 2, finger: 3},{fret: 0, finger: 0}], //A
         [{fret: 0, finger: "x"},{fret: 3, finger: 3},{fret: 2,finger: 2},{fret: 0, finger: 0},{fret: 1, finger: 1},{fret: 0, finger: 0}], // C
         [{fret: 0, finger: "x"},{fret: 0, finger: "x"},{fret: 0,finger: 0},{fret: 2, finger: 1},{fret: 3, finger: 3},{fret: 2, finger: 2}], // D
-        [{fret: 0, finger: "x"},{fret: 3, finger: 1},{fret: 5,finger: 2},{fret: 5, finger: 3},{fret: 5, finger: 4},{fret: 3, finger: 1}] // C Bar
+        [{fret: 0, finger: "x"},{fret: 3, finger: 1},{fret: 5,finger: 2},{fret: 5, finger: 3},{fret: 5, finger: 4},{fret: 3, finger: 1}], // C Bar
+        [{fret: 3, finger: 1},{fret: 5, finger: 3},{fret: 5,finger: 4},{fret: 4, finger: 2},{fret: 3, finger: 1},{fret: 3, finger: 1}]
     ];
 
     state = {
@@ -26,15 +27,24 @@ export default class extends Component {
     }
 
     componentWillUnmount() {
-        clearInterval(this.interval);
+        this.clearInterval();
     }
 
     startInterval() {
         this.interval = setInterval(() => {
+            console.log('running interval');
+
+            // we might take a this.props.isInfinite here... for now, stop after the cycle ends
+            if (this.state.currIndex + 1 >= this.chords.length) { return this.clearInterval(); }
+
             this.setState((prevState) => ({
                 currIndex: prevState.currIndex + 1 >= this.chords.length ? 0 : prevState.currIndex + 1
             }))
         }, this.speed);
+    }
+
+    clearInterval() {
+        if (this.interval) clearInterval(this.interval);
     }
 
     render() {

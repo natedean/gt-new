@@ -12,11 +12,11 @@
 }
 
 .fretboard {
-    height: 30px;
+    height: 40px;
 }
 
 .fretboard-dot, .fretboard-x {
-    transition: all 0.8s;
+    transition: all 0.75s;
 }
 
 /*.fretboard-dot, .fretboard-line {*/
