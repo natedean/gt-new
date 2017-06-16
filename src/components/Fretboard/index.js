@@ -49,8 +49,8 @@ export default class extends Component {
         const { width } = this.props;
         
         return (
-            <svg viewBox="0 0 202 200.7" style={{width: '100%', maxWidth: `${width}px`}} className="fretboard">
-                <g id="fretboard">
+            <svg viewBox="0 0 202 210" style={{ width: '100%', maxWidth: `${width}px`}} className="fretboard">
+                <g id="fretboard" style={{ transform: 'translateY(9px)' }}>
                     <path className="fretboard-1" d="M12 19.7v180m179-180v180m.5-179.5L12 19.7m179 180H12m35-180v180m36-180v180m36-180v180"/>
                     <path className="fretboard-2" d="M155 19.7v180"/>
                     <path className="frets-3" d="M12.5 56.2h179M12 92.2h179m-179 36h179m-178 36h179"/>
@@ -64,7 +64,7 @@ export default class extends Component {
                                     cx={12 + (35.6 * i)}
                                     style={{
                                         opacity: isX(string) ? 0 : 1,
-                                        transform: `translateY(${34 * string.fret}px)`,
+                                        transform: `translateY(${7 + (35 * string.fret)}px)`,
                                         fillOpacity: isO(string) && 0,
                                         stroke: isO(string) && 'black',
                                         strokeOpacity: isO(string) ? 1 : 0,
@@ -80,8 +80,8 @@ export default class extends Component {
                         return (
                             <g key={i} className="fretboard-x"
                                style={{ opacity: `${isX(string) ? 1 : 0}`, transform: `translateX(${35 * i}px)` }}>
-                                <line className="fretboard-line" x1="6" y1="1" x2="20" y2="16"/>
-                                <line className="fretboard-line" x1="20" y1="1" x2="6" y2="16"/>
+                                <line className="fretboard-line" x1="6" y1="8" x2="20" y2="24"/>
+                                <line className="fretboard-line" x1="20" y1="8" x2="6" y2="24"/>
                             </g>
                         )
                     })}

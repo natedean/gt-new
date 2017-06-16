@@ -4,6 +4,6 @@ import Fretboard from '../Fretboard';
 export default () => (
   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', paddingTop: '10vh' }}>
     <h4>Loading...</h4>
-    <Fretboard width="200" isInfinite="true"/>
+    <Fretboard width="100" isInfinite="true"/>
   </div>
 );
