@@ -11,10 +11,6 @@
     stroke-width :0.75px;
 }
 
-.fretboard {
-    height: 40px;
-}
-
 .fretboard-dot, .fretboard-x {
     transition: all 0.75s;
 }

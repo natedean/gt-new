@@ -32,10 +32,7 @@ export default class extends Component {
 
     startInterval() {
         this.interval = setInterval(() => {
-            console.log('running interval');
-
-            // we might take a this.props.isInfinite here... for now, stop after the cycle ends
-            if (this.state.currIndex + 1 >= this.chords.length) { return this.clearInterval(); }
+            if (!this.props.isInfinite && (this.state.currIndex + 1 >= this.chords.length)) return this.clearInterval();
 
             this.setState((prevState) => ({
                 currIndex: prevState.currIndex + 1 >= this.chords.length ? 0 : prevState.currIndex + 1
@@ -49,9 +46,10 @@ export default class extends Component {
 
     render() {
         const strings = this.chords[this.state.currIndex];
+        const { width } = this.props;
         
         return (
-            <svg viewBox="0 0 202 200.7" className="fretboard">
+            <svg viewBox="0 0 202 200.7" style={{width: '100%', maxWidth: `${width}px`}} className="fretboard">
                 <g id="fretboard">
                     <path className="fretboard-1" d="M12 19.7v180m179-180v180m.5-179.5L12 19.7m179 180H12m35-180v180m36-180v180m36-180v180"/>
                     <path className="fretboard-2" d="M155 19.7v180"/>

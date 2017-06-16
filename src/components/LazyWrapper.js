@@ -1,4 +1,5 @@
 import React from 'react';
+import LoadingIcon from './LoadingIcon';
 
 function LazyWrapper(getComponent) {
     return class AsyncComponent extends React.Component {
@@ -8,17 +9,19 @@ function LazyWrapper(getComponent) {
         componentWillMount() {
             if (!this.state.Component) {
                 getComponent().then(Component => {
-                    AsyncComponent.Component = Component
+                    AsyncComponent.Component = Component;
                     this.setState({ Component })
                 })
             }
         }
         render() {
-            const { Component } = this.state
+            const { Component } = this.state;
+
             if (Component) {
                 return <Component {...this.props} />
             }
-            return null
+
+            return (<LoadingIcon/>)
         }
     }
 }

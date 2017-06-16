@@ -4,12 +4,18 @@
     align-items: center;
     padding: 0.5rem 0;
     margin-bottom: 2rem;
-    border-bottom: 1px solid black;
+    border-bottom: 1px solid lightgray;
 }
 
-.nav__logo {
+.nav__logo a {
+    color: black;
+    text-decoration: none;
     display: flex;
     align-items: center;
+}
+
+.nav__logo a:hover, .nav__logo a:active {
+    color: black;
 }
 
 .nav__title {
@@ -17,6 +23,12 @@
     margin-left: 1rem;
 }
 
+.nav__links a {
+    padding: 0 1rem;
+    text-decoration: none;
+    color: black;
+}
+
 .nav__links a:not(:first-child) {
-    margin-left: 1rem;
+    border-left: 1px solid black;
 }
