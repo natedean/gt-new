@@ -26,9 +26,12 @@
 .nav__links a {
     padding: 0 1rem;
     text-decoration: none;
-    color: black;
 }
 
 .nav__links a:not(:first-child) {
     border-left: 1px solid black;
+}
+
+.nav__links a.nav__link--active {
+    text-decoration: underline;
 }

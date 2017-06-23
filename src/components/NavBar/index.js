@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, NavLink} from 'react-router-dom';
 import './index.css';
 import Fretboard from '../Fretboard';
 
@@ -12,8 +12,8 @@ export default () => (
             </Link>
         </div>
         <div className="nav__links">
-            <Link to="/">Home</Link>
-            <Link to="/about">About</Link>
+            <NavLink to="/games" activeClassName="nav__link--active">Games</NavLink>
+            <NavLink to="/about" activeClassName="nav__link--active">About</NavLink>
         </div>
     </nav>
 );
