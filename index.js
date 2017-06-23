@@ -1,14 +1,13 @@
 const express = require('express');
 const path = require('path');
-const statsRoutes = require('./api-routes/stats');
+const apiRoutes = require('./api-routes');
 
 const app = express();
 
 const PORT = process.env.PORT || 3001;
 
 // setup api routes
-app.use('/stats', statsRoutes);
-
+app.use('/api', apiRoutes);
 
 
 // setup static routes
