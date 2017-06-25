@@ -1,0 +1,30 @@
+.staff {
+  width: 100%;
+  max-width: 320px;
+}
+
+.staff--line {
+  stroke: black;
+  stroke-width: 1;
+}
+
+.staff--trebleClef {
+  transform: scale(.8) translate(-4px, 22px);
+}
+
+.staff--trebleClefBackground {
+  fill: transparent;
+}
+
+.staff--quarterNoteBody {
+  animation: fade-in 0.5s;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -7,6 +7,7 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "client-build": "cd client && npm run build && cd ..",
+    "deploy": "npm run client-build && now -e MONGO_URI=@mongo_uri",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
