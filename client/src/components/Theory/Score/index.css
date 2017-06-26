@@ -1,0 +1,9 @@
+.score {
+  display: flex;
+  justify-content: space-between;
+}
+
+.score__topLabel {
+  text-decoration: underline;
+  margin-bottom: -0.2em;
+}

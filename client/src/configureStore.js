@@ -1,19 +1,34 @@
-import {applyMiddleware, createStore} from 'redux';
+import {applyMiddleware, createStore, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
-import todoApp from './reducers';
-import { createLogger } from 'redux-logger';
+import rootReducer from './reducers';
+import theoryReducer from './reducers/theory'; // testing, this should be async...
+import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const logger = createLogger();
+const enhancers = process.env.NODE_ENV === 'development' ?
+  composeWithDevTools(applyMiddleware(logger, thunk)) : applyMiddleware(thunk);
 
-const store = setStoreBasedOnEnv(process.env.NODE_ENV);
+const store = createStore(createRootReducer(), enhancers);
+store.asyncReducers = {};
 
 export default store;
 
-function setStoreBasedOnEnv(env) {
-  if (env === 'development') {
-    return createStore(todoApp, composeWithDevTools(applyMiddleware(logger, thunk)));
-  } else {
-    return createStore(todoApp, applyMiddleware(thunk));
-  }
+// ----- start async reducer helpers ------ //
+export function createRootReducer(asyncReducers) {
+  return combineReducers({
+    root: rootReducer,
+    theory: theoryReducer,
+    ...asyncReducers
+  });
 }
+
+export function injectAsyncReducer(store, name, asyncReducer) {
+  store.asyncReducers[name] = asyncReducer;
+  store.replaceReducer(createRootReducer(store.asyncReducers));
+}
+
+export function removeAsyncReducer(store, name) {
+  delete store.asyncReducers[name];
+  store.replaceReducer(createRootReducer(store.asyncReducers));
+}
+// ----- end async reducer helpers ------ //

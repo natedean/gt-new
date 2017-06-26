@@ -1,0 +1,23 @@
+.helpers {
+  margin-top: 1em;
+}
+
+.helpers__textLine {
+  margin-bottom: 1em;
+}
+
+.helpers__textLine:last-of-type {
+  margin-bottom: 2.5em;
+}
+
+.helpers__diagramsContainer {
+  display: flex;
+  position: relative;
+  margin: 1rem;
+}
+
+.helpers__diagram {
+  flex: 1;
+  width: 50%;
+  margin: 2vw;
+}

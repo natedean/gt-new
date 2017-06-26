@@ -1,0 +1,5 @@
+.question__nextBtn {
+  width: 100%;
+  animation: slideUp 0.4s;
+  margin-top: 1em;
+}

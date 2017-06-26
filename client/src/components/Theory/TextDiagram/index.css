@@ -1,0 +1,13 @@
+.textDiagram {
+  display: flex;
+}
+
+.textDiagram__col {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.textDiagram__row {
+
+}
