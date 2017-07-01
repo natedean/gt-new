@@ -1,7 +1,6 @@
 import {applyMiddleware, createStore, combineReducers} from 'redux';
 import thunk from 'redux-thunk';
 import rootReducer from './reducers';
-import theoryReducer from './reducers/theory'; // testing, this should be async...
 import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
@@ -17,7 +16,6 @@ export default store;
 export function createRootReducer(asyncReducers) {
   return combineReducers({
     root: rootReducer,
-    theory: theoryReducer,
     ...asyncReducers
   });
 }

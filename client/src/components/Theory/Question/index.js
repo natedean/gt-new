@@ -42,7 +42,7 @@ class Question extends Component {
           incorrectAnswerText={incorrectAnswerText}
           onClick={this.onClick}
         />
-        { (isLimbo && incorrectAnswerText) && <Helpers helpers={question.helpers} /> }
+        { (isLimbo && incorrectAnswerText && question.helpers) && <Helpers helpers={question.helpers} /> }
         { (isLimbo && incorrectAnswerText) && <button onClick={setNewQuestion} className="question__nextBtn">Next</button> }
       </div>
     )

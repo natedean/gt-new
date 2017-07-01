@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { answerAndPersist, generateAndSetNewQuestion } from '../../../actions';
+import { answerAndPersist, generateAndSetNewQuestion, setQuestionsBank } from '../../../actions';
 import Question from '../Question';
 
 const mapStateToProps = (state) => ({
@@ -15,16 +15,32 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setNewQuestion() {
     dispatch(generateAndSetNewQuestion());
+  },
+  setQuestionsBank(questions) {
+    dispatch(setQuestionsBank(questions))
   }
 });
 
-let CurrentQuestion = (props) => {
-  return (
-    <div className="questionContainer" style={{marginTop: '5rem'}}>
-      {props.question && <Question {...props} />}
-    </div>
-  );
-};
+class CurrentQuestion extends Component {
+
+  componentDidMount() {
+    fetch('/api/questions')
+      .then(res => res.json())
+      .then(questions => {
+        // uncomment after testing
+        this.props.setQuestionsBank(questions);
+        this.props.setNewQuestion();
+      });
+  }
+
+  render() {
+    return (
+      <div className="questionContainer" style={{marginTop: '5rem'}}>
+        {this.props.question && <Question {...this.props} />}
+      </div>
+    );
+  }
+}
 
 CurrentQuestion = connect(
   mapStateToProps,

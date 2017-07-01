@@ -1,5 +1,30 @@
 import LazyWrapper from '../LazyWrapper';
+import React, {Component} from 'react';
+import {injectAsyncReducer, removeAsyncReducer} from '../../configureStore';
 
-export default LazyWrapper(() => {
-  return import('./index').then(module => module.default)
-})
+class LazyIndex extends Component {
+
+  componentWillUnmount() {
+    removeAsyncReducer(this.props.store, 'theory');
+  }
+
+  render() {
+    return (<LazyWrapper store={this.props.store} getComponent={() => {
+      return Promise.all([
+        import('./index'),
+        import('../../reducers/theory')
+      ]).then(modules => {
+        const [componentModule, reducerModule] = modules;
+
+        // inject async reducer
+        injectAsyncReducer(this.props.store, 'theory', reducerModule.default);
+
+        return componentModule.default;
+      })
+    }} />)
+  }
+}
+
+export default LazyIndex;
+
+

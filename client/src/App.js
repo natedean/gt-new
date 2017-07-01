@@ -14,6 +14,8 @@ import './css/index.css';
 
 class App extends Component {
   render() {
+    const {store} = this.props;
+
     return (
       <Router>
         <div className="container">
@@ -23,7 +25,7 @@ class App extends Component {
           <Route path="/users" component={LazyUsers}/>
           <Route exact path="/games" component={Games}/>
           <Route path="/games/staff-note" component={LazyStaffNote}/>
-          <Route path="/games/theory" component={LazyTheory}/>
+          <Route path="/games/theory" render={() => <LazyTheory store={store} />}/>
         </div>
       </Router>
     );
