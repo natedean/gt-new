@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { answerAndPersist, generateAndSetNewQuestion, setQuestionsBank } from '../../../actions';
+import { answerAndPersist, generateAndSetNewQuestion, setQuestionsBank } from '../../../actions/theory';
 import Question from '../Question';
 
 const mapStateToProps = (state) => ({

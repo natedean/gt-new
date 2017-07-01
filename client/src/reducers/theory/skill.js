@@ -1,6 +1,6 @@
 const skill = (state = null, action) => {
   switch (action.type) {
-    case 'UPDATE_USER_DATA':
+    case 'FETCH_USER_SUCCESS':
       return action.user.skill;
     default:
       return state;

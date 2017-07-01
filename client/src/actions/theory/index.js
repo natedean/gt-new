@@ -3,7 +3,7 @@ import shuffle from 'lodash.shuffle';
 export const setQuestionsBank = (questions) => ({ type: 'SET_QUESTIONS_BANK', questions });
 
 export const persistAnswer = (questionId, isCorrect, milliseconds) => (dispatch, getState) => {
-  return fetch(`${process.env.REACT_APP_API_URI}/user/answer`, {
+  return fetch(`/api/user/answer`, {
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
@@ -17,9 +17,9 @@ export const persistAnswer = (questionId, isCorrect, milliseconds) => (dispatch,
   })
     .then(res => res.json())
     .then(res => {
-      dispatch({ type: 'UPDATE_USER_DATA', user: enrichUserResponse(res) });
+      dispatch({ type: 'FETCH_USER_SUCCESS', user: enrichUserResponse(res) });
     })
-    .catch(err => dispatch({ type: 'UPDATE_USER_ERROR' }));
+    .catch(err => dispatch({ type: 'FETCH_USER_FAILURE' }));
 };
 
 export const answer = (id, isCorrect) => ({
