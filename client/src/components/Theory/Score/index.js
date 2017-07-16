@@ -2,21 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './index.css';
 
-const Score = ({score, skill}) =>
+const Score = ({score, userData, statsData}) => (
   <div className="score">
-    <div className="score__verticalContainer">
-      <h6 className="score__topLabel">score</h6>
-      <h5>{score}</h5>
+    <div>
+      My score: {userData.totalCorrect}. My attempts: {userData.totalCorrect + userData.totalIncorrect}
     </div>
     <div>
-      {!!skill &&
-        <div className="score__verticalContainer">
-          <h6 className="score__topLabel">Your skill level</h6>
-          <h6>{`${skill < 50 ? 'Bottom' : 'Top'} ${skill}%`}</h6>
-        </div>
-      }
+      Avg score: {statsData.avgTotalCorrect}
     </div>
-  </div>;
+    <div>
+      My skill: {userData.correctRatio}
+    </div>
+    <div>
+      Avg skill: {statsData.avgCorrectRatio}
+    </div>
+    <svg viewBox="0 0 10 2" className="score__myScoreChart">
+      <line x1="1" x2="5" y1="1" y2="1" />
+    </svg>
+  </div>
+);
+
 
 export default Score;
 

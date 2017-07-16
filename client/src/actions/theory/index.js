@@ -2,6 +2,20 @@ import shuffle from 'lodash.shuffle';
 
 export const setQuestionsBank = (questions) => ({ type: 'SET_QUESTIONS_BANK', questions });
 
+export const fetchStats = () => dispatch => {
+  dispatch({ type: 'FETCHING_THEORY_STATS' });
+
+  fetch('/api/stats')
+    .then(res => res.json())
+    .then(res => {
+      // send action...
+      dispatch({ type: 'FETCH_THEORY_STATS_SUCCESS', stats: res });
+    })
+    .catch(err => {
+      dispatch({ type: 'FETCH_THEORY_STATS_FAILURE' });
+    })
+};
+
 export const persistAnswer = (questionId, isCorrect, milliseconds) => (dispatch, getState) => {
   return fetch(`/api/user/answer`, {
     method: 'post',
@@ -9,7 +23,7 @@ export const persistAnswer = (questionId, isCorrect, milliseconds) => (dispatch,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      userId: getState().userId,
+      userId: getState().root.user.data && getState().root.user.data._id,
       isCorrect,
       questionId,
       milliseconds
@@ -17,9 +31,27 @@ export const persistAnswer = (questionId, isCorrect, milliseconds) => (dispatch,
   })
     .then(res => res.json())
     .then(res => {
-      dispatch({ type: 'FETCH_USER_SUCCESS', user: enrichUserResponse(res) });
+      const user = enrichUserResponse(res);
+
+      dispatch({ type: 'FETCH_USER_SUCCESS', user }); // save user updates to redux store
+
+      // right now, lets just save this during local development
+      if (process.env.NODE_ENV === 'development') {
+        window.localStorage.setItem('gt-user', JSON.stringify(user));
+      }
     })
     .catch(err => dispatch({ type: 'FETCH_USER_FAILURE' }));
+};
+
+export const optimisticUserUpdate = (update) => (dispatch, getState) => {
+  const userData = getState().root.user.data;
+
+  if (!userData) return;
+
+  const optimisticUserData = Object.assign({}, userData, update);
+  const user = enrichUserResponse(optimisticUserData);
+
+  dispatch({ type: 'FETCH_USER_SUCCESS', user });
 };
 
 export const answer = (id, isCorrect) => ({
@@ -56,8 +88,14 @@ export const generateAndSetNewQuestion = () => (dispatch, getState) => {
 
 export const setIncorrectAnswerText = (text) => ({ type: 'SET_INCORRECT_ANSWER_TEXT', text });
 
-export const answerAndPersist = (id, isCorrect, milliseconds, answerText) => dispatch => {
+export const answerAndPersist = (id, isCorrect, milliseconds, answerText) => (dispatch, getState) => {
   dispatch(answer(id, isCorrect));
+
+  const userUpdate = isCorrect ? { totalCorrect: getState().root.user.data.totalCorrect + 1 } :
+    { totalIncorrect: getState().root.user.data.totalIncorrect + 1 };
+
+  dispatch(optimisticUserUpdate(userUpdate));
+
   dispatch(persistAnswer(id, isCorrect, milliseconds));
 
   if (isCorrect) {
@@ -72,7 +110,8 @@ export const answerAndPersist = (id, isCorrect, milliseconds, answerText) => dis
 // helpers, may move these...
 function enrichUserResponse(res) {
   const skill = calcUserSkill(res.totalCorrect, res.totalIncorrect);
-  return Object.assign({}, res, { skill });
+  const correctRatio = (res.totalCorrect / (res.totalCorrect + res.totalIncorrect)).toFixed(2);
+  return Object.assign({}, res, { skill, correctRatio });
 }
 
 function calcUserSkill(totalCorrect, totalIncorrect) {

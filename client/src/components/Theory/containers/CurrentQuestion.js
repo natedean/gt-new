@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import { answerAndPersist, generateAndSetNewQuestion, setQuestionsBank } from '../../../actions/theory';
 import Question from '../Question';
+import LoadingIcon from '../../LoadingIcon';
 
 const mapStateToProps = (state) => ({
+  questions: state.theory.questions,
   question: state.theory.currentQuestion,
   isLimbo: state.theory.isLimbo,
   incorrectAnswerText: state.theory.incorrectAnswerText
@@ -27,7 +29,6 @@ class CurrentQuestion extends Component {
     fetch('/api/questions')
       .then(res => res.json())
       .then(questions => {
-        // uncomment after testing
         this.props.setQuestionsBank(questions);
         this.props.setNewQuestion();
       });
@@ -36,7 +37,9 @@ class CurrentQuestion extends Component {
   render() {
     return (
       <div className="questionContainer" style={{marginTop: '5rem'}}>
-        {this.props.question && <Question {...this.props} />}
+        {this.props.questions ? <div>
+          {this.props.question && <Question {...this.props} />}
+        </div> : <LoadingIcon />}
       </div>
     );
   }

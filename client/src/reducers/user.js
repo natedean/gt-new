@@ -29,6 +29,8 @@ const data = (state = initialAppState.user.data, action) => {
   switch(action.type) {
     case 'FETCH_USER_SUCCESS':
       return action.user;
+    case 'OPTIMISTIC_USER_UPDATE':
+      return Object.assign({}, state, action.update);
     case 'FETCH_USER_FAILURE':
       return null;
     case 'FETCHING_USER':

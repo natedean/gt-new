@@ -1,9 +1,10 @@
-.score {
-  display: flex;
-  justify-content: space-between;
+.score {}
+
+.score__myScoreChart {
+  background-color: yellow;
 }
 
-.score__topLabel {
-  text-decoration: underline;
-  margin-bottom: -0.2em;
+.score__myScoreChart line {
+  stroke-width: 1;
+  stroke: black;
 }
