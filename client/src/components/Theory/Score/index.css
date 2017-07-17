@@ -2,9 +2,25 @@
 
 .score__myScoreChart {
   background-color: yellow;
+  max-width: 200px;
 }
 
 .score__myScoreChart line {
   stroke-width: 1;
   stroke: black;
+  animation: 0.4s pulse-a;
+}
+
+@keyframes pulse-a {
+  0% {
+    transform: scaleY(1);
+  }
+
+  50% {
+    transform: scaleY(1.2);
+  }
+
+  100% {
+    transform: scaleY(1);
+  }
 }

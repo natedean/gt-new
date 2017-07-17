@@ -23,6 +23,8 @@
   "homepage": "https://github.com/natedean/gt-new#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "cowsay": "^1.1.9",
+    "d3": "^4.10.0",
     "express": "^4.15.3",
     "mongodb": "^2.2.29"
   },
