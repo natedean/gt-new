@@ -14,11 +14,10 @@ const Score = ({userData, statsData}) => {
 
   return (
     <div className="stats">
-      {/*SCALING for score*/}
       <div className="stats__score">
           <div className="stats__lineChartContainer">
             <div className="stats__lineChartLabel stats__lineChartLabel--large">
-              {`${userData.totalCorrect} points`}
+              {`my score: ${userData.totalCorrect}`}
             </div>
             <svg viewBox="0 0 40 2"
                  className="stats__lineChart"
@@ -49,11 +48,10 @@ const Score = ({userData, statsData}) => {
           </div>
       </div>
 
-      {/*NO SCALING for skill percentage, because it will always be 0 to 100*/}
       <div className="stats__skill">
         <div className="stats__lineChartContainer">
           <div className="stats__lineChartLabel stats__lineChartLabel--large">
-            {`my skill: ${userData.correctRatio * 100}`}
+            {`my skill: ${(userData.correctRatio * 100).toFixed(0)}`}
             <span className="stats__lineChartLabel--tiny">%</span>
           </div>
           <svg viewBox="0 0 40 2"
