@@ -91,11 +91,6 @@ export const setIncorrectAnswerText = (text) => ({ type: 'SET_INCORRECT_ANSWER_T
 export const answerAndPersist = (id, isCorrect, milliseconds, answerText) => (dispatch, getState) => {
   dispatch(answer(id, isCorrect));
 
-  const userUpdate = isCorrect ? { totalCorrect: getState().root.user.data.totalCorrect + 1 } :
-    { totalIncorrect: getState().root.user.data.totalIncorrect + 1 };
-
-  dispatch(optimisticUserUpdate(userUpdate));
-
   dispatch(persistAnswer(id, isCorrect, milliseconds));
 
   if (isCorrect) {
@@ -105,6 +100,16 @@ export const answerAndPersist = (id, isCorrect, milliseconds, answerText) => (di
   } else {
     dispatch(setIncorrectAnswerText(answerText));
   }
+
+  // if we have a user in memory, optimistically update the user's score
+  const userData = getState().root.user.data;
+
+  if (!userData) return;
+
+  const userUpdate =
+    isCorrect ? { totalCorrect: userData.totalCorrect + 1 } : { totalIncorrect: userData.totalIncorrect + 1 };
+
+  dispatch(optimisticUserUpdate(userUpdate));
 };
 
 // helpers, may move these...

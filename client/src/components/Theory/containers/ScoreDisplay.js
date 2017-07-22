@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import Score from '../Score';
+import Score from '../Stats';
 import {fetchStats} from '../../../actions/theory';
 
 const mapStateToProps = (state) => ({
@@ -17,6 +17,8 @@ class ScoreDisplay extends Component {
   }
 
   render() {
+    if (!this.props.userData) return null;
+
     if (this.props.statsIsLoading) return (<div>Loading stats...</div>);
 
     if (this.props.statsData) return (<Score {...this.props} />);

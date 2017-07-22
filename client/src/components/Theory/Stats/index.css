@@ -1,0 +1,32 @@
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats__skill,
+.stats__score {
+  width: 100px;
+}
+
+.stats__lineChartContainer {
+  position: relative;
+}
+
+.stats__lineChartLabel {
+  font-size: 11px;
+  margin: 0 0 -14px;
+}
+
+.stats__lineChartLabel--large {
+  font-size: 12px;
+}
+
+.stats__lineChartLabel--tiny {
+  position: relative;
+  top: -1px;
+  font-size: 7px;
+}
+
+.stats__lineChart line {
+  stroke-width: 1;
+}
