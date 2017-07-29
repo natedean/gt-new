@@ -2,12 +2,12 @@
   margin-top: 1em;
 }
 
-.helpers__textLine {
-  margin-bottom: 1em;
+.helpers__textLine:first-of-type {
+  margin-bottom: 0.25em;
 }
 
-.helpers__textLine:last-of-type {
-  margin-bottom: 2.5em;
+.helpers__textLine {
+  margin-bottom: 1em;
 }
 
 .helpers__diagramsContainer {

@@ -6,11 +6,11 @@ import {scaleLinear} from 'd3-scale';
 const Score = ({userData, statsData}) => {
   const topScore = userData.totalCorrect > statsData.avgTotalCorrect ? userData.totalCorrect : statsData.avgTotalCorrect;
   const scoreScale = scaleLinear().domain([0, topScore]).range([0, 40]);
-  const scoreColorScale = scaleLinear().domain([0, topScore]).range(['black', 'green']);
+  const scoreColorScale = scaleLinear().domain([0, topScore]).range(['#f44336', '#4caf50']);
 
   const topSkill = userData.correctRatio > statsData.avgCorrectRatio ? userData.correctRatio : statsData.avgCorrectRatio;
   const skillScale = scaleLinear().domain([0, topSkill]).range([0, 40]);
-  const skillColorScale = scaleLinear().domain([0, 1]).range(['red', 'black', '#4caf50']);
+  const skillColorScale = scaleLinear().domain([0, 1]).range(['#f44336', '#4caf50']);
 
   return (
     <div className="stats">

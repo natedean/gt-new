@@ -10,13 +10,14 @@ const Helpers = ({ helpers }) => {
     <div className="helpers">
       <p className="helpers__textLine"><strong>Your guess was incorrect</strong></p>
       { <p className="helpers__textLine">{helpers.text}</p> }
-      <div className="helpers__diagramsContainer">
-        { helpers.diagrams.map((diagram, i) => {
-          return (
-            <div key={i} className="helpers__diagram">{renderDiagram(diagram)}</div>
-          )
-        }) }
-      </div>
+      {/*I'm not liking these big diagrams here, for now. But that may change.*/}
+      {/*<div className="helpers__diagramsContainer">*/}
+        {/*{ helpers.diagrams.map((diagram, i) => {*/}
+          {/*return (*/}
+            {/*<div key={i} className="helpers__diagram">{renderDiagram(diagram)}</div>*/}
+          {/*)*/}
+        {/*}) }*/}
+      {/*</div>*/}
     </div>
   )
 };

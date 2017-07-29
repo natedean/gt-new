@@ -1,6 +1,9 @@
 .stats {
   display: flex;
   justify-content: space-between;
+  padding: 0.5em;
+  border: 1px solid lightgray;
+  animation: animate-up 0.75s;
 }
 
 .stats__skill,
@@ -29,4 +32,14 @@
 
 .stats__lineChart line {
   stroke-width: 1;
+}
+
+@keyframes animate-up {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+
 }

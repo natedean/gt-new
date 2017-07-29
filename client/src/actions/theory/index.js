@@ -17,6 +17,8 @@ export const fetchStats = () => dispatch => {
 };
 
 export const persistAnswer = (questionId, isCorrect, milliseconds) => (dispatch, getState) => {
+  if (!getState().root.user.data) dispatch({ type: 'FETCHING_USER' });
+
   return fetch(`/api/user/answer`, {
     method: 'post',
     headers: {

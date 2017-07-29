@@ -17,11 +17,11 @@ class App extends Component {
   componentDidMount() {
     if (process.env.NODE_ENV === 'development') {
       // try to retrieve user from local storage ... ?
-      // const user = JSON.parse(window.localStorage.getItem('gt-user'));
-      //
-      // if (user) {
-      //   this.props.store.dispatch({ type: 'FETCH_USER_SUCCESS', user })
-      // }
+      const user = JSON.parse(window.localStorage.getItem('gt-user'));
+
+      if (user) {
+        this.props.store.dispatch({ type: 'FETCH_USER_SUCCESS', user })
+      }
     }
   }
 

@@ -5,6 +5,7 @@ import {fetchStats} from '../../../actions/theory';
 
 const mapStateToProps = (state) => ({
   userData: state.root.user.data,
+  userIsLoading: state.root.user.isLoading,
   statsData: state.theory.stats.data,
   statsIsLoading: state.theory.stats.isLoading,
   statsIsError: state.theory.stats.isError
@@ -17,6 +18,8 @@ class ScoreDisplay extends Component {
   }
 
   render() {
+    if (this.props.userIsLoading) return <div>Calculating your stats...</div>;
+
     if (!this.props.userData) return null;
 
     if (this.props.statsIsLoading) return (<div>Loading stats...</div>);
