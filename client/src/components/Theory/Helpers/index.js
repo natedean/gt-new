@@ -9,7 +9,7 @@ const Helpers = ({ helpers }) => {
   return (
     <div className="helpers">
       <p className="helpers__textLine"><strong>Your guess was incorrect</strong></p>
-      { <p className="helpers__textLine">{helpers.text}</p> }
+      { helpers && <p className="helpers__textLine">{helpers.text}</p> }
       {/*I'm not liking these big diagrams here, for now. But that may change.*/}
       {/*<div className="helpers__diagramsContainer">*/}
         {/*{ helpers.diagrams.map((diagram, i) => {*/}
