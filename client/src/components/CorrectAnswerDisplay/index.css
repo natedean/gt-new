@@ -1,0 +1,12 @@
+.correctAnswerDisplay { }
+
+.correctAnswerDisplay__textLine:first-of-type {
+  font-size: 2em;
+  color: #4caf50;
+  margin-bottom: 0.25em;
+}
+
+.correctAnswerDisplay__textLine {
+  animation: slideUp 0.5s;
+  margin-bottom: 1em;
+}

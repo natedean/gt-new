@@ -1,0 +1,49 @@
+.answerButton {
+  transition: all 0.4s;
+}
+
+.question.isLimbo .answerButton {
+  border-color: currentColor;
+  pointer-events: none;
+}
+
+.question.isLimbo .answerButton:hover {
+  border-color: currentColor;
+}
+
+.question.isLimbo .answerButton {
+  opacity: 0.4;
+}
+
+.question.isLimbo .answerButton--isChosen {
+  opacity: 1;
+}
+
+.question.isLimbo .answerButton--isChosen.answerButton--false {
+  color: #f44336;
+}
+
+.question.isLimbo .answerButton--isChosen.answerButton--true {
+  color: #4caf50;
+}
+
+/*.answerButton--false {*/
+  /*animation: isLimbo-incorrectAnswerBtn 2s;*/
+  /*animation-delay: 2s;*/
+/*}*/
+
+/*.answerButton--false:hover {*/
+  /*color: #f44336;*/
+/*}*/
+
+.answerButton--pulse {
+  animation: pulse infinite 1s;
+}
+
+@keyframes isLimbo-incorrectAnswerBtn {
+  from {
+  }
+  to {
+
+  }
+}

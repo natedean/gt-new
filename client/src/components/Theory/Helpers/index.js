@@ -25,7 +25,7 @@ const Helpers = ({ helpers }) => {
 export default Helpers;
 
 Helpers.propTypes = {
-  helpers: helpersShape.isRequired
+  helpers: helpersShape
 };
 
 function renderDiagram(diagram) {

@@ -98,7 +98,7 @@ export const answerAndPersist = (id, isCorrect, milliseconds, answerText) => (di
   if (isCorrect) {
     setTimeout(() => {
       dispatch(generateAndSetNewQuestion());
-    }, 200);
+    }, 20000);
   } else {
     dispatch(setIncorrectAnswerText(answerText));
   }

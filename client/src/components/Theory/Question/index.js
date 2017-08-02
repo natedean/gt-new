@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { questionShape } from '../../../constants/propShapes';
 import AnswerButtons from '../AnswerButtons';
 import Helpers from '../Helpers';
+import CorrectAnswerDisplay from '../../CorrectAnswerDisplay';
 import './index.css';
 
 class Question extends Component {
@@ -31,17 +32,21 @@ class Question extends Component {
   }
 
   render() {
-    const { question, isLimbo, incorrectAnswerText, setNewQuestion } = this.props;
+    const { question, isLimbo, isCorrectLimbo, incorrectAnswerText, setNewQuestion } = this.props;
 
     return (
-      <div className={isLimbo ? 'question' : 'question fadeIn'} >
-        <h5>{question.text}</h5>
-        <AnswerButtons
-          answers={question.answers}
-          isIncorrectLimbo={isLimbo && !!incorrectAnswerText}
-          incorrectAnswerText={incorrectAnswerText}
-          onClick={this.onClick}
-        />
+      <div className={`question fadeIn${isCorrectLimbo ? ' isCorrectLimbo' : ''}${isLimbo ? ' isLimbo': ''}`} >
+          <h5>{question.text}</h5>
+          <AnswerButtons
+            answers={question.answers}
+            isLimbo={isLimbo}
+            isCorrectLimbo={isCorrectLimbo}
+            incorrectAnswerText={incorrectAnswerText}
+            onClick={this.onClick}
+          />
+        { isCorrectLimbo && <div>
+          <CorrectAnswerDisplay text={question.helpers && question.helpers.text} />
+        </div> }
         { (isLimbo && incorrectAnswerText) &&
         <div>
           <Helpers helpers={question.helpers} />
@@ -57,6 +62,7 @@ export default Question;
 Question.propTypes = {
   question: questionShape.isRequired,
   isLimbo: PropTypes.bool.isRequired,
+  isCorrectLimbo: PropTypes.bool.isRequired,
   incorrectAnswerText: PropTypes.string,
   setNewQuestion: PropTypes.func.isRequired,
   onAnswer: PropTypes.func.isRequired

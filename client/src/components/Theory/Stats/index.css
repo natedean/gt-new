@@ -33,13 +33,3 @@
 .stats__lineChart line {
   stroke-width: 1;
 }
-
-@keyframes animate-up {
-  from {
-    transform: scaleY(0);
-  }
-  to {
-    transform: scaleY(1);
-  }
-
-}

@@ -8,6 +8,7 @@ const mapStateToProps = (state) => ({
   questions: state.theory.questions,
   question: state.theory.currentQuestion,
   isLimbo: state.theory.isLimbo,
+  isCorrectLimbo: state.theory.isLimbo && !state.theory.incorrectAnswerText,
   incorrectAnswerText: state.theory.incorrectAnswerText
 });
 
