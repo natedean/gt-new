@@ -46,7 +46,7 @@ class Question extends Component {
           />
         { isCorrectLimbo && <CorrectAnswerDisplay text={question.helpers && question.helpers.text} />}
         { (isLimbo && incorrectAnswerText) && <Helpers helpers={question.helpers} />}
-        { isLimbo && <button onClick={setNewQuestion} className="question__nextBtn slideInFromRight">Next</button>}
+        { isLimbo && <button onClick={setNewQuestion} className="question__nextBtn">Next</button>}
       </div>
     )
   }
