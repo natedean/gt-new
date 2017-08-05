@@ -30,7 +30,9 @@ AnswerButtons.propTypes = {
 function constructClassName(answer, isLimbo, isCorrectLimbo, incorrectAnswerText) {
   if (!isLimbo) return '';
 
-  const isChosen = (isCorrectLimbo && answer.isCorrect) || (answer.text === incorrectAnswerText) ?
+  const answerText = String(answer.text);
+
+  const isChosen = (isCorrectLimbo && answer.isCorrect) || (answerText === incorrectAnswerText) ?
     ' answerButton--isChosen' : '';
   const trueFalse = answer.isCorrect ? ' answerButton--true' : ' answerButton--false';
 

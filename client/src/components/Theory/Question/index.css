@@ -1,7 +1,9 @@
 .question__nextBtn {
   width: 100%;
-  animation: next-slide-up 4s;
   margin-top: 1em;
+  opacity: 0;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
 }
 
 .question__nextBtn {

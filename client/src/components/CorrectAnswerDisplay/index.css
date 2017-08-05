@@ -1,12 +1,16 @@
 .correctAnswerDisplay { }
 
 .correctAnswerDisplay__textLine:first-of-type {
+  animation: fadeIn 0.5s;
   font-size: 2em;
   color: #4caf50;
   margin-bottom: 0.25em;
 }
 
-.correctAnswerDisplay__textLine {
-  animation: slideUp 0.5s;
+.correctAnswerDisplay__textLine:not(:first-of-type) {
+  opacity: 0;
+  animation: slide-up 1s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
   margin-bottom: 1em;
 }

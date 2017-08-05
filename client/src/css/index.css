@@ -5,7 +5,7 @@
 
 /* Animation classes */
 .slideInFromRight {
-  animation: slideInFromRight 0.4s;
+  animation: slideInFromRight 1s;
 }
 
 .fadeIn {
@@ -28,16 +28,12 @@
   }
 }
 
-@keyframes next-slide-up {
-  0% {
-    opacity: 0;
-    transform: translate3d(0,100%, 100vw); /* delay, for some reason, I can't get animation-delay to work */
-  }
-  80% {
+@keyframes slide-up {
+  from {
     opacity: 0;
     transform: translate3d(0,100%, 100vw);
   }
-  100% {
+  to {
     opacity: 1;
     transform: translate3d(0,0,0);
   }
@@ -52,6 +48,17 @@
 @keyframes fadeOut {
   from { opacity: 1; }
   to { opacity: 0; }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
 }
 
 @keyframes pulse {

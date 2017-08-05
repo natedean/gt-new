@@ -12,7 +12,7 @@
 }
 
 .question.isLimbo .answerButton {
-  opacity: 0.4;
+  opacity: 0.3;
 }
 
 .question.isLimbo .answerButton--isChosen {
@@ -21,29 +21,37 @@
 
 .question.isLimbo .answerButton--isChosen.answerButton--false {
   color: #f44336;
+  animation: fade-out-partial 1s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
 }
 
 .question.isLimbo .answerButton--isChosen.answerButton--true {
   color: #4caf50;
 }
 
-/*.answerButton--false {*/
-  /*animation: isLimbo-incorrectAnswerBtn 2s;*/
-  /*animation-delay: 2s;*/
-/*}*/
-
-/*.answerButton--false:hover {*/
-  /*color: #f44336;*/
-/*}*/
-
-.answerButton--pulse {
-  animation: pulse infinite 1s;
+.question.isLimbo:not(.isCorrectLimbo) .answerButton--true {
+  animation: fade-in-correct-color 1s;
+  animation-delay: 1s;
+  animation-fill-mode: forwards;
 }
 
-@keyframes isLimbo-incorrectAnswerBtn {
+@keyframes fade-in-correct-color {
   from {
+    color: inherit;
+    opacity: 0.3;
   }
   to {
+    color: #4caf50;
+    opacity: 1;
+  }
+}
 
+@keyframes fade-out-partial {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.3;
   }
 }
