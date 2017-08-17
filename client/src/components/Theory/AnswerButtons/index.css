@@ -1,9 +1,9 @@
 .answerButton {
   transition: all 0.4s;
+  border-color: currentColor;
 }
 
 .question.isLimbo .answerButton {
-  border-color: currentColor;
   pointer-events: none;
 }
 
@@ -43,6 +43,7 @@
   }
   to {
     color: #4caf50;
+    border-color: currentColor;
     opacity: 1;
   }
 }
