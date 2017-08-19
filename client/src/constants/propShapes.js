@@ -41,7 +41,7 @@ export const helpersShape = PropTypes.shape({
 });
 
 export const questionShape = PropTypes.shape({
-  id: PropTypes.string.isRequired,
+  id: PropTypes.number.isRequired,
   text: PropTypes.string.isRequired,
   answers: PropTypes.arrayOf(PropTypes.shape({
     text: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),

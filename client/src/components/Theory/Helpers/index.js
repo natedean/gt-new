@@ -6,6 +6,7 @@ import { helpersShape } from '../../../constants/propShapes';
 import { DIAGRAM_TYPES_MAP } from '../../../constants';
 
 const Helpers = ({ helpers }) => {
+  console.log(helpers);
   return (
     <div className="helpers">
       <p className="helpers__textLine"><strong>Your guess was incorrect</strong></p>
