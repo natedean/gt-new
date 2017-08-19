@@ -49,6 +49,7 @@ const createNewUser = (username = 'Random User') => {
 };
 
 const handleAnswerEvent = (answerData) => {
+  console.log('answerData', answerData);
   const query = {_id: ObjectID(answerData.userId)};
   const changeSet = {
     $inc: answerData.isCorrect ? {totalCorrect: 1} : {totalIncorrect: 1},
@@ -57,6 +58,11 @@ const handleAnswerEvent = (answerData) => {
     $pull: answerData.isCorrect ? { incorrectIds: answerData.questionId } : { correctIds: answerData.questionId }
   };
   const options = { returnOriginal: false };
+
+  getCollection('answers').then(({ collection, db }) => {
+    collection.insertOne(answerData);
+    db.close();
+  });
 
   return getCollection('users').then(({collection, db}) => {
     return collection.findOneAndUpdate(query, changeSet, options).then(res => {

@@ -5,10 +5,6 @@ const db = require('../db');
 router.post('/answer', (req, res) => {
   const answerData = req.body;
 
-  console.log(answerData);
-
-  questions.updateQuestion(answerData.questionId, answerData.isCorrect, answerData.milliseconds);
-
   if (!answerData.userId) {
     console.log('creating new user!');
 
