@@ -3,6 +3,10 @@
   margin-top: 1em;
   opacity: 0;
   animation: slide-up 1s;
-  animation-delay: 4s;
+  animation-delay: 3.5s;
   animation-fill-mode: forwards;
+}
+
+.isCorrectLimbo .question__nextBtn {
+  animation-delay: 2.5s;
 }
