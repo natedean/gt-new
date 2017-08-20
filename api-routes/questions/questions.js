@@ -396,7 +396,7 @@ module.exports = [
     }
   ],
   "helpers": {
-    "text": "There are 2 falts in the key of Bb Major"
+    "text": "There are 2 flats in the key of Bb Major"
   }
 },
 {
@@ -1240,7 +1240,10 @@ module.exports = [
       "text": "1 b3 5",
       "isCorrect": false
     }
-  ]
+  ],
+  "helpers": {
+    "text": "The 1st, 3rd, and 5th notes of the major scale make a Major chord"
+  }
 },
 {
   "id": 36,
@@ -1287,7 +1290,10 @@ module.exports = [
       "text": "1 b3 5",
       "isCorrect": false
     }
-  ]
+  ],
+  "helpers": {
+    "text": "The 1st, 3rd, and b5th notes of the major scale make a diminished chord"
+  }
 },
 {
   "id": 38,
