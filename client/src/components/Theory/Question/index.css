@@ -8,5 +8,6 @@
 }
 
 .isCorrectLimbo .question__nextBtn {
-  animation-delay: 4s;
+  opacity: 1;
+  animation: fadeIn 0.5s;
 }
