@@ -1,14 +1,12 @@
-.correctAnswerDisplay { }
+.correctAnswerDisplay {
+  animation: fadeIn 0.5s;
+}
 
 .correctAnswerDisplay__textLine:first-of-type {
-  animation: fadeIn 0.5s;
-  font-size: 2em;
-  color: #4caf50;
   margin-bottom: 0.25em;
+  color: #4caf50;
 }
 
 .correctAnswerDisplay__textLine:not(:first-of-type) {
-  animation: fadeIn 0.5s;
-  animation-fill-mode: forwards;
   margin-bottom: 1em;
 }
