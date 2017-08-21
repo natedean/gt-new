@@ -6,10 +6,11 @@ const AnswerButtons = ({ answers, isLimbo, incorrectAnswerText, isCorrectLimbo, 
   return (
     <div>
       { answers.map((answer) =>
-            <button style={{ marginLeft: '1em', textTransform: 'none'}}
-                  disabled={isLimbo}
-                  className={`answerButton${constructClassName(answer, isLimbo, isCorrectLimbo, incorrectAnswerText)}`}
-                  key={answer.text} onClick={() => onClick(answer.isCorrect, answer.text)}>{answer.text}</button>
+            <button
+                disabled={isLimbo}
+                className={`answerButton${constructClassName(answer, isLimbo, isCorrectLimbo, incorrectAnswerText)}`}
+                key={answer.text}
+                onClick={() => onClick(answer.isCorrect, answer.text)}>{answer.text}</button>
       )}
     </div>
   )

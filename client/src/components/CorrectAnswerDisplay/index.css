@@ -1,4 +1,5 @@
 .correctAnswerDisplay {
+  margin-top: 0.5em;
   animation: fadeIn 0.5s;
 }
 

@@ -1,6 +1,13 @@
 .answerButton {
+  padding: 0 2em;
+  margin-left: 1.5em;
   transition: all 0.4s;
   border-color: currentColor;
+  text-transform: none;
+}
+
+.answerButton:first-of-type {
+  margin-left: 0;
 }
 
 .question.isLimbo .answerButton {

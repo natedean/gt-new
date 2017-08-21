@@ -37,7 +37,7 @@ class CurrentQuestion extends Component {
 
   render() {
     return (
-      <div className="questionContainer" style={{marginTop: '4rem'}}>
+      <div className="questionContainer">
         {this.props.questions ? <div>
           {this.props.question && <Question {...this.props} />}
         </div> : <LoadingIcon />}
