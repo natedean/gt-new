@@ -1,3 +1,4 @@
 .questionContainer {
-  margin-top: 15vh;
+  margin: 15vh auto 0;
+  max-width: 600px;
 }

@@ -4,7 +4,7 @@ import CurrentQuestion from './containers/CurrentQuestion';
 import './index.css';
 
 export default () => (
-  <div className="text-center" style={{maxWidth: '600px'}}>
+  <div className="text-center">
     {/*<ScoreDisplay />*/}
     <CurrentQuestion />
   </div>
