@@ -1,0 +1,7 @@
+.userPrompt input {
+  margin-right: 0.5em;
+}
+
+.userPrompt button[type=submit] {
+  padding: 0 1em;
+}

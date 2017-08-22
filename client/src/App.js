@@ -20,7 +20,7 @@ class App extends Component {
       const user = JSON.parse(window.localStorage.getItem('gt-user'));
 
       if (user) {
-        this.props.store.dispatch({ type: 'FETCH_USER_SUCCESS', user })
+        // this.props.store.dispatch({ type: 'FETCH_USER_SUCCESS', user });
       }
     }
   }

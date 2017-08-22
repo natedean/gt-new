@@ -14,7 +14,12 @@ const Score = ({userData, statsData}) => {
 
   return (
     <div className="stats">
-      <div className="stats__score">
+      <div className="stats__permanentContent">
+        <span>{userData.username}'s score: {userData.totalCorrect}</span>
+        <button className="stats__toggleButton">my stats</button>
+      </div>
+      <div className="stats__slideDownContent">
+        <div className="stats__score">
           <div className="stats__lineChartContainer">
             <div className="stats__lineChartLabel stats__lineChartLabel--large">
               {`my score: ${userData.totalCorrect}`}
@@ -46,45 +51,46 @@ const Score = ({userData, statsData}) => {
               />
             </svg>
           </div>
-      </div>
+        </div>
 
-      <div className="stats__skill">
-        <div className="stats__lineChartContainer">
-          <div className="stats__lineChartLabel stats__lineChartLabel--large">
-            {`my skill: ${(userData.correctRatio * 100).toFixed(0)}`}
-            <span className="stats__lineChartLabel--tiny">%</span>
+        <div className="stats__skill">
+          <div className="stats__lineChartContainer">
+            <div className="stats__lineChartLabel stats__lineChartLabel--large">
+              {`my skill: ${(userData.correctRatio * 100).toFixed(0)}`}
+              <span className="stats__lineChartLabel--tiny">%</span>
+            </div>
+            <svg viewBox="0 0 40 2"
+                 className="stats__lineChart"
+                 style={{ borderLeft: `1px solid ${skillColorScale(userData.correctRatio)}` }}>
+              <line
+                x1="0"
+                x2={skillScale(userData.correctRatio)}
+                y1="1"
+                y2="1"
+                stroke={skillColorScale(userData.correctRatio)}
+              />
+            </svg>
           </div>
-          <svg viewBox="0 0 40 2"
-               className="stats__lineChart"
-               style={{ borderLeft: `1px solid ${skillColorScale(userData.correctRatio)}` }}>
-            <line
-              x1="0"
-              x2={skillScale(userData.correctRatio)}
-              y1="1"
-              y2="1"
-              stroke={skillColorScale(userData.correctRatio)}
-            />
-          </svg>
-        </div>
-        <div className="stats__lineChartContainer">
-          <div className="stats__lineChartLabel">
-            {`avg: ${statsData.avgCorrectRatio * 100}`}
-            <span className="stats__lineChartLabel--tiny">%</span>
+          <div className="stats__lineChartContainer">
+            <div className="stats__lineChartLabel">
+              {`avg: ${statsData.avgCorrectRatio * 100}`}
+              <span className="stats__lineChartLabel--tiny">%</span>
+            </div>
+            <svg viewBox="0 0 40 2"
+                 className="stats__lineChart"
+                 style={{ borderLeft: `1px solid ${skillColorScale(statsData.avgCorrectRatio)}` }}>
+              <line
+                x1="0"
+                x2={skillScale(statsData.avgCorrectRatio)}
+                y1="1"
+                y2="1"
+                stroke={skillColorScale(statsData.avgCorrectRatio)}
+              />
+            </svg>
           </div>
-          <svg viewBox="0 0 40 2"
-               className="stats__lineChart"
-               style={{ borderLeft: `1px solid ${skillColorScale(statsData.avgCorrectRatio)}` }}>
-            <line
-              x1="0"
-              x2={skillScale(statsData.avgCorrectRatio)}
-              y1="1"
-              y2="1"
-              stroke={skillColorScale(statsData.avgCorrectRatio)}
-            />
-          </svg>
         </div>
       </div>
-    </div>
+      </div>
   );
 };
 

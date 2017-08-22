@@ -1,9 +1,14 @@
 .stats {
+
+}
+
+.stats__permanentContent {
   display: flex;
   justify-content: space-between;
-  padding: 0.5em;
-  border: 1px solid lightgray;
-  animation: animate-up 0.75s;
+}
+
+.stats__slideDownContent {
+  display: none;
 }
 
 .stats__skill,

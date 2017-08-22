@@ -1,11 +1,14 @@
 import React from 'react';
 import ScoreDisplay from './containers/ScoreDisplay';
 import CurrentQuestion from './containers/CurrentQuestion';
+import UserPrompt from '../../containers/UserPrompt';
 import './index.css';
 
 export default () => (
   <div className="text-center">
-    {/*<ScoreDisplay />*/}
-    <CurrentQuestion />
+    <UserPrompt>
+      <ScoreDisplay />
+      <CurrentQuestion />
+    </UserPrompt>
   </div>
 );
