@@ -2,6 +2,9 @@
     text-align: center;
 }
 
+.body-content-with-top-margin {
+  margin: 5vh auto 0;
+}
 
 /* Animation classes */
 .slideInFromRight {

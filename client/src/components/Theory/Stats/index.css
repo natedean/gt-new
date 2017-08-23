@@ -1,10 +1,36 @@
 .stats {
+  padding: 0.7em 1em;
+  font-size: 0.9em;
+  line-height: 1.5em;
+  box-shadow: rgba(0, 0, 0, 0.10) 0px 1px 5px, rgba(0, 0, 0, 0.10) 0px 1px 3px;
+  color: rgba(1,1,1,.7);
+  border-radius: 4px;
+}
 
+.stats__nameContainer {
+  text-align: left;
+}
+
+.stats__scoreContainer hr {
+  margin: 0;
+}
+
+.stats__scoreLabel {
+}
+
+.stats__score {
+}
+
+.stats__toggleButton {
+  padding: 0 0.5em;
+  height: 2em;
+  line-height: 2em;
 }
 
 .stats__permanentContent {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .stats__slideDownContent {

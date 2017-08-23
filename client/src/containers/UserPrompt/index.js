@@ -27,11 +27,13 @@ class UserPrompt extends Component {
   onSubmit(e) {
     e.preventDefault();
 
+    if (!this.state.inputVal) return;
+
     this.props.createUser(this.state.inputVal);
   }
 
   createRandomUser() {
-    this.props.createUser('Random Dude');
+    this.props.createUser('Anonymous Dude');
   }
 
   render() {
@@ -41,21 +43,23 @@ class UserPrompt extends Component {
       <div>
         {user && children}
         {isLoading && <LoadingIcon/>}
-        {!user && !isLoading && <div className="userPrompt">
-          <h4>Let's play some games!</h4>
-          <h5>First thing, what is your name?</h5>
-          <form onSubmit={this.onSubmit}>
-            {/*<label htmlFor="displayName">Display Name</label>*/}
-            <input
-              name="displayName"
-              type="text"
-              placeholder="smarty pants"
-              value={this.state.inputVal}
-              onChange={this.onInputChange}/>
-            <button type="submit">Go!</button>
-          </form>
-          <h5>OR</h5>
-          <button onClick={this.createRandomUser}>Make me "Anonymous Dude"</button>
+        {!user && !isLoading && <div className="userPrompt body-content-with-top-margin">
+          <h3>Let's play some games!</h3>
+          <div className="userPrompt__formContainer">
+            <form onSubmit={this.onSubmit}>
+              <label htmlFor="displayName">First thing, what is your name?</label>
+              <input
+                name="displayName"
+                type="text"
+                required
+                placeholder="smarty pants"
+                value={this.state.inputVal}
+                onChange={this.onInputChange}/>
+              <button className="userPrompt__submitBtn" type="submit">Go!</button>
+            </form>
+            <h5>OR</h5>
+            <button onClick={this.createRandomUser}>Make me "Anonymous Dude"</button>
+          </div>
         </div>}
       </div>
     )

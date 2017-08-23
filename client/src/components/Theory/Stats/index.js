@@ -15,8 +15,15 @@ const Score = ({userData, statsData}) => {
   return (
     <div className="stats">
       <div className="stats__permanentContent">
-        <span>{userData.username}'s score: {userData.totalCorrect}</span>
-        <button className="stats__toggleButton">my stats</button>
+        <div className="stats__nameContainer">
+          <div>{userData.username}</div>
+          {/*<div>Rank: 5/100</div>*/}
+        </div>
+        <div className="stats__scoreContainer">
+          <div className="stats__scoreLabel">Score</div>
+          <hr/>
+          <div className="">{userData.totalCorrect}</div>
+        </div>
       </div>
       <div className="stats__slideDownContent">
         <div className="stats__score">
