@@ -47,12 +47,12 @@ class UserPrompt extends Component {
           <h3>Let's play some games!</h3>
           <div className="userPrompt__formContainer">
             <form onSubmit={this.onSubmit}>
-              <label htmlFor="displayName">First thing, what is your name?</label>
+              <label htmlFor="displayName">What should we call you?</label>
               <input
                 name="displayName"
                 type="text"
                 required
-                placeholder="smarty pants"
+                placeholder="Your Name"
                 value={this.state.inputVal}
                 onChange={this.onInputChange}/>
               <button className="userPrompt__submitBtn" type="submit">Go!</button>

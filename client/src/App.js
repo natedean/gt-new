@@ -19,9 +19,9 @@ class App extends Component {
       // try to retrieve user from local storage ... ?
       const user = JSON.parse(window.localStorage.getItem('gt-user'));
 
-      if (user && user.username === 'Nate Dean') {
-        this.props.store.dispatch({ type: 'FETCH_USER_SUCCESS', user });
-      }
+      // if (user && user.username === 'Nate Dean') {
+      //   this.props.store.dispatch({ type: 'FETCH_USER_SUCCESS', user });
+      // }
     }
   }
 
