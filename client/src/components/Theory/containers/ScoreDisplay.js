@@ -44,7 +44,15 @@ function optimisticLeaderboard(userData, score, leaderboard) {
     const optimisticScore = user.totalCorrect > score ? user.totalCorrect : score;
 
     return Object.assign({}, user, {totalCorrect: optimisticScore, isCurrentUser: true});
-  }).sort((a, b) => b.totalCorrect - a.totalCorrect);
+  }).sort((a, b) => {
+    if (b.totalCorrect < a.totalCorrect) return -1;
+    if (b.totalCorrect > a.totalCorrect) return 1;
+
+    if (b._updated_at < a._updated_at) return -1;
+    if (b._updated_at > a._updated_at) return 1;
+
+    return 0;
+  });
 }
 
 export default connect(mapStateToProps, { fetchStats })(ScoreDisplay);
