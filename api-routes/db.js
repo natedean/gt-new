@@ -35,7 +35,7 @@ const getTopUsers = () =>
   MongoClient.connect(MONGO_URI)
     .then(db => {
       const collection = db.collection('users');
-      const timeframe = new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 5); // find all users updated in the last 5 days
+      const timeframe = new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 30); // find all users updated in the last 30 days
       const fieldsToRetrieve = {
         username: 1,
         totalCorrect: 1,
@@ -50,7 +50,7 @@ const getTopUsers = () =>
           { totalCorrect: {$gt: 0} , _updated_at: {$gte: timeframe } },
           fieldsToRetrieve
         )
-        .sort({ totalCorrect: -1, _updated_at: -1 })
+        .sort({ _updated_at: -1 })
         .limit(100)
         .toArray()
         .then(users => {
