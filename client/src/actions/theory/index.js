@@ -110,6 +110,8 @@ export const answerAndPersist = (id, isCorrect, milliseconds, answerText) => (di
   dispatch(optimisticUserUpdate(userUpdate));
 };
 
+export const setLeaderboard = (users) => ({ type: 'SET_LEADERBOARD', users });
+
 // helpers, may move these...
 function enrichUserResponse(res) {
   const skill = calcUserSkill(res.totalCorrect, res.totalIncorrect);

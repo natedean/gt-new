@@ -8,6 +8,7 @@ import isLimbo from './isLimbo';
 import incorrectAnswerText from './incorrectAnswerText';
 import skill from './skill';
 import stats from './stats';
+import leaderboard from './leaderboard';
 
 export default combineReducers({
   score,
@@ -18,5 +19,6 @@ export default combineReducers({
   isLimbo,
   incorrectAnswerText,
   questions,
-  stats
+  stats,
+  leaderboard
 });

@@ -15,4 +15,10 @@ router.get('/', (req, res) => {
     .catch(() => res.send('There has been an error connecting to the database'));
 });
 
+router.get('/top', (req, res) => {
+  db.getTopUsers()
+    .then(users => res.send(users))
+    .catch(() => res.send('There has been an error connecting to the database'));
+});
+
 module.exports = router;

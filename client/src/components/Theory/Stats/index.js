@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './index.css';
 import {scaleLinear} from 'd3-scale';
 
-const Score = ({userData, statsData}) => {
+const Score = ({userData, statsData, optimisticLeaderboard}) => {
   const topScore = userData.totalCorrect > statsData.avgTotalCorrect ? userData.totalCorrect : statsData.avgTotalCorrect;
   const scoreScale = scaleLinear().domain([0, topScore]).range([0, 40]);
   const scoreColorScale = scaleLinear().domain([0, topScore]).range(['#f44336', '#4caf50']);
@@ -11,13 +11,14 @@ const Score = ({userData, statsData}) => {
   const topSkill = userData.correctRatio > statsData.avgCorrectRatio ? userData.correctRatio : statsData.avgCorrectRatio;
   const skillScale = scaleLinear().domain([0, topSkill]).range([0, 40]);
   const skillColorScale = scaleLinear().domain([0, 1]).range(['#f44336', '#4caf50']);
+  const rankMessage = setRankMessage(optimisticLeaderboard);
 
   return (
     <div className="stats">
       <div className="stats__permanentContent">
         <div className="stats__nameContainer">
           <div>{userData.username}</div>
-          {/*<div>Rank: 5/100</div>*/}
+          <div>{rankMessage}</div>
         </div>
         <div className="stats__scoreContainer">
           <div className="stats__scoreLabel">Score</div>
@@ -100,6 +101,14 @@ const Score = ({userData, statsData}) => {
       </div>
   );
 };
+
+function setRankMessage(leaderboard) {
+  if (!leaderboard) return 'Loading rank...';
+
+  const rank = leaderboard.findIndex(u => u.isCurrentUser === true) + 1;
+
+  return `Rank: ${rank} of ${leaderboard.length}`;
+}
 
 
 export default Score;

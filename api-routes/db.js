@@ -1,6 +1,8 @@
 const MONGO_URI = process.env.MONGO_URI;
-const MongoClient = require('mongodb').MongoClient;
-const ObjectID = require('mongodb').ObjectID;
+
+const MongoDB = require('mongodb');
+
+const {MongoClient, ObjectID, ISODate} = MongoDB;
 
 if (!MONGO_URI) throw('MONGO_URI environment variable must be set');
 
@@ -24,6 +26,34 @@ const getUsers = (pageOffset, limit, sortField, sortCode) =>
         .sort([sortField, sortCode])
         .toArray()
         .then(users => {
+          db.close();
+          return users;
+        });
+    });
+
+const getTopUsers = () =>
+  MongoClient.connect(MONGO_URI)
+    .then(db => {
+      const collection = db.collection('users');
+      const fieldsToRetrieve = {
+        username: 1,
+        totalCorrect: 1,
+        totalIncorrect: 1,
+        skill: 1,
+        _created_at: 1,
+        _updated_at: 1
+      };
+
+      return collection
+        .find(
+          { _updated_at: { $gte: new Date(new Date().getTime() - 1000 * 60 * 60 * 24 * 5) } }, // find all users updated in the last 5 days
+          fieldsToRetrieve
+        )
+        .sort({ totalCorrect: -1, _updated_at: -1 })
+        .limit(100)
+        .toArray()
+        .then(users => {
+          console.log(users);
           db.close();
           return users;
         });
@@ -75,6 +105,7 @@ const handleAnswerEvent = (answerData) => {
 module.exports = {
   createNewUser,
   getUsers,
+  getTopUsers,
   handleAnswerEvent,
   getCollection
 };
