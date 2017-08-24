@@ -36,9 +36,12 @@ const mapStateToProps = (state) => ({
 function optimisticLeaderboard(userData, score, leaderboard) {
   if (!userData || !leaderboard) return null;
 
+  // if the user
+  const leaderboardWithCurrentUser = addCurrentUserToLeaderboard(userData, leaderboard);
+
   // the leaderboard from the server could be out of date, since we're optimistically updating the user's score
   // we also need to optimistically update the leaderboard
-  return leaderboard.map(user => {
+  return leaderboardWithCurrentUser.map(user => {
     if (user._id !== userData._id) return user;
 
     const optimisticScore = user.totalCorrect > score ? user.totalCorrect : score;
@@ -53,6 +56,14 @@ function optimisticLeaderboard(userData, score, leaderboard) {
 
     return 0;
   });
+}
+
+function addCurrentUserToLeaderboard(userData, leaderboard) {
+  const isUserInLeaderboard = !!leaderboard.find(user => user._id === userData._id);
+
+  if (isUserInLeaderboard) return leaderboard;
+
+  return [...leaderboard, userData];
 }
 
 export default connect(mapStateToProps, { fetchStats })(ScoreDisplay);
