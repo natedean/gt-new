@@ -51,7 +51,7 @@ const getTopUsers = () =>
           fieldsToRetrieve
         )
         .sort({ _updated_at: -1 })
-        .limit(100)
+        .limit(300)
         .toArray()
         .then(users => {
           db.close();
