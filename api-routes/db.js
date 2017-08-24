@@ -2,7 +2,7 @@ const MONGO_URI = process.env.MONGO_URI;
 
 const MongoDB = require('mongodb');
 
-const {MongoClient, ObjectID, ISODate} = MongoDB;
+const {MongoClient, ObjectID} = MongoDB;
 
 if (!MONGO_URI) throw('MONGO_URI environment variable must be set');
 
@@ -54,7 +54,6 @@ const getTopUsers = () =>
         .limit(100)
         .toArray()
         .then(users => {
-          console.log(users);
           db.close();
           return users;
         });
