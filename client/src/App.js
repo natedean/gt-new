@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import LazyAbout from './components/About/LazyAbout';
 import LazyStaffNote from './components/StaffNote/LazyIndex';
+import LazyNameThisNote from './components/NameThisNote/LazyIndex';
 import LazyTheory from './components/Theory/LazyIndex';
 import LazyUsers from './components/Users/LazyIndex';
 import NavBar from './components/NavBar';
@@ -38,8 +39,9 @@ class App extends Component {
           <Route path="/users" component={LazyUsers}/>
           <Route path="/questions" component={RankedQuestionsList}/>
           <Route exact path="/games" component={Games}/>
-          <Route path="/games/staff-note" component={LazyStaffNote}/>
           <Route path="/games/theory" render={() => <LazyTheory store={store} />}/>
+          <Route path="/games/staff-note" component={LazyStaffNote}/>
+          <Route path="/games/name-this-note" component={LazyNameThisNote} />
         </div>
       </Router>
     );

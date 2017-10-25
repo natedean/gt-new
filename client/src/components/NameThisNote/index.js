@@ -4,8 +4,6 @@ import './index.css';
 class StaffNote extends Component {
 
   height = 120;
-  noteHeight = 10;
-  randTimer;
 
   notes = [
     { name: 'E2', yOffset: '0' },
@@ -35,18 +33,6 @@ class StaffNote extends Component {
   state = {
     currNote: this.notes[0]
   };
-
-  componentDidMount() {
-    this.setRandomCurrNote();
-  }
-
-  setRandomCurrNote() {
-    this.randTimer = setInterval(() => {
-      const randNum = Math.floor(Math.random() * this.notes.length);
-
-      this.setState(prevState => ({ currNote: this.notes[randNum] }));
-    }, 1000);
-  }
 
   render() {
     return (
@@ -82,7 +68,6 @@ class StaffNote extends Component {
             />
           </svg>
       </div>
-
   </div>
     )
   }
