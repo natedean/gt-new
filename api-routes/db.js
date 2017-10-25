@@ -158,10 +158,8 @@ module.exports = {
   getAnswerAverages
 };
 
-function getCollection(collectionName) {
-  return MongoClient.connect(MONGO_URI)
-    .then(db => ({
-      collection: db.collection(collectionName),
-      db
-    }));
+async function getCollection(collectionName) {
+  const db = await MongoClient.connect(MONGO_URI);
+
+  return { collection: db.collection(collectionName), db };
 }
