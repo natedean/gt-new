@@ -22,7 +22,7 @@ class RankedQuestionsList extends Component {
           <thead>
             <tr>
               <th>Question</th>
-              <th>percentageCorrect</th>
+              <th>avgCorrect</th>
               <th>totalAnswers</th>
             </tr>
           </thead>
@@ -31,7 +31,7 @@ class RankedQuestionsList extends Component {
             return (
               <tr key={i}>
                 <td>{question.text}</td>
-                <td>{`${Math.round(question.percentageCorrect * 100)}%`}</td>
+                <td>{`${Math.round(question.avgCorrect * 100)}%`}</td>
                 <td>{question.totalAnswers}</td>
               </tr>
             )

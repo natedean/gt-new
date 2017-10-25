@@ -107,25 +107,42 @@ const handleAnswerEvent = async (answerData) => {
   return user;
 };
 
-const getQuestionsRankedList = async () => {
-  const { collection, db } = await getCollection('questions');
+const getAnswerAverages = async () => {
+  const { collection, db } = await getCollection('answers');
 
-  const res = await collection.aggregate([
-    { $project: {
-        totalAnswers: { $add: ['$totalCorrect', '$totalIncorrect'] },
-        text: 1,
-        totalCorrect: 1
-      }
-    },
-    { $project: {
-        percentageCorrect: { $divide: ['$totalCorrect','$totalAnswers'] },
-        totalAnswers: 1,
-        totalCorrect: 1,
-        text: 1
-      }
-    },
-    { $sort: { percentageCorrect: 1 } }
-  ]).toArray();
+  const firstProjection = {
+    $project: {
+      _id: 0,
+      isCorrect: { $cond : [ '$isCorrect', 1, 0 ]  },
+      questionId: 1,
+      userId: 1,
+      milliseconds: 1 }
+  };
+
+  const group = {
+    $group: {
+      _id: '$questionId',
+      avgCorrect: { $avg: '$isCorrect' },
+      avgTime: { $avg: '$milliseconds' },
+      count: { $sum: 1 }
+    }
+  };
+
+  const secondProjection = {
+    $project: {
+      _id: 0,
+      questionId: '$_id',
+      avgCorrect: 1,
+      avgTime: 1,
+      totalAnswers: '$count'
+    }
+  };
+
+  const sort = {
+    $sort: { avgCorrect: -1 }
+  };
+
+  const res = await collection.aggregate([firstProjection, group, secondProjection, sort]).toArray();
 
   db.close();
 
@@ -138,7 +155,7 @@ module.exports = {
   getTopUsers,
   handleAnswerEvent,
   getCollection,
-  getQuestionsRankedList
+  getAnswerAverages
 };
 
 function getCollection(collectionName) {
