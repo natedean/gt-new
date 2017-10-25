@@ -96,8 +96,6 @@ const pollDbForStats = () => {
     .then(([columnAvgs, usersCount, questionsCount]) => {
       const stats = Object.assign({}, columnAvgs, { usersCount, questionsCount });
 
-      console.log('retrieved stats from db, ready to cache.', JSON.stringify(stats));
-
       setCachedStats(stats);
       saveDailyStatsToDb(stats);
     });

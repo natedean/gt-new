@@ -25,6 +25,7 @@ class Users extends Component {
               <th>_updated_at</th>
               <th>_created_at</th>
               <th>totalCorrect</th>
+              <th>totalAnswered</th>
             </tr>
           </thead>
           <tbody>
@@ -35,6 +36,7 @@ class Users extends Component {
                 <td>{new Date(user._updated_at).toLocaleDateString()}</td>
                 <td>{new Date(user._created_at).toLocaleDateString()}</td>
                 <td>{user.totalCorrect}</td>
+                <td>{user.totalCorrect + user.totalIncorrect}</td>
               </tr>
             )
           })}
