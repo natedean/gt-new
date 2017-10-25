@@ -46,10 +46,7 @@ const getTopUsers = () =>
       };
 
       return collection
-        .find(
-          { totalCorrect: {$gt: 0} , _updated_at: {$gte: timeframe } },
-          fieldsToRetrieve
-        )
+        .find({ totalCorrect: {$gt: 0} , _updated_at: {$gte: timeframe } }, fieldsToRetrieve)
         .sort({ _updated_at: -1 })
         .limit(300)
         .toArray()
@@ -78,8 +75,13 @@ const createNewUser = (username = 'Random User') => {
   });
 };
 
-const handleAnswerEvent = (answerData) => {
-  console.log('answerData', answerData);
+const saveAnswer = async (answerData) => {
+  const { collection, db } = await getCollection('answers');
+  await collection.insertOne({ ...answerData, _updated_at: new Date() });
+  db.close();
+};
+
+const updateUserWithNewAnswer = async (answerData) => {
   const query = {_id: ObjectID(answerData.userId)};
   const changeSet = {
     $inc: answerData.isCorrect ? {totalCorrect: 1} : {totalIncorrect: 1},
@@ -89,17 +91,20 @@ const handleAnswerEvent = (answerData) => {
   };
   const options = { returnOriginal: false };
 
-  getCollection('answers').then(({ collection, db }) => {
-    collection.insertOne(answerData);
-    db.close();
-  });
+  const {collection, db} = await getCollection('users');
+  const res = await collection.findOneAndUpdate(query, changeSet, options);
 
-  return getCollection('users').then(({collection, db}) => {
-    return collection.findOneAndUpdate(query, changeSet, options).then(res => {
-      db.close();
-      return res.value;
-    })
-  });
+  db.close();
+
+  return res.value;
+};
+
+const handleAnswerEvent = async (answerData) => {
+  saveAnswer(answerData); // save answer, but don't wait, as we don't need a return value
+
+  const user = await updateUserWithNewAnswer(answerData);
+
+  return user;
 };
 
 module.exports = {

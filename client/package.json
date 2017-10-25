@@ -2,7 +2,7 @@
   "name": "gt-new-client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
+  "proxy": "http://localhost:3000/",
   "dependencies": {
     "lodash.shuffle": "^4.2.0",
     "react": "^15.5.4",
