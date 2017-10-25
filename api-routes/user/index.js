@@ -1,5 +1,4 @@
 const router = require('express').Router();
-const questions = require('../questions/helpers');
 const db = require('../db');
 
 router.post('/create', (req, res) => {
