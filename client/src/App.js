@@ -7,6 +7,7 @@ import LazyUsers from './components/Users/LazyIndex';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Games from './components/Games';
+import RankedQuestionsList from './components/RankedQuestionsList';
 
 import './css/normalize.css';
 import './css/skeleton.css';
@@ -35,6 +36,7 @@ class App extends Component {
           <Route exact path="/" component={Home}/>
           <Route path="/about" component={LazyAbout}/>
           <Route path="/users" component={LazyUsers}/>
+          <Route path="/questions" component={RankedQuestionsList}/>
           <Route exact path="/games" component={Games}/>
           <Route path="/games/staff-note" component={LazyStaffNote}/>
           <Route path="/games/theory" render={() => <LazyTheory store={store} />}/>

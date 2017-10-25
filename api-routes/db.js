@@ -107,12 +107,38 @@ const handleAnswerEvent = async (answerData) => {
   return user;
 };
 
+const getQuestionsRankedList = async () => {
+  const { collection, db } = await getCollection('questions');
+
+  const res = await collection.aggregate([
+    { $project: {
+        totalAnswers: { $add: ['$totalCorrect', '$totalIncorrect'] },
+        text: 1,
+        totalCorrect: 1
+      }
+    },
+    { $project: {
+        percentageCorrect: { $divide: ['$totalCorrect','$totalAnswers'] },
+        totalAnswers: 1,
+        totalCorrect: 1,
+        text: 1
+      }
+    },
+    { $sort: { percentageCorrect: 1 } }
+  ]).toArray();
+
+  db.close();
+
+  return res;
+};
+
 module.exports = {
   createNewUser,
   getUsers,
   getTopUsers,
   handleAnswerEvent,
-  getCollection
+  getCollection,
+  getQuestionsRankedList
 };
 
 function getCollection(collectionName) {
