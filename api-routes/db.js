@@ -139,7 +139,7 @@ const getAnswerAverages = async () => {
   };
 
   const sort = {
-    $sort: { avgCorrect: -1 }
+    $sort: { avgCorrect: 1 }
   };
 
   const res = await collection.aggregate([firstProjection, group, secondProjection, sort]).toArray();
