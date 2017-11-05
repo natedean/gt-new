@@ -1,3 +1,8 @@
+:root {
+  --color-green: #4caf50;
+  --color-red: #f44336;
+}
+
 .text-center {
     text-align: center;
 }

@@ -27,14 +27,14 @@
 }
 
 .question.isLimbo .answerButton--isChosen.answerButton--false {
-  color: #f44336;
+  color: var(--color-red);
   animation: fade-out-partial 1s;
   animation-delay: 1s;
   animation-fill-mode: forwards;
 }
 
 .question.isLimbo .answerButton--isChosen.answerButton--true {
-  color: #4caf50;
+  color: var(--color-green);
 }
 
 .question.isLimbo:not(.isCorrectLimbo) .answerButton--true {
