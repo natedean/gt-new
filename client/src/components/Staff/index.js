@@ -27,3 +27,28 @@ const Staff = ({children}) => (
 );
 
 export default Staff;
+
+export const notes = [
+  { name: 'E2', yOffset: '0' },
+  { name: 'F2', yOffset: '5' },
+  { name: 'G2', yOffset: '10' },
+  { name: 'A2', yOffset: '15' },
+  { name: 'B2', yOffset: '20' },
+  { name: 'C3', yOffset: '25' },
+  { name: 'D3', yOffset: '30' },
+  { name: 'E3', yOffset: '35'},
+  { name: 'F3', yOffset: '40'},
+  { name: 'G3', yOffset: '45'},
+  { name: 'A3', yOffset: '50'},
+  { name: 'B3', yOffset: '55'},
+  { name: 'C4', yOffset: '60'},
+  { name: 'D4', yOffset: '65'},
+  { name: 'E4', yOffset: '70'},
+  { name: 'F4', yOffset: '75'},
+  { name: 'G4', yOffset: '80'},
+  { name: 'A4', yOffset: '85'},
+  { name: 'B4', yOffset: '90'},
+  { name: 'C5', yOffset: '95'},
+  { name: 'D5', yOffset: '100'},
+  { name: 'E5', yOffset: '105'}
+];
