@@ -1,5 +1,5 @@
 import React from 'react';
-import { staffDiagramShape } from '../../../constants/propShapes';
+import { staffDiagramShape } from '../../../../constants/propShapes';
 import './index.css';
 
 const NOTE_WIDTH = 13;

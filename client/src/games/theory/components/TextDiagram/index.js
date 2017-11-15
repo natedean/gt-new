@@ -1,5 +1,5 @@
 import React from 'react';
-import { textDiagramShape } from '../../../constants/propShapes';
+import { textDiagramShape } from '../../../../constants/propShapes';
 import './index.css';
 
 const TextDiagram = ({ diagram }) => {

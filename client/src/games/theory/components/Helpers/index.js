@@ -2,8 +2,8 @@ import React from 'react';
 import './index.css';
 import StaffDiagram from '../StaffDiagram';
 import TextDiagram from '../TextDiagram';
-import { helpersShape } from '../../../constants/propShapes';
-import { DIAGRAM_TYPES_MAP } from '../../../constants';
+import { helpersShape } from '../../../../constants/propShapes';
+import { DIAGRAM_TYPES_MAP } from '../../../../constants';
 
 const Helpers = ({ helpers }) => {
   console.log(helpers);

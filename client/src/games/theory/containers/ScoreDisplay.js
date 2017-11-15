@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import Score from '../Stats';
-import {fetchStats} from '../../../actions/theory';
+import Score from '../components/Stats/index';
+import {fetchStats} from '../actions/index';
 
 class ScoreDisplay extends Component {
 

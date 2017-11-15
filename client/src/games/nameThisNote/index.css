@@ -1,5 +1,6 @@
 .answerButton {
   transition: all 0.5s;
+  margin-right: 0.25rem;
 }
 
 .answerButton--correct {

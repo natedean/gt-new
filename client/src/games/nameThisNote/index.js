@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Motion, spring} from 'react-motion';
-import Staff, {notes} from '../Staff';
+import Staff, {notes} from '../../components/Staff/index';
 import './index.css';
 
 class StaffNote extends Component {

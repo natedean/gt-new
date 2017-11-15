@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { answerAndPersist, generateAndSetNewQuestion, setQuestionsBank, setLeaderboard } from '../../../actions/theory';
-import Question from '../Question';
-import LoadingIcon from '../../LoadingIcon';
+import { answerAndPersist, generateAndSetNewQuestion, setQuestionsBank, setLeaderboard } from '../actions/index';
+import Question from '../components/Question/index';
+import LoadingIcon from '../../../components/LoadingIcon/index';
 
 class CurrentQuestion extends Component {
 
