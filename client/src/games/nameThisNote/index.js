@@ -92,7 +92,7 @@ class StaffNote extends Component {
   };
 
   setDefaultVoiceRecognitionMessage = () => {
-    return !!annyang ? 'Voice recognition ready' : 'No voice recognition available';
+    return !!annyang ? 'Voice recognition ready' : 'No voice recognition available - Try opening this page with the Google Chrome web browser';
   };
 
   voiceRecognitionStart = () => {
