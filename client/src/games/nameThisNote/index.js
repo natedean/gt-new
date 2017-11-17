@@ -56,10 +56,10 @@ class StaffNote extends Component {
       voiceRecognitionMessage: this.setDefaultVoiceRecognitionMessage()
     }));
 
-    // Start listening.
+    // Setup annyang voice recognition, only if available
     if (!annyang) return;
 
-    annyang.start();
+    this.voiceRecognitionStart();
 
     const hellFunc = () => console.log('hello!');
 
@@ -73,9 +73,7 @@ class StaffNote extends Component {
   }
 
   componentWillUnmount() {
-    if (annyang) {
-      annyang.abort();
-    }
+    this.voiceRecognitionStop();
   }
 
   annyangHandler = (matchedAnswer) => {
@@ -97,9 +95,21 @@ class StaffNote extends Component {
     return !!annyang ? 'Voice recognition ready' : 'No voice recognition available';
   };
 
+  voiceRecognitionStart = () => {
+    console.log('starting');
+    if (annyang) { annyang.start(); }
+  };
+
+  voiceRecognitionStop = () => {
+    console.log('stopping');
+    if (annyang) { annyang.abort(); }
+  };
+
   setLimboState = (wasLastAnswerCorrect) => {
     const currAnsweredNote = this.state.currNote;
     const hasAnsweredAll = this.state.answeredNoteNames.length === notes.length - 1;
+
+    this.voiceRecognitionStop();
 
     this.setState((prevState) => ({
       isLimbo: true,
@@ -108,6 +118,8 @@ class StaffNote extends Component {
     }));
 
     setTimeout(() => {
+      this.voiceRecognitionStart();
+
       this.setState(() => ({
         isLimbo: false,
         currNote: this.findRandUnansweredNote(),
@@ -138,7 +150,6 @@ class StaffNote extends Component {
     return (
       <div className="staffNote text-center">
         <div className="text-center">
-          <h4>{this.state.voiceRecognitionMessage}</h4>
           <h4>What note is this?</h4>
           {isLimbo && <span style={{position: 'absolute'}}>{wasLastAnswerCorrect ? 'Correct!' : 'Incorrect'} {this.state.currNote.name}</span>}
           <Staff>
@@ -165,7 +176,7 @@ class StaffNote extends Component {
             <button disabled={isLimbo} className={this.computeButtonClassName('F')}>F</button>
             <button disabled={isLimbo} className={this.computeButtonClassName('G')}>G</button>
           </div>
-
+          <span className="voiceRecognitionMessage">{this.state.voiceRecognitionMessage}</span>
       </div>
   </div>
     )
