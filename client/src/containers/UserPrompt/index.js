@@ -71,4 +71,10 @@ const mapStateToProps = (state) => ({
   isLoading: state.root.user.isLoading
 });
 
+UserPrompt.propTypes = {
+  user: PropTypes.object,
+  isLoading: PropTypes.bool.isRequired,
+  children: PropTypes.object
+};
+
 export default connect(mapStateToProps, {createUser})(UserPrompt);

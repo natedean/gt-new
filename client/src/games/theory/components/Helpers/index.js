@@ -1,9 +1,9 @@
 import React from 'react';
 import './index.css';
-import StaffDiagram from '../StaffDiagram';
-import TextDiagram from '../TextDiagram';
 import { helpersShape } from '../../../../constants/propShapes';
-import { DIAGRAM_TYPES_MAP } from '../../../../constants';
+// import { DIAGRAM_TYPES_MAP } from '../../../../constants';
+// import StaffDiagram from '../StaffDiagram';
+// import TextDiagram from '../TextDiagram';
 
 const Helpers = ({ helpers }) => {
   console.log(helpers);
@@ -29,17 +29,17 @@ Helpers.propTypes = {
   helpers: helpersShape
 };
 
-function renderDiagram(diagram) {
-  switch (diagram.type) {
-    case DIAGRAM_TYPES_MAP.staff:
-      return <StaffDiagram diagram={diagram}/>;
-    case DIAGRAM_TYPES_MAP.staffScale:
-      return <StaffDiagram diagram={diagram}/>;
-    case DIAGRAM_TYPES_MAP.guitar:
-      return <div>Guitar diagram coming soon</div>;
-    case DIAGRAM_TYPES_MAP.text:
-      return <TextDiagram diagram={diagram}/>;
-    default:
-      return <div>No diagram for this type</div>
-  }
-}
+// function renderDiagram(diagram) {
+//   switch (diagram.type) {
+//     case DIAGRAM_TYPES_MAP.staff:
+//       return <StaffDiagram diagram={diagram}/>;
+//     case DIAGRAM_TYPES_MAP.staffScale:
+//       return <StaffDiagram diagram={diagram}/>;
+//     case DIAGRAM_TYPES_MAP.guitar:
+//       return <div>Guitar diagram coming soon</div>;
+//     case DIAGRAM_TYPES_MAP.text:
+//       return <TextDiagram diagram={diagram}/>;
+//     default:
+//       return <div>No diagram for this type</div>
+//   }
+// }
