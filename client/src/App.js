@@ -8,6 +8,7 @@ import LazyUsers from './components/Users/LazyIndex';
 import NavBar from './components/NavBar';
 import Home from './components/Home';
 import Games from './components/Games';
+import Login from './components/Login';
 import RankedQuestionsList from './components/RankedQuestionsList';
 import Auth from './Auth';
 
@@ -52,9 +53,12 @@ class App extends Component {
           <Route path="/games/theory" render={() => <LazyTheory store={store} />}/>
           <Route path="/games/staff-note" component={LazyStaffNote}/>
           <Route path="/games/name-this-note" component={() => <LazyNameThisNote store={store}/>} />
+          <Route path="/login" render={() => (<Login auth={auth} />)} />
           <Route path="/callback" render={(props) => {
+            // do some side-effecty stuff
             handleAuthentication(props);
-            return (<div>loading...</div>);
+            console.log('ahhh');
+            return (<Redirect to="/"/>);
           }}/>
         </div>
       </Router>

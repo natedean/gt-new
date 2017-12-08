@@ -14,8 +14,6 @@ class NavBar extends Component {
   };
 
   render() {
-    const {isAuthenticated} = this.props.auth;
-
     return (
       <nav className="nav">
         <div className="nav__logo">
@@ -25,24 +23,6 @@ class NavBar extends Component {
           </Link>
         </div>
         <div className="nav__links">
-          {
-            !isAuthenticated() && (
-              <button
-                onClick={this.login}
-              >
-                Log In
-              </button>
-            )
-          }
-          {
-            isAuthenticated() && (
-              <button
-                onClick={this.logout}
-              >
-                Log Out
-              </button>
-            )
-          }
           <NavLink to="/games" activeClassName="nav__link--active">Games</NavLink>
           <NavLink to="/about" activeClassName="nav__link--active">About</NavLink>
         </div>
