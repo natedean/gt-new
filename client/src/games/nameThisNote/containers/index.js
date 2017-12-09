@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Motion, spring} from 'react-motion';
 import Staff, {notes} from '../../../components/Staff/index';
-import {getScore} from '../../../actions';
+import {getScore, saveAnswer} from '../../../actions';
 import annyang from 'annyang';
 import '../index.css';
 
@@ -118,6 +118,8 @@ class NameThisNote extends Component {
     const currAnsweredNote = this.state.currNote;
     const hasAnsweredAll = this.state.answeredNoteNames.length === notes.length - 1;
 
+    this.props.saveAnswer('ntn', currAnsweredNote.name, wasLastAnswerCorrect);
+
     this.voiceRecognitionStop();
 
     this.setState((prevState) => ({
@@ -196,6 +198,7 @@ class NameThisNote extends Component {
 
 NameThisNote.propTypes = {
   getScore: PropTypes.func.isRequired,
+  saveAnswer: PropTypes.func.isRequired,
   score: PropTypes.number
 };
 
@@ -203,4 +206,4 @@ const mapStateToProps = state => ({
   score: state.root.user.data && state.root.user.data.ntn_score
 });
 
-export default connect(mapStateToProps, {getScore})(NameThisNote);
+export default connect(mapStateToProps, {getScore, saveAnswer})(NameThisNote);

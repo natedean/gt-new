@@ -26,5 +26,23 @@ export const getScore = (gameID) => (dispatch, getState) => {
 };
 
 export const saveAnswer = (gameID, questionID, isCorrect) => (dispatch, getState) => {
+  const user = getState().root.user.data;
+
+  dispatch({
+    type: 'OPTIMISTIC_SAVE_ANSWER',
+    gameID,
+    questionID,
+    isCorrect
+  });
+
+  services.saveAnswer(user.id, gameID, questionID, isCorrect)
+    .then(res => {
+      dispatch({
+        type: 'SAVE_ANSWER_SUCCESS', // not sure if we need to do anything on success...
+      })
+    })
+    .catch(() => {
+      alert('There has been a problem saving your answer');
+    })
 
 };

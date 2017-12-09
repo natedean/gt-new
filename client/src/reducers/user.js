@@ -36,9 +36,12 @@ const data = (state = initialAppState.user.data, action) => {
       console.log('setting user');
       return action.user;
     case 'SET_USER_SCORE':
-      const result = {...state, [`${action.gameID}_score`]: action.score};
-      console.log('setting user score');
-      return result;
+      return {...state, [`${action.gameID}_score`]: action.score};
+    case 'OPTIMISTIC_SAVE_ANSWER':
+      if (!action.isCorrect) return state;
+
+      const newScore = state[`${action.gameID}_score`] + 1;
+      return {...state, [`${action.gameID}_score`]: newScore};
     default:
       console.log('returning default');
       return state;
