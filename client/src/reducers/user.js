@@ -16,7 +16,7 @@ const isLoading = (state = initialAppState.user.isLoading, action) => {
   }
 };
 
-const isError = (state = initialAppState, action) => {
+const isError = (state = initialAppState.user.isError, action) => {
   switch(action.type) {
     case 'CREATING_USER':
     case 'FETCHING_USER':
@@ -33,8 +33,14 @@ const isError = (state = initialAppState, action) => {
 const data = (state = initialAppState.user.data, action) => {
   switch(action.type) {
     case 'SET_USER':
+      console.log('setting user');
       return action.user;
+    case 'SET_USER_SCORE':
+      const result = {...state, [`${action.gameID}_score`]: action.score};
+      console.log('setting user score');
+      return result;
     default:
+      console.log('returning default');
       return state;
   }
 };

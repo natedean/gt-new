@@ -149,13 +149,24 @@ const getAnswerAverages = async () => {
   return res;
 };
 
+const getScore = async (userID, gameID) => {
+  const { collection, db } = await getCollection(`${gameID}_answers`);
+
+  const score = await collection.find({ userID, isCorrect: true }).count();
+
+  db.close();
+
+  return score;
+};
+
 module.exports = {
   createNewUser,
   getUsers,
   getTopUsers,
   handleAnswerEvent,
   getCollection,
-  getAnswerAverages
+  getAnswerAverages,
+  getScore
 };
 
 async function getCollection(collectionName) {

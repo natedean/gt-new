@@ -11,12 +11,10 @@ class LazyIndex extends Component {
   render() {
     return (<LazyWrapper store={this.props.store} getComponent={() => {
       return Promise.all([
-        import('./index'),
+        import('./containers/index'),
         import('./reducers')
       ]).then(modules => {
         const [componentModule, reducerModule] = modules;
-
-        console.log(this.props.store);
 
         // inject async reducer
         injectAsyncReducer(this.props.store, 'nameThisNote', reducerModule.default);

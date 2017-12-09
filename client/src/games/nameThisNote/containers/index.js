@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 import {Motion, spring} from 'react-motion';
-import Staff, {notes} from '../../components/Staff/index';
+import Staff, {notes} from '../../../components/Staff/index';
+import {getScore} from '../../../actions';
 import annyang from 'annyang';
-import './index.css';
+import '../index.css';
 
 navigator.getUserMedia  = navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
@@ -40,7 +43,7 @@ const handleAnnyangResult = (possibleAnswerStrings, matchCallback) => {
   }
 };
 
-class StaffNote extends Component {
+class NameThisNote extends Component {
 
   height = 120;
   questionResetTime = 2000;
@@ -51,7 +54,13 @@ class StaffNote extends Component {
     voiceRecognitionMessage: false
   };
 
+  componentWillMount() {
+    this.props.getScore('ntn');
+  }
+
   componentDidMount() {
+    // get user score for this game
+
     this.setState(() => ({
       voiceRecognitionMessage: this.setDefaultVoiceRecognitionMessage()
     }));
@@ -81,14 +90,14 @@ class StaffNote extends Component {
       voiceRecognitionMessage: `What was heard: ${matchedAnswer.toUpperCase()}`
     }));
 
-    this.setLimboState(this.isCurrNote(matchedAnswer));
+    this.handleAnswerEvent(this.isCurrNote(matchedAnswer));
   };
 
-  answerClickHandler = (e) => {
+  answerButtonClickHandler = (e) => {
     const answer = e.target.innerText;
 
     // for now, leave this simple, probably refactor at some point
-    this.setLimboState(this.isCurrNote(answer));
+    this.handleAnswerEvent(this.isCurrNote(answer));
   };
 
   setDefaultVoiceRecognitionMessage = () => {
@@ -105,7 +114,7 @@ class StaffNote extends Component {
     if (annyang) { annyang.abort(); }
   };
 
-  setLimboState = (wasLastAnswerCorrect) => {
+  handleAnswerEvent = (wasLastAnswerCorrect) => {
     const currAnsweredNote = this.state.currNote;
     const hasAnsweredAll = this.state.answeredNoteNames.length === notes.length - 1;
 
@@ -145,10 +154,12 @@ class StaffNote extends Component {
   };
 
   render() {
+    const {score} = this.props;
     const {isLimbo, wasLastAnswerCorrect} = this.state;
 
     return (
       <div className="staffNote text-center">
+        <p>Score: {score}</p>
         <div className="text-center">
           <h4>What note is this?</h4>
           {isLimbo && <span style={{position: 'absolute'}}>{wasLastAnswerCorrect ? 'Correct!' : 'Incorrect'} {this.state.currNote.name}</span>}
@@ -167,7 +178,7 @@ class StaffNote extends Component {
               )}
             </Motion>
           </Staff>
-          <div className="buttonGroup" onClick={this.answerClickHandler}>
+          <div className="buttonGroup" onClick={this.answerButtonClickHandler}>
             <button disabled={isLimbo} className={this.computeButtonClassName('A')}>A</button>
             <button disabled={isLimbo} className={this.computeButtonClassName('B')}>B</button>
             <button disabled={isLimbo} className={this.computeButtonClassName('C')}>C</button>
@@ -181,7 +192,15 @@ class StaffNote extends Component {
   </div>
     )
   }
-
 }
 
-export default StaffNote;
+NameThisNote.propTypes = {
+  getScore: PropTypes.func.isRequired,
+  score: PropTypes.number
+};
+
+const mapStateToProps = state => ({
+  score: state.root.user.data && state.root.user.data.ntn_score
+});
+
+export default connect(mapStateToProps, {getScore})(NameThisNote);

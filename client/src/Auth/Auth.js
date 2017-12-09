@@ -29,6 +29,9 @@ export default class Auth {
           this.auth0.client.userInfo(authResult.accessToken, (err, user) => {
             if (err) return reject(err);
 
+            // set 'sub' as userID
+            user.id = user.sub;
+
             this.setSession(authResult, user);
 
             resolve(user);

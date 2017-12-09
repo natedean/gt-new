@@ -49,7 +49,7 @@ class App extends Component {
           <Route exact path="/games" component={Games}/>
           <Route path="/games/theory" render={() => <LazyTheory store={store} />}/>
           <Route path="/games/staff-note" component={LazyStaffNote}/>
-          <Route path="/games/name-this-note" component={() => <LazyNameThisNote store={store}/>} />
+          <Route path="/games/name-this-note" render={() => <LazyNameThisNote store={store}/>} />
           <Route path="/login" render={() => (<Login auth={auth} />)} />
           <Route path="/callback" render={(props) => (<Callback auth={auth} {...props} />)}/>
         </div>
