@@ -28,20 +28,20 @@ class App extends Component {
       // try to retrieve user from local storage
       const user = JSON.parse(window.localStorage.getItem('gt_user'));
 
-      // if we have a user in localStorage, set them in the store (WE MIGHT NEED TO CHECK EXPIRATION)
-      if (user) {
+      // if we have a user in localStorage, and our token has not expired, set the user in the store
+      if (user && auth.isAuthenticated()) {
         this.props.setUser(user);
       }
     }
   }
 
   render() {
-    const {store} = this.props;
+    const {store, user} = this.props;
 
     return (
       <Router>
         <div className="container">
-          <NavBar />
+          <NavBar user={user} />
           <Route exact path="/" component={Home}/>
           <Route path="/about" component={LazyAbout}/>
           <Route path="/users" component={LazyUsers}/>
@@ -58,6 +58,6 @@ class App extends Component {
   }
 }
 
+const mapStateToProps = state => ({user: state.root.user.data});
 
-
-export default connect(null, {setUser})(App);
+export default connect(mapStateToProps, {setUser})(App);
