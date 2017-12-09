@@ -1,23 +1,23 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
-import LazyAbout from './components/About/LazyAbout';
-import LazyStaffNote from './components/StaffNote/LazyIndex';
-import LazyNameThisNote from './games/nameThisNote/LazyIndex';
-import LazyTheory from './games/theory/LazyIndex';
-import LazyUsers from './components/Users/LazyIndex';
-import NavBar from './components/NavBar';
-import Home from './components/Home';
-import Games from './components/Games';
-import Login from './components/Login';
-import RankedQuestionsList from './components/RankedQuestionsList';
-import Callback from './components/Callback';
-import Auth from './Auth';
-import {setUser} from './actions/user';
+import LazyAbout from '../components/About/LazyAbout';
+import LazyStaffNote from '../components/StaffNote/LazyIndex';
+import LazyNameThisNote from '../games/nameThisNote/LazyIndex';
+import LazyTheory from '../games/theory/LazyIndex';
+import LazyUsers from '../components/Users/LazyIndex';
+import NavBar from '../components/NavBar/index';
+import Home from '../components/Home/index';
+import Games from '../components/Games/index';
+import Login from '../components/Login';
+import RankedQuestionsList from '../components/RankedQuestionsList/index';
+import Callback from '../components/Callback';
+import Auth from '../Auth/index';
+import {setUser} from '../actions/user';
 
-import './css/normalize.css';
-import './css/skeleton.css';
-import './css/index.css';
+import '../css/normalize.css';
+import '../css/skeleton.css';
+import '../css/index.css';
 
 const auth = new Auth();
 
