@@ -32,16 +32,8 @@ const isError = (state = initialAppState, action) => {
 
 const data = (state = initialAppState.user.data, action) => {
   switch(action.type) {
-    case 'CREATE_USER_SUCCESS':
-    case 'FETCH_USER_SUCCESS':
+    case 'SET_USER':
       return action.user;
-    case 'OPTIMISTIC_USER_UPDATE':
-      return Object.assign({}, state, action.update);
-    case 'CREATE_USER_FAILURE':
-    case 'FETCH_USER_FAILURE':
-      return null;
-    case 'FETCHING_USER':
-      return null;
     default:
       return state;
   }

@@ -1,6 +1,8 @@
 export const createUser = (username) => (dispatch) => {
   dispatch({ type: 'CREATING_USER' });
 
+  debugger;
+
   console.log('creating!', username);
 
   // make RESTful call
@@ -19,3 +21,8 @@ export const createUser = (username) => (dispatch) => {
   });
   // send
 };
+
+export const setUser = (user) => ({
+  type: 'SET_USER',
+  user
+});

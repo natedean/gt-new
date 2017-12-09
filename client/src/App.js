@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {connect} from 'react-redux';
 import LazyAbout from './components/About/LazyAbout';
 import LazyStaffNote from './components/StaffNote/LazyIndex';
 import LazyNameThisNote from './games/nameThisNote/LazyIndex';
@@ -10,31 +11,27 @@ import Home from './components/Home';
 import Games from './components/Games';
 import Login from './components/Login';
 import RankedQuestionsList from './components/RankedQuestionsList';
+import Callback from './components/Callback';
 import Auth from './Auth';
+import {setUser} from './actions/user';
 
 import './css/normalize.css';
 import './css/skeleton.css';
 import './css/index.css';
 
-
 const auth = new Auth();
-
-const handleAuthentication = (nextState, replace) => {
-  if (/access_token|id_token|error/.test(nextState.location.hash)) {
-    auth.handleAuthentication();
-  }
-};
 
 class App extends Component {
 
   componentDidMount() {
     if (process.env.NODE_ENV === 'development') {
-      // try to retrieve user from local storage ... ?
-      // const user = JSON.parse(window.localStorage.getItem('gt-user'));
+      // try to retrieve user from local storage
+      const user = JSON.parse(window.localStorage.getItem('gt_user'));
 
-      // if (user && user.username === 'Nate Dean') {
-      //   this.props.store.dispatch({ type: 'FETCH_USER_SUCCESS', user });
-      // }
+      // if we have a user in localStorage, set them in the store (WE MIGHT NEED TO CHECK EXPIRATION)
+      if (user) {
+        this.props.setUser(user);
+      }
     }
   }
 
@@ -44,7 +41,7 @@ class App extends Component {
     return (
       <Router>
         <div className="container">
-          <NavBar auth={auth} />
+          <NavBar />
           <Route exact path="/" component={Home}/>
           <Route path="/about" component={LazyAbout}/>
           <Route path="/users" component={LazyUsers}/>
@@ -54,16 +51,13 @@ class App extends Component {
           <Route path="/games/staff-note" component={LazyStaffNote}/>
           <Route path="/games/name-this-note" component={() => <LazyNameThisNote store={store}/>} />
           <Route path="/login" render={() => (<Login auth={auth} />)} />
-          <Route path="/callback" render={(props) => {
-            // do some side-effecty stuff
-            handleAuthentication(props);
-            console.log('ahhh');
-            return (<Redirect to="/"/>);
-          }}/>
+          <Route path="/callback" render={(props) => (<Callback auth={auth} {...props} />)}/>
         </div>
       </Router>
     );
   }
 }
 
-export default App;
+
+
+export default connect(null, {setUser})(App);

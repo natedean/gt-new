@@ -14,23 +14,31 @@ class Login extends Component {
     const {isAuthenticated} = this.props.auth;
 
     return (
-      <div>
+      <div className="text-center body-content-with-top-margin">
         {
           !isAuthenticated() && (
-            <button
-              onClick={this.login}
-            >
-              Log In
-            </button>
+            <div>
+              <h4>Save your scores!</h4>
+              <p>Log in with Chrome, Facebook, or Twitter</p>
+              <p>Or sign in and sign up with your email address</p>
+              <button
+                onClick={this.login}
+              >
+                Log In
+              </button>
+            </div>
           )
         }
         {
           isAuthenticated() && (
+            <div>
+              <p>You're already logged in!</p>
             <button
               onClick={this.logout}
             >
               Log Out
             </button>
+            </div>
           )
         }
       </div>

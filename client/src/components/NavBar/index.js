@@ -4,15 +4,6 @@ import './index.css';
 import Fretboard from '../Fretboard';
 
 class NavBar extends Component {
-
-  login = () => {
-    this.props.auth.login();
-  };
-
-  logout = () => {
-    this.props.auth.logout();
-  };
-
   render() {
     return (
       <nav className="nav">

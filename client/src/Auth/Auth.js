@@ -23,27 +23,30 @@ export default class Auth {
   }
 
   handleAuthentication() {
-    this.auth0.parseHash((err, authResult) => {
-      if (authResult && authResult.accessToken && authResult.idToken) {
+    return new Promise((resolve, reject) => {
+      this.auth0.parseHash((err, authResult) => {
+        if (authResult && authResult.accessToken && authResult.idToken) {
+          this.auth0.client.userInfo(authResult.accessToken, (err, user) => {
+            if (err) return reject(err);
 
-        this.auth0.client.userInfo(authResult.accessToken, function(err, user) {
-          debugger;
-        });
+            this.setSession(authResult, user);
 
-        this.setSession(authResult);
-      } else if (err) {
-        console.log(err);
-        alert(`Error: ${err.error}. Check the console for further details.`);
-      }
+            resolve(user);
+          });
+        } else if (err) {
+          reject(err);
+        }
+      });
     });
   }
 
-  setSession(authResult) {
+  setSession(authResult, user) {
     // Set the time that the access token will expire at
     let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
     localStorage.setItem('access_token', authResult.accessToken);
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem('expires_at', expiresAt);
+    localStorage.setItem('gt_user', JSON.stringify(user));
   }
 
   logout() {
@@ -51,6 +54,9 @@ export default class Auth {
     localStorage.removeItem('access_token');
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
+
+    // hard refresh this puppy
+    window.location = '/';
   }
 
   isAuthenticated() {
