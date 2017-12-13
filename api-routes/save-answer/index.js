@@ -1,6 +1,7 @@
 const router = require('express').Router();
+const db = require('../db');
 
-router.get('/', async (req, res) => {
+router.post('/', async (req, res) => {
   const {
     userID,
     gameID,
@@ -8,9 +9,11 @@ router.get('/', async (req, res) => {
     isCorrect,
   } = req.body;
 
-  const score = await db.saveAnswer(userID, gameID, questionID, isCorrect);
+  const result = await db.saveAnswer(userID, gameID, questionID, isCorrect);
 
-  res.send({ score });
+  console.log(result);
+
+  res.send({ result });
 });
 
 module.exports = router;

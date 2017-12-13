@@ -56,57 +56,6 @@ const getTopUsers = () =>
         });
     });
 
-const createNewUser = (username = 'Random User') => {
-  const newDoc = {
-    username: username,
-    totalCorrect: 0,
-    totalIncorrect: 0,
-    correctIds: [],
-    incorrectIds: [],
-    _created_at: new Date(),
-    _updated_at: new Date()
-  };
-
-  return getCollection('users').then(({collection, db}) => {
-    return collection.insertOne(newDoc, { returnOriginal: false }).then(res => {
-      db.close();
-      return res.ops[0];
-    })
-  });
-};
-
-const saveAnswer = async (answerData) => {
-  const { collection, db } = await getCollection('answers');
-  await collection.insertOne({ ...answerData, _updated_at: new Date() });
-  db.close();
-};
-
-const updateUserWithNewAnswer = async (answerData) => {
-  const query = {_id: ObjectID(answerData.userId)};
-  const changeSet = {
-    $inc: answerData.isCorrect ? {totalCorrect: 1} : {totalIncorrect: 1},
-    $set: {_updated_at: new Date()},
-    $addToSet: answerData.isCorrect ? { correctIds: answerData.questionId } : { incorrectIds: answerData.questionId },
-    $pull: answerData.isCorrect ? { incorrectIds: answerData.questionId } : { correctIds: answerData.questionId }
-  };
-  const options = { returnOriginal: false };
-
-  const {collection, db} = await getCollection('users');
-  const res = await collection.findOneAndUpdate(query, changeSet, options);
-
-  db.close();
-
-  return res.value;
-};
-
-const handleAnswerEvent = async (answerData) => {
-  saveAnswer(answerData); // save answer, but don't wait, as we don't need a return value
-
-  const user = await updateUserWithNewAnswer(answerData);
-
-  return user;
-};
-
 const getAnswerAverages = async () => {
   const { collection, db } = await getCollection('answers');
 
@@ -159,14 +108,23 @@ const getScore = async (userID, gameID) => {
   return score;
 };
 
+const saveAnswer = async (userID, gameID, questionID, isCorrect) => {
+  const { collection, db } = await getCollection(`${gameID}_answers`);
+
+ const result = await collection.insertOne({ userID, questionID, isCorrect, timestamp: new Date() });
+
+  db.close();
+
+  return 'success!';
+};
+
 module.exports = {
-  createNewUser,
   getUsers,
   getTopUsers,
-  handleAnswerEvent,
   getCollection,
   getAnswerAverages,
-  getScore
+  getScore,
+  saveAnswer
 };
 
 async function getCollection(collectionName) {
