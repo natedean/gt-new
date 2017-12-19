@@ -10,6 +10,7 @@ import NavBar from '../components/NavBar/index';
 import Home from '../components/Home/index';
 import Games from '../components/Games/index';
 import Login from '../components/Login';
+import Logout from '../components/Logout';
 import RankedQuestionsList from '../components/RankedQuestionsList/index';
 import Callback from '../components/Callback';
 import Auth from '../Auth/index';
@@ -51,6 +52,7 @@ class App extends Component {
           <Route path="/games/staff-note" component={LazyStaffNote}/>
           <Route path="/games/name-this-note" render={() => <LazyNameThisNote store={store}/>} />
           <Route path="/login" render={() => (<Login auth={auth} />)} />
+          <Route path="/logout" render={() => (<Logout auth={auth} />)} />
           <Route path="/callback" render={(props) => (<Callback auth={auth} {...props} />)}/>
         </div>
       </Router>

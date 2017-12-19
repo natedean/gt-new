@@ -3,8 +3,34 @@
   --color-red: #f44336;
 }
 
+button a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .text-center {
-    text-align: center;
+  text-align: center;
+}
+
+.button-array button {
+  margin-right: 1rem;
+}
+
+.button-array button:last-of-type {
+  margin-right: 0;
+}
+
+.vertical-button-array {
+  width: 25rem;
+  margin: 0 auto;
+}
+
+.vertical-button-array button {
+  width: 25rem;
+}
+
+.vertical-button-array button:last-of-type {
+  margin-bottom: 0;
 }
 
 .body-content-with-top-margin {

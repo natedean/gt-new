@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
     isCorrect,
   } = req.body;
 
-  if (!userID || !gameID || !questionID || !isCorrect) {
+  if (!gameID || !questionID || !isCorrect) {
     return res.status(500).send('Misshapen req body!');
   }
 
