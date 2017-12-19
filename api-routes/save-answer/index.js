@@ -9,9 +9,11 @@ router.post('/', async (req, res) => {
     isCorrect,
   } = req.body;
 
-  const result = await db.saveAnswer(userID, gameID, questionID, isCorrect);
+  if (!userID || !gameID || !questionID || !isCorrect) {
+    return res.status(500).send('Misshapen req body!');
+  }
 
-  console.log(result);
+  const result = await db.saveAnswer(userID, gameID, questionID, isCorrect);
 
   res.send({ result });
 });

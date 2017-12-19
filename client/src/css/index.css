@@ -8,7 +8,7 @@
 }
 
 .body-content-with-top-margin {
-  margin: 5vh auto 0;
+  margin: 10vh auto 0;
 }
 
 /* Animation classes */
@@ -96,4 +96,9 @@
   bottom: 1rem;
   font-size: 1rem;
   color: gray;
+}
+
+.secondaryText {
+  font-size: 1.2rem;
+  color: rgba(1,1,1,.7);
 }

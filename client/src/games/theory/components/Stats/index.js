@@ -14,7 +14,7 @@ const Score = ({userData, statsData, optimisticLeaderboard}) => {
   const rankMessage = setRankMessage(optimisticLeaderboard);
 
   return (
-    <div className="stats">
+    <div className="stats secondaryText">
       <div className="stats__permanentContent">
         <div className="stats__nameContainer">
           <div>{userData.username}</div>
