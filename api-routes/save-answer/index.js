@@ -6,11 +6,11 @@ router.post('/', async (req, res) => {
     userID,
     gameID,
     questionID,
-    isCorrect,
+    isCorrect = false,
   } = req.body;
 
-  if (!gameID || !questionID || !isCorrect) {
-    return res.status(500).send('Misshapen req body!');
+  if (!gameID || !questionID) {
+    return res.status(500).send('Misshapen req body! Must include gameID and questionID');
   }
 
   const result = await db.saveAnswer(userID, gameID, questionID, isCorrect);
