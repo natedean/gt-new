@@ -33,7 +33,6 @@ const isError = (state = initialAppState.user.isError, action) => {
 const data = (state = initialAppState.user.data, action) => {
   switch(action.type) {
     case 'SET_USER':
-      console.log('setting user');
       return action.user;
     case 'SET_USER_SCORE':
       return {...state, [`${action.gameID}_score`]: action.score};

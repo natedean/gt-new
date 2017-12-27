@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
+import LoadingIcon from '../components/LoadingIcon';
 import {setUser} from '../actions/user';
 
 class Callback extends Component {
 
   state = {
-    isLoading: true
+    isLoading: true,
+    isError: false
   };
 
   componentWillMount() {
@@ -19,13 +21,27 @@ class Callback extends Component {
 
           this.setState(() => ({isLoading: false}));
         })
+        .catch(() => {
+          this.setState(() => ({isLoading: false, isError: true}));
+        })
     }
   }
 
   render() {
-    const {isLoading} = this.state;
+    const {isLoading, isError} = this.state;
 
-    if (isLoading) return <div>Loading...</div>;
+    if (isLoading) return (<div style={{
+      display: 'flex',
+      position: 'fixed',
+      justifyContent: 'center',
+      alignItems: 'center',
+      top: '0',
+      left: '0',
+      width: '100%',
+      backgroundColor: 'white',
+    }}><LoadingIcon message={'Loading user info...'}  /></div>);
+
+    if (isError) return (<div>There has been an error loading user info.</div>);
 
     return <Redirect to="/" />;
   }

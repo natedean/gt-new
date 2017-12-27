@@ -15,7 +15,7 @@ import Logout from '../components/Logout';
 import RankedQuestionsList from '../components/RankedQuestionsList/index';
 import Callback from '../components/Callback';
 import Auth from '../Auth/index';
-import {setUser} from '../actions/user';
+import {setUser, setIsFetchingUser} from '../actions/user';
 import uuid from 'uuid/v4';
 
 import '../css/normalize.css';
@@ -32,8 +32,10 @@ class App extends Component {
 
     // if we have a user in localStorage, and our token has not expired, set the user in the store
     if (user && auth.isAuthenticated()) {
+      console.log('setting authenticated user');
       this.props.setUser(user);
     } else {
+      console.log('setting user stub');
       // set user in redux store, do not persist temp user to localStorage
       this.props.setUser({
         id: uuid(),
@@ -48,8 +50,8 @@ class App extends Component {
     return (
       <Router>
         <div className="container">
-          <NavBar user={user} />
-          <UserInfo user={user} />
+          <NavBar />
+          <UserInfo user={user} auth={auth} />
           <Route exact path="/" component={Home}/>
           <Route path="/about" component={LazyAbout}/>
           <Route path="/users" component={LazyUsers}/>
@@ -69,4 +71,4 @@ class App extends Component {
 
 const mapStateToProps = state => ({user: state.root.user.data});
 
-export default connect(mapStateToProps, {setUser})(App);
+export default connect(mapStateToProps, {setUser, setIsFetchingUser})(App);

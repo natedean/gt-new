@@ -1,16 +1,32 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
-const UserInfo = ({user}) => {
-  if (!user) return (<div>Loading user info...</div>);
+class UserInfo extends Component {
 
-  return (
-    <div className="secondaryText">
-      <span>{user.name}</span>
-      {user.score && <span> | {user.score}</span>}
-    </div>
-  )
-};
+  handleLoginClick = (e) => {
+    e.preventDefault();
+
+    this.props.auth.login();
+  };
+
+  render() {
+    const {user} = this.props;
+
+    if (!user) return (<div>Loading user info...</div>);
+
+    // user stubs will not have a sub property
+    const userName = user.sub ?
+      (<span>{user.name}</span>) :
+      (<a href="/#login" onClick={this.handleLoginClick}>{user.name}</a>);
+
+    return (
+      <div className="secondaryText">
+        {userName}
+        {user.score && <span> | {user.score}</span>}
+      </div>
+    )
+  }
+}
 
 UserInfo.propTypes = {
   user: PropTypes.object
