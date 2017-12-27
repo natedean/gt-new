@@ -15,7 +15,6 @@ class NavBar extends Component {
             <Fretboard width="50"/>
             <div className="nav__verticalContainer">
               <span className="nav__title">GuitarThinker</span>
-              {user && <div className="secondaryText">{user.name}</div>}
             </div>
           </Link>
         </div>

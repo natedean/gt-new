@@ -6,7 +6,8 @@ import LazyStaffNote from '../components/StaffNote/LazyIndex';
 import LazyNameThisNote from '../games/nameThisNote/LazyIndex';
 import LazyTheory from '../games/theory/LazyIndex';
 import LazyUsers from '../components/Users/LazyIndex';
-import NavBar from '../components/NavBar/index';
+import NavBar from '../components/NavBar';
+import UserInfo from '../components/UserInfo'
 import Home from '../components/Home/index';
 import Games from '../components/Games/index';
 import Login from '../components/Login';
@@ -15,6 +16,7 @@ import RankedQuestionsList from '../components/RankedQuestionsList/index';
 import Callback from '../components/Callback';
 import Auth from '../Auth/index';
 import {setUser} from '../actions/user';
+import uuid from 'uuid/v4';
 
 import '../css/normalize.css';
 import '../css/skeleton.css';
@@ -25,14 +27,18 @@ const auth = new Auth();
 class App extends Component {
 
   componentDidMount() {
-    if (process.env.NODE_ENV === 'development') {
-      // try to retrieve user from local storage
-      const user = JSON.parse(window.localStorage.getItem('gt_user'));
+    // try to retrieve user from local storage
+    const user = JSON.parse(window.localStorage.getItem('gt_user'));
 
-      // if we have a user in localStorage, and our token has not expired, set the user in the store
-      if (user && auth.isAuthenticated()) {
-        this.props.setUser(user);
-      }
+    // if we have a user in localStorage, and our token has not expired, set the user in the store
+    if (user && auth.isAuthenticated()) {
+      this.props.setUser(user);
+    } else {
+      // set user in redux store, do not persist temp user to localStorage
+      this.props.setUser({
+        id: uuid(),
+        name: 'Not Signed In'
+      });
     }
   }
 
@@ -43,6 +49,7 @@ class App extends Component {
       <Router>
         <div className="container">
           <NavBar user={user} />
+          <UserInfo user={user} />
           <Route exact path="/" component={Home}/>
           <Route path="/about" component={LazyAbout}/>
           <Route path="/users" component={LazyUsers}/>
