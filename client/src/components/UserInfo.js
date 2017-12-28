@@ -22,7 +22,8 @@ class UserInfo extends Component {
     return (
       <div className="secondaryText">
         {userName}
-        {user.score && <span> | {user.score}</span>}
+        {Number.isInteger(user.level) && <span> - Level: {user.level}</span>}
+        {Number.isInteger(user.score) && <span> - Score: {user.score}</span>}
       </div>
     )
   }

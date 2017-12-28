@@ -15,7 +15,7 @@ import Logout from '../components/Logout';
 import RankedQuestionsList from '../components/RankedQuestionsList/index';
 import Callback from '../components/Callback';
 import Auth from '../Auth/index';
-import {setUser, setIsFetchingUser} from '../actions/user';
+import {setUser} from '../actions';
 import uuid from 'uuid/v4';
 
 import '../css/normalize.css';
@@ -32,14 +32,14 @@ class App extends Component {
 
     // if we have a user in localStorage, and our token has not expired, set the user in the store
     if (user && auth.isAuthenticated()) {
-      console.log('setting authenticated user');
       this.props.setUser(user);
     } else {
-      console.log('setting user stub');
       // set user in redux store, do not persist temp user to localStorage
       this.props.setUser({
         id: uuid(),
-        name: 'Not Signed In'
+        name: 'Not Signed In',
+        level: 1,
+        score: 0
       });
     }
   }
@@ -71,4 +71,4 @@ class App extends Component {
 
 const mapStateToProps = state => ({user: state.root.user.data});
 
-export default connect(mapStateToProps, {setUser, setIsFetchingUser})(App);
+export default connect(mapStateToProps, {setUser})(App);

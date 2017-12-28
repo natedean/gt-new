@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import LoadingIcon from '../components/LoadingIcon';
-import {setUser} from '../actions/user';
+import {setUser} from '../actions';
+import {getScore} from '../services';
 
 class Callback extends Component {
 
@@ -17,9 +18,14 @@ class Callback extends Component {
     if (/access_token|id_token|error/.test(location.hash)) {
       auth.handleAuthentication(this.props)
         .then(user => {
-          this.props.setUser(user);
+          // we have the user object from Auth0, but also need score/level info
+          getScore(user.id).then(additionInfo => {
+            const updatedUser = {...user, ...additionInfo};
 
-          this.setState(() => ({isLoading: false}));
+            this.props.setUser(updatedUser);
+
+            this.setState(() => ({isLoading: false}));
+          });
         })
         .catch(() => {
           this.setState(() => ({isLoading: false, isError: true}));

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Motion, spring} from 'react-motion';
 import Staff, {notes} from '../../../components/Staff/index';
-import {getScore, saveAnswer} from '../../../actions';
+import {saveAnswer} from '../../../actions';
 import annyang from 'annyang';
 import '../index.css';
 
@@ -54,13 +54,7 @@ class NameThisNote extends Component {
     voiceRecognitionMessage: false
   };
 
-  componentWillMount() {
-    this.props.getScore('ntn');
-  }
-
   componentDidMount() {
-    // get user score for this game
-
     this.setState(() => ({
       voiceRecognitionMessage: this.setDefaultVoiceRecognitionMessage()
     }));
@@ -156,12 +150,10 @@ class NameThisNote extends Component {
   };
 
   render() {
-    const {score} = this.props;
     const {isLimbo, wasLastAnswerCorrect} = this.state;
 
     return (
       <div className="staffNote text-center">
-        <p>Score: {score}</p>
         <div className="text-center">
           <h4>What note is this?</h4>
           {isLimbo && <span style={{position: 'absolute'}}>{wasLastAnswerCorrect ? 'Correct!' : 'Incorrect'} {this.state.currNote.name}</span>}
@@ -197,13 +189,7 @@ class NameThisNote extends Component {
 }
 
 NameThisNote.propTypes = {
-  getScore: PropTypes.func.isRequired,
   saveAnswer: PropTypes.func.isRequired,
-  score: PropTypes.number
 };
 
-const mapStateToProps = state => ({
-  score: state.root.user.data && state.root.user.data.ntn_score
-});
-
-export default connect(mapStateToProps, {getScore, saveAnswer})(NameThisNote);
+export default connect(null, {saveAnswer})(NameThisNote);

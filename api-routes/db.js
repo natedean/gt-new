@@ -98,8 +98,8 @@ const getAnswerAverages = async () => {
   return res;
 };
 
-const getScore = async (userID, gameID) => {
-  const { collection, db } = await getCollection(`${gameID}_answers`);
+const getScore = async (userID) => {
+  const { collection, db } = await getCollection('answers');
 
   const score = await collection.find({ userID, isCorrect: true }).count();
 
@@ -108,10 +108,10 @@ const getScore = async (userID, gameID) => {
   return score;
 };
 
-const saveAnswer = async (userID, gameID, questionID, isCorrect) => {
-  const { collection, db } = await getCollection(`${gameID}_answers`);
+const saveAnswer = async (userID, questionID, isCorrect) => {
+  const { collection, db } = await getCollection('answers');
 
- const result = await collection.insertOne({ userID, questionID, isCorrect, timestamp: new Date() });
+  await collection.insertOne({ userID, questionID, isCorrect, timestamp: new Date() });
 
   db.close();
 

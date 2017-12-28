@@ -1,41 +1,21 @@
 import * as services from '../services';
 
-export const getScore = (gameID) => (dispatch, getState) => {
-  const user = getState().root.user.data;
-
-  if (!user) {
-    dispatch({
-      type: 'SET_USER_SCORE',
-      score: 0,
-      gameID
-    });
-    return;
-  }
-
-  services.getScore(user.id, gameID)
-    .then(res => {
-      dispatch({
-        type: 'SET_USER_SCORE',
-        score: res.score,
-        gameID
-      })
-    })
-    .catch(() => {
-      alert('There has been a problem retrieving your score for this game');
-    })
-};
-
-export const saveAnswer = (gameID, questionID, isCorrect) => (dispatch, getState) => {
-  const user = getState().root.user.data;
-
+export const setUser = (user) => (dispatch, getState) => {
+  // update store
   dispatch({
-    type: 'OPTIMISTIC_SAVE_ANSWER',
-    gameID,
-    questionID,
-    isCorrect
+    type: 'SET_USER',
+    user
   });
 
-  services.saveAnswer(user.id, gameID, questionID, isCorrect)
+  // update local storage
+  localStorage.setItem('gt_user', JSON.stringify(user));
+};
+
+export const saveAnswer = (questionID, isCorrect) => (dispatch, getState) => {
+  const user = getState().root.user.data;
+
+  // update server
+  services.saveAnswer(user.id, questionID, isCorrect)
     .then(res => {
       dispatch({
         type: 'SAVE_ANSWER_SUCCESS', // not sure if we need to do anything on success...
@@ -43,6 +23,12 @@ export const saveAnswer = (gameID, questionID, isCorrect) => (dispatch, getState
     })
     .catch(() => {
       alert('There has been a problem saving your answer');
-    })
+    });
 
+  // update locally, only if correct answer...
+  if (!isCorrect) return;
+
+  const newScore = user.score + 1;
+
+  setUser({...user, score: newScore})(dispatch, getState);
 };

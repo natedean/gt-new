@@ -3,7 +3,7 @@ const db = require('../db');
 
 router.get('/', async (req, res) => {
 
-  const score = await db.getScore(req.query.userID, req.query.gameID);
+  const score = await db.getScore(req.query.userID);
 
   res.send({ score });
 });
