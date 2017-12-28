@@ -1,21 +1,20 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
+import {} from 'react-motion';
 import {connect} from 'react-redux';
 import LazyAbout from '../components/About/LazyAbout';
-import LazyStaffNote from '../components/StaffNote/LazyIndex';
-import LazyNameThisNote from '../games/nameThisNote/LazyIndex';
-import LazyTheory from '../games/theory/LazyIndex';
 import LazyUsers from '../components/Users/LazyIndex';
 import NavBar from '../components/NavBar';
 import UserInfo from '../components/UserInfo'
 import Home from '../components/Home/index';
-import Games from '../components/Games/index';
 import Login from '../components/Login';
 import Logout from '../components/Logout';
 import RankedQuestionsList from '../components/RankedQuestionsList/index';
 import Callback from '../components/Callback';
 import Auth from '../Auth/index';
+import Play from './Play';
 import {setUser} from '../actions';
+import FadeRoute from '../components/FadeRoute';
 import uuid from 'uuid/v4';
 
 import '../css/normalize.css';
@@ -31,6 +30,7 @@ class App extends Component {
     const user = JSON.parse(window.localStorage.getItem('gt_user'));
 
     // if we have a user in localStorage, and our token has not expired, set the user in the store
+    // only AUTHENTICATED users will get picked up (not user stubs) - this could be changed to allow non-logged-in-users to persist scores
     if (user && auth.isAuthenticated()) {
       this.props.setUser(user);
     } else {
@@ -52,14 +52,11 @@ class App extends Component {
         <div className="container">
           <NavBar />
           <UserInfo user={user} auth={auth} />
-          <Route exact path="/" component={Home}/>
-          <Route path="/about" component={LazyAbout}/>
+          <FadeRoute exact path="/" component={Home} />
+          <FadeRoute path="/play" component={Play} />
+          <FadeRoute path="/about" component={LazyAbout} />
           <Route path="/users" component={LazyUsers}/>
           <Route path="/questions" component={RankedQuestionsList}/>
-          <Route exact path="/games" component={Games}/>
-          <Route path="/games/theory" render={() => <LazyTheory store={store} />}/>
-          <Route path="/games/staff-note" component={LazyStaffNote}/>
-          <Route path="/games/name-this-note" render={() => <LazyNameThisNote store={store}/>} />
           <Route path="/login" render={() => (<Login auth={auth} />)} />
           <Route path="/logout" render={() => (<Logout auth={auth} />)} />
           <Route path="/callback" render={(props) => (<Callback auth={auth} {...props} />)}/>

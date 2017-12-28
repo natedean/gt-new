@@ -2,10 +2,10 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Motion, spring} from 'react-motion';
-import Staff, {notes} from '../../../components/Staff/index';
-import {saveAnswer} from '../../../actions';
+import Staff, {notes} from '../../components/Staff/index';
+import {saveAnswer} from '../../actions/index';
 import annyang from 'annyang';
-import '../index.css';
+import './index.css';
 
 navigator.getUserMedia  = navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||

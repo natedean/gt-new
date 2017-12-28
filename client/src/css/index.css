@@ -3,6 +3,11 @@
   --color-red: #f44336;
 }
 
+.route {
+  position: absolute;
+  width: 100%;
+}
+
 button a {
   text-decoration: none;
   color: inherit;
@@ -29,9 +34,9 @@ button a {
   width: 25rem;
 }
 
-.vertical-button-array button:last-of-type {
-  margin-bottom: 0;
-}
+/*.vertical-button-array button:last-of-type {*/
+  /*margin-bottom: 0;*/
+/*}*/
 
 .body-content-with-top-margin {
   margin: 10vh auto 0;
