@@ -3,13 +3,8 @@ import LazyWrapper from '../../components/LazyWrapper';
 import {injectAsyncReducer, removeAsyncReducer} from '../../configureStore';
 
 class LazyIndex extends Component {
-
-  componentWillUnmount() {
-    removeAsyncReducer(this.props.store, 'nameThisNote');
-  }
-
   render() {
-    return (<LazyWrapper store={this.props.store} getComponent={() => {
+    return (<LazyWrapper getComponent={() => {
       return Promise.all([
         import('./index'),
       ]).then(modules => {
