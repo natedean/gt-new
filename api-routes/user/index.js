@@ -1,21 +1,23 @@
 const router = require('express').Router();
 const db = require('../db');
 
-router.post('/create', (req, res) => {
-  console.log('creating!', req.body.username);
-  return db.createNewUser(req.body.username).then(user => {
-    res.send(user);
-  }).catch(err => {
-    res.send('There has been an error creating the user');
-  })
-});
+router.get('/info', async (req, res) => {
+  const userID = req.query.id;
 
-router.post('/answer', (req, res) => {
-  const answerData = req.body;
+  if (!userID) {
+    return res.status(500).send('Misshapen req body! Must have id');
+  }
 
-  db.handleAnswerEvent(answerData)
-    .then(user => res.send(user))
-    .catch(() => res.status(500).send('There has been an error handling the answer event.'));
+  const userInfo = await db.getUserInfo(userID);
+
+  if (userInfo) {
+    return res.send(userInfo);
+  }
+
+  // if no userInfo exists, create a new one and return it.
+  const newUserInfo = await db.insertNewUserInfoRecord(userID);
+
+  return res.send(newUserInfo);
 });
 
 module.exports = router;

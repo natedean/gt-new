@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import {Redirect} from 'react-router-dom';
 import LoadingIcon from '../components/LoadingIcon';
 import {setUser} from '../actions';
-import {getScore} from '../services';
+import {getUserInfo} from '../services';
 
 class Callback extends Component {
 
@@ -19,7 +19,8 @@ class Callback extends Component {
       auth.handleAuthentication(this.props)
         .then(user => {
           // we have the user object from Auth0, but also need score/level info
-          getScore(user.id).then(additionInfo => {
+          getUserInfo(user.id).then(additionInfo => {
+            debugger;
             const updatedUser = {...user, ...additionInfo};
 
             this.props.setUser(updatedUser);

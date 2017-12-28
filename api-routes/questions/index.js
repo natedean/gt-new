@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const questions = require('./questions');
+const questions = require('../data/questions');
 const db = require('../db');
 
 router.get('/', (req, res) => {

@@ -12,9 +12,13 @@ router.post('/', async (req, res) => {
     return res.status(500).send('Misshapen req body! Must questionID');
   }
 
-  const result = await db.saveAnswer(userID, questionID, isCorrect);
+  // update answers collection
+  await db.saveAnswer(userID, questionID, isCorrect);
 
-  res.send({ result });
+  // if it was a correct answer, we need to update our user-info collection
+  await db.incrementUserScore(userID);
+
+  res.send('answers and user-info collection successfully updated');
 });
 
 module.exports = router;

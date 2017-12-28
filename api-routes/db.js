@@ -6,6 +6,8 @@ const {MongoClient, ObjectID} = MongoDB;
 
 if (!MONGO_URI) throw('MONGO_URI environment variable must be set');
 
+const questions = require('./data/questions');
+
 const getUsers = (pageOffset, limit, sortField, sortCode) =>
   MongoClient.connect(MONGO_URI)
     .then(db => {
@@ -111,7 +113,58 @@ const getScore = async (userID) => {
 const saveAnswer = async (userID, questionID, isCorrect) => {
   const { collection, db } = await getCollection('answers');
 
-  await collection.insertOne({ userID, questionID, isCorrect, timestamp: new Date() });
+  // lookup additional question info
+  const question = questions[questionID];
+
+  const {category, level} = question;
+
+  await collection.insertOne({
+    userID,
+    questionID,
+    isCorrect,
+    category,
+    level,
+    timestamp: new Date()
+  });
+
+  db.close();
+
+  return 'success!';
+};
+
+const getUserInfo = async (userID) => {
+  // user-info collection is meant to be a quick de-normalized store,
+  // mostly for level storage
+  const { collection, db } = await getCollection('user-info');
+
+  const userInfo = await collection.findOne({ id: userID });
+
+  db.close();
+
+  return userInfo;
+};
+
+const insertNewUserInfoRecord = async (userID) => {
+  const { collection, db } = await getCollection('user-info');
+
+  const result = await collection.insertOne({
+    id: userID,
+    level: 1,
+    score: 0,
+    createdAt: new Date()
+  });
+
+  db.close();
+
+  const newUserInfo = result.ops[0]; // dumb...
+
+  return newUserInfo;
+};
+
+const incrementUserScore = async (userID) => {
+  const { collection, db } = await getCollection('user-info');
+
+  await collection.findOneAndUpdate({ id: userID }, { $inc: {score: 1} });
 
   db.close();
 
@@ -119,9 +172,11 @@ const saveAnswer = async (userID, questionID, isCorrect) => {
 };
 
 module.exports = {
+  getUserInfo,
+  insertNewUserInfoRecord,
   getUsers,
   getTopUsers,
-  getCollection,
+  incrementUserScore,
   getAnswerAverages,
   getScore,
   saveAnswer

@@ -112,7 +112,7 @@ class NameThisNote extends Component {
     const currAnsweredNote = this.state.currNote;
     const hasAnsweredAll = this.state.answeredNoteNames.length === notes.length - 1;
 
-    this.props.saveAnswer('ntn', currAnsweredNote.name, wasLastAnswerCorrect);
+    this.props.saveAnswer(`sr-${currAnsweredNote.name}`, wasLastAnswerCorrect);
 
     this.voiceRecognitionStop();
 

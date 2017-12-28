@@ -1,5 +1,5 @@
-export const getScore = (userID) => {
-  return fetch(`/api/score?userID=${userID}`)
+export const getUserInfo = (userID) => {
+  return fetch(`/api/user/info?id=${userID}`)
     .then(res => res.json());
 };
 
