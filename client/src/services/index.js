@@ -14,6 +14,5 @@ export const saveAnswer = (userID, questionID, isCorrect) => {
       questionID,
       isCorrect,
     })
-  })
-    .then(res => res.json())
+  });
 };
