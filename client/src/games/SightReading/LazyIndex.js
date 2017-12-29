@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import LazyWrapper from '../../components/LazyWrapper';
-import {injectAsyncReducer, removeAsyncReducer} from '../../configureStore';
 
 class LazyIndex extends Component {
   render() {

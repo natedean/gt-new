@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {Motion, spring} from 'react-motion';
-import Staff, {notes} from '../../components/Staff/index';
-import {saveAnswer} from '../../actions/index';
+import Staff, {notes} from '../../components/Staff';
+import {saveAnswer} from '../../actions';
 import './index.css';
 
 class NameThisNote extends Component {

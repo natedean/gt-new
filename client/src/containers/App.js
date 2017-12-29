@@ -45,14 +45,14 @@ class App extends Component {
   }
 
   render() {
-    const {store, user} = this.props;
+    const {user} = this.props;
 
     return (
       <Router>
         <div className="container">
           <NavBar />
           <UserInfo user={user} auth={auth} />
-          <FadeRoute exact path="/" component={Home} />
+          <FadeRoute exact path="/" component={() => (<Home user={user} auth={auth} />)} />
           <FadeRoute path="/play" component={Play} />
           <FadeRoute path="/about" component={LazyAbout} />
           <Route path="/users" component={LazyUsers}/>
