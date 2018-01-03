@@ -44,16 +44,23 @@ class App extends Component {
     }
   }
 
+  handleLoginClick = (e) => {
+    e.preventDefault();
+
+    auth.login();
+  };
+
   render() {
     const {user} = this.props;
+    const isAuthenticated = auth.isAuthenticated();
 
     return (
       <Router>
         <div className="container">
           <NavBar />
           <UserInfo user={user} auth={auth} />
-          <FadeRoute exact path="/" component={() => (<Home user={user} auth={auth} />)} />
-          <FadeRoute path="/play" component={Play} />
+          <FadeRoute exact path="/" component={() => (<Home isAuthenticated={isAuthenticated} handleLoginClick={this.handleLoginClick} />)} />
+          <FadeRoute path="/play" component={() => (<Play isAuthenticated={isAuthenticated} handleLoginClick={this.handleLoginClick} />)} />
           <FadeRoute path="/about" component={LazyAbout} />
           <Route path="/users" component={LazyUsers}/>
           <Route path="/questions" component={RankedQuestionsList}/>

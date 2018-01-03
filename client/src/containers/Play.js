@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import {saveAnswer} from '../actions';
 import LazySightReading from '../games/SightReading/LazyIndex';
 
@@ -25,7 +26,7 @@ class Play extends Component {
 
   render() {
     const {question, userHasBeenWelcomed} = this.state;
-    const {user} = this.props;
+    const {user, isAuthenticated, handleLoginClick} = this.props;
 
     if (!user) return (<div>No user found</div>);
 
@@ -41,7 +42,7 @@ class Play extends Component {
                 <br/>
                 There will be games, and fun, and places to study if you struggle.
               </p>
-              {!user.sub && <p className="secondaryText">If you sign in, your points and level will be saved.</p>}
+              {!isAuthenticated && <p className="secondaryText">If you <a href="/#login" onClick={handleLoginClick}>Sign In</a>, your points and level will be saved.</p>}
               <button onClick={this.setUserHasBeenWelcomed}>SWEET, I AM READY</button>
             </div>
           </div>
@@ -62,5 +63,11 @@ class Play extends Component {
 const mapStateToProps = (state) => ({
   user: state.root.user.data
 });
+
+Play.propTypes = {
+  user: PropTypes.object,
+  isAuthenticated: PropTypes.bool.isRequired,
+  handleLoginClick: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps)(Play);
