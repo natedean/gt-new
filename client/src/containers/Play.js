@@ -6,53 +6,58 @@ import LazySightReading from '../games/SightReading/LazyIndex';
 class Play extends Component {
 
   state = {
-    mode: null,
-    category: null
+    userHasBeenWelcomed: false,
+    question: {
+      text: 'What note is this?',
+      difficulty: 1,
+      staff: {
+
+      },
+      fretboard: {
+
+      }
+    }
   };
 
-  componentWillMount() {
-    console.log(this.props);
-  }
-
-  setQuestionMode = (category) => {
-    this.setState(() => ({ mode: 'question', category }));
+  setUserHasBeenWelcomed = () => {
+    this.setState(() => ({userHasBeenWelcomed: true}));
   };
 
   render() {
-    const {mode, category} = this.state;
+    const {question, userHasBeenWelcomed} = this.state;
     const {user} = this.props;
 
-    const view = mode ? viewSelector(category) : (<div>
-      <h3>Oh, hi there!</h3>
-      <p>It's time to learn and play. <br /> What category would you like?</p>
-      <div className="vertical-button-array">
-        <button onClick={this.setQuestionMode.bind(this, 'Guitar Fretboard')}>Guitar Fretboard</button>
-        <button onClick={this.setQuestionMode.bind(this, 'Sight-Reading')}>Sight Reading</button>
-        <button onClick={this.setQuestionMode.bind(this, 'Music-Theory')}>Music Theory</button>
-      </div>
-    </div>);
+    if (!user) return (<div>No user found</div>);
 
-    if (!user) return null;
+    if (!userHasBeenWelcomed && user.score === 0) {
+      return (
+        <div>
+          <div className="home body-content-with-top-margin">
+            <div className="text-center">
+              <h3>Alright, let's do this!</h3>
+              <p>I am going to ask you some questions.
+                <br/>
+                Questions will get harder if you're doing well.
+                <br/>
+                There will be games, and fun, and places to study if you struggle.
+              </p>
+              {!user.sub && <p className="secondaryText">If you sign in, your points and level will be saved.</p>}
+              <button onClick={this.setUserHasBeenWelcomed}>SWEET, I AM READY</button>
+            </div>
+          </div>
+        </div>
+      )
+    }
 
     return (
       <div className="home body-content-with-top-margin">
         <div className="text-center">
-          {mode && <p>Category: {category} - Level {user.level}</p>}
-          {view}
+          <h3>{question.text}</h3>
         </div>
       </div>
     );
   }
 }
-
-const viewSelector = (viewName) => {
-  switch(viewName) {
-    case 'Sight-Reading':
-      return (<LazySightReading />);
-    default:
-      return (<div>No view found</div>)
-  }
-};
 
 const mapStateToProps = (state) => ({
   user: state.root.user.data
