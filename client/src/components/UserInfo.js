@@ -2,22 +2,14 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 
 class UserInfo extends Component {
-
-  handleLoginClick = (e) => {
-    e.preventDefault();
-
-    this.props.auth.login();
-  };
-
   render() {
-    const {user} = this.props;
+    const {user, isAuthenticated, handleLoginClick} = this.props;
 
     if (!user) return (<div>Loading user info...</div>);
 
-    // user stubs will not have a sub property
-    const userName = user.sub ?
+    const userName = isAuthenticated ?
       (<span>{user.name}</span>) :
-      (<a href="/#login" onClick={this.handleLoginClick}>{user.name}</a>);
+      (<a href="/#login" onClick={handleLoginClick}>{user.name}</a>);
 
     return (
       <div className="secondaryText">
@@ -30,7 +22,9 @@ class UserInfo extends Component {
 }
 
 UserInfo.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  isAuthenticated: PropTypes.bool.isRequired,
+  handleLoginClick: PropTypes.func.isRequired
 };
 
 export default UserInfo;

@@ -20,7 +20,6 @@ class Callback extends Component {
         .then(user => {
           // we have the user object from Auth0, but also need score/level info
           getUserInfo(user.id).then(additionInfo => {
-            debugger;
             const updatedUser = {...user, ...additionInfo};
 
             this.props.setUser(updatedUser);
