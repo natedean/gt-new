@@ -2,10 +2,10 @@ import React from 'react';
 import {Route} from 'react-router-dom';
 import {TransitionMotion, spring} from 'react-motion';
 
-const FadeRoute = ({ component: Component, ...rest }) => {
+const FadeRoute = ({ render: Component, ...rest }) => {
 
   return (
-    <Route {...rest} children={({ location, match }) => (
+    <Route {...rest} render={({ location, match }) => (
       <TransitionMotion
         willEnter={() => {return {opacity: 0 }}}
         willLeave={() => {return {opacity: spring(0, 1)}}}
@@ -28,7 +28,7 @@ const FadeRoute = ({ component: Component, ...rest }) => {
                 key={config.key}
                 style={{opacity: `${config.style.opacity}`}}
               >
-                <Component />
+                <Component/>
               </div>
             ))}
           </div>
