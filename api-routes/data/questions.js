@@ -58,25 +58,28 @@ module.exports = {
       {name: 'B3', yOffset: '55'},
       {name: 'E4', yOffset: '70'},
     ],
-    fretboard: [{fret: 0, finger: 0}, {fret: 2, finger: 2}, {fret: 2, finger: 3}, {fret: 0, finger: 0}, {
-      fret: 0,
-      finger: 0
-    }, {fret: 0, finger: 0},],
+    fretboard: [
+      {fret: 0, finger: 0},
+      {fret: 2, finger: 2},
+      {fret: 2, finger: 3},
+      {fret: 0, finger: 0},
+      {fret: 0, finger: 0},
+      {fret: 0, finger: 0},],
     answers: [
       {
-        "text": 'E Major',
+        "text": 'E minor',
         "isCorrect": true
       },
       {
-        "text": 'D Major',
+        "text": 'D minor',
         "isCorrect": false
       },
       {
-        "text": 'G Major',
+        "text": 'G minor',
         "isCorrect": false
       },
       {
-        "text": 'B Major',
+        "text": 'B minor',
         "isCorrect": false
       }
     ]

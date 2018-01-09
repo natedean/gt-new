@@ -61,11 +61,7 @@ export const getCurrentQuestion = (state) => {
   const randIndex = Math.floor(Math.random() * numQuestions);
   const questionID = allIDs[randIndex];
 
-  console.log(questionID);
-
-  // for now... just pick a random number...
-  // eventually, we will need to not ask repeat questions, etc.
-  return questionDict[questionID];
+  return {id: questionID, ...questionDict[questionID]};
 };
 
 export const getQuestionsIsLoading = (state) => state.isLoading;
