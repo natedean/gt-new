@@ -3,36 +3,104 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import StaffWithNotes from '../components/StaffWithNotes';
 import Fretboard from '../components/Fretboard';
+import AnswerButtons from '../components/AnswerButtons';
+import {saveAnswer} from '../actions';
 
 class Play extends Component {
 
   state = {
     userHasBeenWelcomed: false,
-    // question: {
-    //   text: 'What note is this?',
-    //   difficulty: 1,
-    //   staff: [{ name: 'E2', yOffset: '0' }],
-    //   fretboard: [{fret: 0, finger: 0}]
-    // },
-    // question: {
-    //   text: 'What note is this?',
-    //   difficulty: 1,
-    //   staff: [{name: 'A2', yOffset: '15'}],
-    //   fretboard: [null, {fret: 0, finger: 0}]
-    // },
-    question: {
-      text: 'What chord is this?',
-      difficulty: 2,
-      staff: [
-        { name: 'E2', yOffset: '0' },
-        { name: 'B2', yOffset: '20' },
-        { name: 'E3', yOffset: '35'},
-        { name: 'G3', yOffset: '45'},
-        { name: 'B3', yOffset: '55'},
-        { name: 'E4', yOffset: '70'},
-      ],
-      fretboard: [{fret: 0, finger: 0}, {fret: 2, finger: 2}, {fret: 2, finger: 3}, {fret: 0, finger: 0}, {fret: 0, finger: 0}, {fret: 0, finger: 0},]
-    }
+    questionIndex: 0,
+    questions: [
+      {
+        id: 'note-E2',
+        text: 'What note is this?',
+        difficulty: 1,
+        staff: [{ name: 'E2', yOffset: '0' }],
+        fretboard: [{fret: 0, finger: 0}],
+        answers: [
+          {
+            "text": 'E',
+            "isCorrect": true
+          },
+          {
+            "text": 'A',
+            "isCorrect": false
+          },
+          {
+            "text": 'G',
+            "isCorrect": false
+          },
+          {
+            "text": 'B',
+            "isCorrect": false
+          }
+        ]
+      },
+      {
+        id: 'note-A2',
+        text: 'What note is this?',
+        difficulty: 1,
+        staff: [{name: 'A2', yOffset: '15'}],
+        fretboard: [null, {fret: 0, finger: 0}],
+        answers: [
+          {
+            "text": 'A',
+            "isCorrect": true
+          },
+          {
+            "text": 'D',
+            "isCorrect": false
+          },
+          {
+            "text": 'G',
+            "isCorrect": false
+          },
+          {
+            "text": 'B',
+            "isCorrect": false
+          }
+        ]
+      },
+      {
+        id: 'chord-E0',
+        text: 'What chord is this?',
+        difficulty: 2,
+        staff: [
+          { name: 'E2', yOffset: '0' },
+          { name: 'B2', yOffset: '20' },
+          { name: 'E3', yOffset: '35'},
+          { name: 'G3', yOffset: '45'},
+          { name: 'B3', yOffset: '55'},
+          { name: 'E4', yOffset: '70'},
+        ],
+        fretboard: [{fret: 0, finger: 0}, {fret: 2, finger: 2}, {fret: 2, finger: 3}, {fret: 0, finger: 0}, {fret: 0, finger: 0}, {fret: 0, finger: 0},],
+        answers: [
+          {
+            "text": 'E Major',
+            "isCorrect": true
+          },
+          {
+            "text": 'D Major',
+            "isCorrect": false
+          },
+          {
+            "text": 'G Major',
+            "isCorrect": false
+          },
+          {
+            "text": 'B Major',
+            "isCorrect": false
+          }
+        ]
+      }
+    ]
+  };
+
+  handleAnswer = (isCorrect, answerText) => {
+    const question = this.state.questions[this.state.questionIndex];
+
+    this.props.saveAnswer(question.id, isCorrect, this.milliseconds, answerText)
   };
 
   setUserHasBeenWelcomed = () => {
@@ -40,8 +108,10 @@ class Play extends Component {
   };
 
   render() {
-    const {question, userHasBeenWelcomed} = this.state;
+    const {questions, questionIndex, userHasBeenWelcomed} = this.state;
     const {user, isAuthenticated, handleLoginClick} = this.props;
+
+    const question = questions[questionIndex];
 
     if (!user) return (<div>No user found</div>);
 
@@ -53,7 +123,7 @@ class Play extends Component {
               <h3>Alright, let's do this!</h3>
               <p>I am going to ask you some questions.
                 <br/>
-                Questions will get harder if you're doing well.
+                Questions will get harder as you go.
                 <br/>
                 There will be games, and fun, and places to study if you struggle.
               </p>
@@ -88,12 +158,19 @@ class Play extends Component {
       <div className="home body-content-with-top-margin">
         <div className="text-center">
           <h3>{question.text}</h3>
-          <div style={{display: 'flex', width: '400px', maxWidth: '95%', justifyContent: 'center', margin: '0 auto'}}>
+          <div style={{display: 'flex', width: '400px', maxWidth: '95%', justifyContent: 'center', margin: '0 auto 2rem'}}>
             <div style={{marginRight: '3rem'}}>
               <StaffWithNotes notes={question.staff} />
             </div>
             <Fretboard notes={question.fretboard} />
           </div>
+          <AnswerButtons
+            answers={question.answers}
+            isLimbo={false}
+            isCorrectLimbo={false}
+            incorrectAnswerText={'you messed up'}
+            onClick={this.handleAnswer}
+          />
         </div>
       </div>
     );
@@ -104,10 +181,15 @@ const mapStateToProps = (state) => ({
   user: state.root.user.data
 });
 
+const mapDispatchToProps = {
+  saveAnswer
+};
+
 Play.propTypes = {
   user: PropTypes.object,
   isAuthenticated: PropTypes.bool.isRequired,
-  handleLoginClick: PropTypes.func.isRequired
+  handleLoginClick: PropTypes.func.isRequired,
+  saveAnswer: PropTypes.func.isRequired,
 };
 
-export default connect(mapStateToProps)(Play);
+export default connect(mapStateToProps, mapDispatchToProps)(Play);

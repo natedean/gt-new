@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { questionShape } from '../../../../constants/propShapes';
-import AnswerButtons from '../AnswerButtons';
+import AnswerButtons from '../../../../components/AnswerButtons';
 import Helpers from '../Helpers';
 import CorrectAnswerDisplay from '../../../../components/CorrectAnswerDisplay/index';
 import './index.css';

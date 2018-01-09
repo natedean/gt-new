@@ -1,24 +1,84 @@
 module.exports = {
-  'sr-E2': { text: 'E2', category: 'sight-reading', level: 1 },
-  'sr-F2': { text: 'F2', category: 'sight-reading', level: 1 },
-  'sr-G2': { text: 'G2', category: 'sight-reading', level: 1 },
-  'sr-A2': { text: 'A2', category: 'sight-reading', level: 1 },
-  'sr-B2': { text: 'B2', category: 'sight-reading', level: 1 },
-  'sr-C3': { text: 'C3', category: 'sight-reading', level: 1 },
-  'sr-D3': { text: 'D3', category: 'sight-reading', level: 1 },
-  'sr-E3': { text: 'E3', category: 'sight-reading', level: 1 },
-  'sr-F3': { text: 'F3', category: 'sight-reading', level: 1 },
-  'sr-G3': { text: 'G3', category: 'sight-reading', level: 1 },
-  'sr-A3': { text: 'A3', category: 'sight-reading', level: 1 },
-  'sr-B3': { text: 'B3', category: 'sight-reading', level: 1 },
-  'sr-C4': { text: 'C4', category: 'sight-reading', level: 1 },
-  'sr-D4': { text: 'D4', category: 'sight-reading', level: 1 },
-  'sr-E4': { text: 'E4', category: 'sight-reading', level: 1 },
-  'sr-F4': { text: 'F4', category: 'sight-reading', level: 1 },
-  'sr-G4': { text: 'G4', category: 'sight-reading', level: 1 },
-  'sr-A4': { text: 'A4', category: 'sight-reading', level: 1 },
-  'sr-B4': { text: 'B4', category: 'sight-reading', level: 1 },
-  'sr-C5': { text: 'C5', category: 'sight-reading', level: 1 },
-  'sr-D5': { text: 'D5', category: 'sight-reading', level: 1 },
-  'sr-E5': { text: 'E5', category: 'sight-reading', level: 1 },
+  'note-E2': {
+    text: 'What note is this?',
+    difficulty: 1,
+    staff: [{name: 'E2', yOffset: '0'}],
+    fretboard: [{fret: 0, finger: 0}],
+    answers: [
+      {
+        "text": 'E',
+        "isCorrect": true
+      },
+      {
+        "text": 'A',
+        "isCorrect": false
+      },
+      {
+        "text": 'G',
+        "isCorrect": false
+      },
+      {
+        "text": 'B',
+        "isCorrect": false
+      }
+    ]
+  },
+  'note-A2': {
+    text: 'What note is this?',
+    difficulty: 1,
+    staff: [{name: 'A2', yOffset: '15'}],
+    fretboard: [null, {fret: 0, finger: 0}],
+    answers: [
+      {
+        "text": 'A',
+        "isCorrect": true
+      },
+      {
+        "text": 'D',
+        "isCorrect": false
+      },
+      {
+        "text": 'G',
+        "isCorrect": false
+      },
+      {
+        "text": 'B',
+        "isCorrect": false
+      }
+    ]
+  },
+  'chord-E0': {
+    text: 'What chord is this?',
+    difficulty: 2,
+    staff: [
+      {name: 'E2', yOffset: '0'},
+      {name: 'B2', yOffset: '20'},
+      {name: 'E3', yOffset: '35'},
+      {name: 'G3', yOffset: '45'},
+      {name: 'B3', yOffset: '55'},
+      {name: 'E4', yOffset: '70'},
+    ],
+    fretboard: [{fret: 0, finger: 0}, {fret: 2, finger: 2}, {fret: 2, finger: 3}, {fret: 0, finger: 0}, {
+      fret: 0,
+      finger: 0
+    }, {fret: 0, finger: 0},],
+    answers: [
+      {
+        "text": 'E Major',
+        "isCorrect": true
+      },
+      {
+        "text": 'D Major',
+        "isCorrect": false
+      },
+      {
+        "text": 'G Major',
+        "isCorrect": false
+      },
+      {
+        "text": 'B Major',
+        "isCorrect": false
+      }
+    ]
+  }
 };
