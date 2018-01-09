@@ -137,9 +137,7 @@ class Play extends Component {
           <div className="home body-content-with-top-margin">
             <div className="text-center">
               <h3>Welcome back!</h3>
-              <p>I am going to ask you some more questions.
-                <br/>
-                Wow, you already have {user.score} points! That's big time.
+              <p>Wow, you already have {user.score} points! That's big time.
                 <br/>
                 Let's continue your fast track to world domination.
               </p>
