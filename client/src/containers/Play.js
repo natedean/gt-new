@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import StaffWithNotes from '../components/StaffWithNotes';
 import Fretboard from '../components/Fretboard';
 import AnswerButtons from '../components/AnswerButtons';
-import {saveAnswer} from '../actions';
+import {saveAnswer, setUserHasBeenWelcomed} from '../actions';
 
 class Play extends Component {
 
@@ -103,13 +103,9 @@ class Play extends Component {
     this.props.saveAnswer(question.id, isCorrect, this.milliseconds, answerText)
   };
 
-  setUserHasBeenWelcomed = () => {
-    this.setState(() => ({userHasBeenWelcomed: true}));
-  };
-
   render() {
-    const {questions, questionIndex, userHasBeenWelcomed} = this.state;
-    const {user, isAuthenticated, handleLoginClick} = this.props;
+    const {questions, questionIndex} = this.state;
+    const {user, isAuthenticated, handleLoginClick, setUserHasBeenWelcomed, userHasBeenWelcomed} = this.props;
 
     const question = questions[questionIndex];
 
@@ -128,7 +124,7 @@ class Play extends Component {
                 There will be games, and fun, and places to study if you struggle.
               </p>
               {!isAuthenticated && <p className="secondaryText">If you <a href="/#login" onClick={handleLoginClick}>Sign In</a>, your points and level will be saved.</p>}
-              <button onClick={this.setUserHasBeenWelcomed}>SWEET, I AM READY</button>
+              <button onClick={setUserHasBeenWelcomed}>SWEET, I AM READY</button>
             </div>
           </div>
         </div>
@@ -147,7 +143,7 @@ class Play extends Component {
                 <br/>
                 Let's continue your fast track to world domination.
               </p>
-              <button onClick={this.setUserHasBeenWelcomed}>LET US DO THIS</button>
+              <button onClick={setUserHasBeenWelcomed}>LET US DO THIS</button>
             </div>
           </div>
         </div>
@@ -178,11 +174,13 @@ class Play extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  user: state.root.user.data
+  user: state.root.user.data,
+  userHasBeenWelcomed: state.root.userHasBeenWelcomed
 });
 
 const mapDispatchToProps = {
-  saveAnswer
+  saveAnswer,
+  setUserHasBeenWelcomed
 };
 
 Play.propTypes = {
@@ -190,6 +188,8 @@ Play.propTypes = {
   isAuthenticated: PropTypes.bool.isRequired,
   handleLoginClick: PropTypes.func.isRequired,
   saveAnswer: PropTypes.func.isRequired,
+  setUserHasBeenWelcomed: PropTypes.func.isRequired,
+  userHasBeenWelcomed: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Play);

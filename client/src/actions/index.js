@@ -32,3 +32,7 @@ export const saveAnswer = (questionID, isCorrect) => (dispatch, getState) => {
 
   setUser({...user, score: newScore})(dispatch, getState);
 };
+
+export const setUserHasBeenWelcomed = () => ({
+  type: 'USER_WELCOME_COMPLETE'
+});

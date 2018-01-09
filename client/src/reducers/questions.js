@@ -1,7 +1,7 @@
 import {combineReducers} from 'redux';
 import initialAppState from './initialAppState';
 
-const isLoading = (state = initialAppState.user.isLoading, action) => {
+const isLoading = (state = initialAppState.questions.isLoading, action) => {
   switch(action.type) {
     case 'FETCHING_USER':
       return true;
@@ -13,7 +13,7 @@ const isLoading = (state = initialAppState.user.isLoading, action) => {
   }
 };
 
-const isError = (state = initialAppState.user.isError, action) => {
+const isError = (state = initialAppState.questions.isError, action) => {
   switch(action.type) {
     case 'FETCHING_USER':
     case 'FETCH_USER_SUCCESS':
@@ -25,7 +25,7 @@ const isError = (state = initialAppState.user.isError, action) => {
   }
 };
 
-const data = (state = initialAppState.user.data, action) => {
+const data = (state = initialAppState.questions.data, action) => {
   switch(action.type) {
     case 'SET_USER':
       return action.user;
