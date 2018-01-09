@@ -5,7 +5,8 @@ export default {
     isError: false
   },
   questions: {
-    data: null,
+    byID: null,
+    allIDs: [],
     isLoading: false,
     isError: false
   },

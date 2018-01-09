@@ -4,110 +4,29 @@ import PropTypes from 'prop-types';
 import StaffWithNotes from '../components/StaffWithNotes';
 import Fretboard from '../components/Fretboard';
 import AnswerButtons from '../components/AnswerButtons';
-import {saveAnswer, setUserHasBeenWelcomed} from '../actions';
+import {saveAnswer, setUserHasBeenWelcomed, fetchQuestions} from '../actions';
+import {getCurrentQuestion, getQuestionsIsLoading} from '../reducers';
 
 class Play extends Component {
 
-  state = {
-    userHasBeenWelcomed: false,
-    questionIndex: 0,
-    questions: [
-      {
-        id: 'note-E2',
-        text: 'What note is this?',
-        difficulty: 1,
-        staff: [{ name: 'E2', yOffset: '0' }],
-        fretboard: [{fret: 0, finger: 0}],
-        answers: [
-          {
-            "text": 'E',
-            "isCorrect": true
-          },
-          {
-            "text": 'A',
-            "isCorrect": false
-          },
-          {
-            "text": 'G',
-            "isCorrect": false
-          },
-          {
-            "text": 'B',
-            "isCorrect": false
-          }
-        ]
-      },
-      {
-        id: 'note-A2',
-        text: 'What note is this?',
-        difficulty: 1,
-        staff: [{name: 'A2', yOffset: '15'}],
-        fretboard: [null, {fret: 0, finger: 0}],
-        answers: [
-          {
-            "text": 'A',
-            "isCorrect": true
-          },
-          {
-            "text": 'D',
-            "isCorrect": false
-          },
-          {
-            "text": 'G',
-            "isCorrect": false
-          },
-          {
-            "text": 'B',
-            "isCorrect": false
-          }
-        ]
-      },
-      {
-        id: 'chord-E0',
-        text: 'What chord is this?',
-        difficulty: 2,
-        staff: [
-          { name: 'E2', yOffset: '0' },
-          { name: 'B2', yOffset: '20' },
-          { name: 'E3', yOffset: '35'},
-          { name: 'G3', yOffset: '45'},
-          { name: 'B3', yOffset: '55'},
-          { name: 'E4', yOffset: '70'},
-        ],
-        fretboard: [{fret: 0, finger: 0}, {fret: 2, finger: 2}, {fret: 2, finger: 3}, {fret: 0, finger: 0}, {fret: 0, finger: 0}, {fret: 0, finger: 0},],
-        answers: [
-          {
-            "text": 'E Major',
-            "isCorrect": true
-          },
-          {
-            "text": 'D Major',
-            "isCorrect": false
-          },
-          {
-            "text": 'G Major',
-            "isCorrect": false
-          },
-          {
-            "text": 'B Major',
-            "isCorrect": false
-          }
-        ]
-      }
-    ]
-  };
+  componentWillMount() {
+    this.props.fetchQuestions();
+  }
 
   handleAnswer = (isCorrect, answerText) => {
-    const question = this.state.questions[this.state.questionIndex];
-
-    this.props.saveAnswer(question.id, isCorrect, this.milliseconds, answerText)
+    this.props.saveAnswer(this.props.question.id, isCorrect, this.milliseconds, answerText)
   };
 
   render() {
-    const {questions, questionIndex} = this.state;
-    const {user, isAuthenticated, handleLoginClick, setUserHasBeenWelcomed, userHasBeenWelcomed} = this.props;
-
-    const question = questions[questionIndex];
+    const {
+      user,
+      isAuthenticated,
+      handleLoginClick,
+      setUserHasBeenWelcomed,
+      userHasBeenWelcomed,
+      question,
+      isQuestionsLoading
+    } = this.props;
 
     if (!user) return (<div>No user found</div>);
 
@@ -148,6 +67,12 @@ class Play extends Component {
       )
     }
 
+    // check for questions loading here
+    if (isQuestionsLoading) return (<div>Loading questions...</div>);
+
+    // check for no question state
+    if (!question) return (<div>No question found</div>);
+
     return (
       <div className="home body-content-with-top-margin">
         <div className="text-center">
@@ -173,12 +98,15 @@ class Play extends Component {
 
 const mapStateToProps = (state) => ({
   user: state.root.user.data,
-  userHasBeenWelcomed: state.root.userHasBeenWelcomed
+  userHasBeenWelcomed: state.root.userHasBeenWelcomed,
+  isQuestionsLoading: getQuestionsIsLoading(state.root),
+  question: getCurrentQuestion(state.root)
 });
 
 const mapDispatchToProps = {
   saveAnswer,
-  setUserHasBeenWelcomed
+  setUserHasBeenWelcomed,
+  fetchQuestions
 };
 
 Play.propTypes = {
@@ -187,7 +115,9 @@ Play.propTypes = {
   handleLoginClick: PropTypes.func.isRequired,
   saveAnswer: PropTypes.func.isRequired,
   setUserHasBeenWelcomed: PropTypes.func.isRequired,
-  userHasBeenWelcomed: PropTypes.bool.isRequired
+  userHasBeenWelcomed: PropTypes.bool.isRequired,
+  question: PropTypes.object,
+  isQuestionsLoading: PropTypes.bool.isRequired
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Play);

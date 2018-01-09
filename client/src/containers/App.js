@@ -60,7 +60,7 @@ class App extends Component {
           <NavBar />
           <UserInfo user={user} isAuthenticated={isAuthenticated} handleLoginClick={this.handleLoginClick} />
           <FadeRoute exact path="/" component={() => (<Home isAuthenticated={isAuthenticated} handleLoginClick={this.handleLoginClick} />)} />
-          <FadeRoute path="/play" component={() => (<Play isAuthenticated={isAuthenticated} handleLoginClick={this.handleLoginClick} />)} />
+          <FadeRoute path="/play" component={() => (user && <Play isAuthenticated={isAuthenticated} handleLoginClick={this.handleLoginClick} />)} />
           <FadeRoute path="/about" component={LazyAbout} />
           <Route path="/users" component={LazyUsers}/>
           <Route path="/questions" component={RankedQuestionsList}/>

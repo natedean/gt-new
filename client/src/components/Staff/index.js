@@ -2,7 +2,7 @@ import React from 'react';
 import './index.css';
 
 const Staff = ({children}) => (
-  <svg className="staff" viewBox={`0 0 100 120`}>
+  <svg className="staff" viewBox={`0 0 120 120`}>
     <line className="staff--line" x1="50" y1="10" x2="70" y2="10"/>
     <line className="staff--line" x1="50" y1="20" x2="70" y2="20"/>
     <line className="staff--line" x1="50" y1="30" x2="70" y2="30"/>

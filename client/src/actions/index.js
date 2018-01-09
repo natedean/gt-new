@@ -36,3 +36,23 @@ export const saveAnswer = (questionID, isCorrect) => (dispatch, getState) => {
 export const setUserHasBeenWelcomed = () => ({
   type: 'USER_WELCOME_COMPLETE'
 });
+
+export const fetchQuestions = () => (dispatch, getState) => {
+  const user = getState().root.user.data;
+
+  services.getQuestions(user.id)
+    .then(res => {
+      dispatch({
+        type: 'FETCH_QUESTIONS_SUCCESS', // not sure if we need to do anything on success...
+        questionDict: res
+      })
+    })
+    .catch(() => {
+      dispatch({
+        type: 'FETCH_QUESTIONS_FAILURE', // not sure if we need to do anything on success...
+      });
+
+      alert('There has been a problem retrieving questions.');
+    });
+
+};

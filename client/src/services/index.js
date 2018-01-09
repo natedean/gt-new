@@ -16,3 +16,8 @@ export const saveAnswer = (userID, questionID, isCorrect) => {
     })
   });
 };
+
+export const getQuestions = (userID) => {
+  return fetch(`/api/questions?user=${userID}`)
+    .then(res => res.json());
+};
