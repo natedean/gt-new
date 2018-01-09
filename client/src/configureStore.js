@@ -5,7 +5,7 @@ import logger from 'redux-logger';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
 const enhancers = process.env.NODE_ENV === 'development' ?
-  composeWithDevTools(applyMiddleware(logger, thunk)) : applyMiddleware(thunk);
+  composeWithDevTools(applyMiddleware(thunk, logger)) : applyMiddleware(thunk);
 
 const store = createStore(createRootReducer(), enhancers);
 store.asyncReducers = {};
