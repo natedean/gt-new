@@ -35,7 +35,6 @@ const data = (state = initialAppState.user.data, action) => {
     case 'SET_USER':
       return action.user;
     default:
-      console.log('returning default');
       return state;
   }
 };

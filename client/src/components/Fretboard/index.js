@@ -18,7 +18,7 @@ export default class extends Component {
         </g>
         <g id="dots">
           { notes.map((note, i) => {
-            if (!note) return; // no note for this string
+            if (!note) return null; // no note for this string
 
             return (
               <circle key={i}
@@ -40,7 +40,7 @@ export default class extends Component {
           })}
 
           { notes.map((note, i) => {
-            if (!note) return; // no note for this string
+            if (!note) return null; // no note for this string
 
             return (
               <g key={i} className="fretboard-x"
