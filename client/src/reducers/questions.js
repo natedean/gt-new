@@ -1,5 +1,6 @@
 import {combineReducers} from 'redux';
 import initialAppState from './initialAppState';
+import shuffle from 'lodash.shuffle';
 
 const isLoading = (state = initialAppState.questions.isLoading, action) => {
   switch(action.type) {
@@ -76,8 +77,13 @@ export const getCurrentQuestion = (state) => {
   const numQuestions = _allIDs.length;
   const randIndex = Math.floor(Math.random() * numQuestions);
   const questionID = _allIDs[randIndex];
+  const question = questionDict[questionID];
 
-  return {id: questionID, ...questionDict[questionID]};
+  return {
+    id: questionID,
+    ...question,
+    answers: shuffle(question.answers)
+  };
 };
 
 export const getQuestionsIsLoading = (state) => state.isLoading;

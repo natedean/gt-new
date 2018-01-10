@@ -1,21 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import StaffWithNotes from '../components/StaffWithNotes';
-import Fretboard from '../components/Fretboard';
-import AnswerButtons from '../components/AnswerButtons';
 import {saveAnswer, setUserHasBeenWelcomed, fetchQuestions} from '../actions';
 import {getCurrentQuestion, getQuestionsIsLoading} from '../reducers';
+import InitialUserWelcome from '../components/InitialUserWelcome';
+import ReturningUserWelcome from '../components/ReturningUserWelcome';
+import QuestionDisplay from '../components/QuestionDisplay';
 
 class Play extends Component {
 
   componentWillMount() {
     this.props.fetchQuestions();
   }
-
-  handleAnswer = (isCorrect, answerText) => {
-    this.props.saveAnswer(this.props.question.id, isCorrect, this.milliseconds, answerText)
-  };
 
   render() {
     const {
@@ -25,45 +21,28 @@ class Play extends Component {
       setUserHasBeenWelcomed,
       userHasBeenWelcomed,
       question,
-      isQuestionsLoading
+      isQuestionsLoading,
+      saveAnswer
     } = this.props;
 
-    if (!user) return (<div>No user found</div>);
-
+    // if this is a brand new user, show the initial welcome screen
     if (!userHasBeenWelcomed && user.score === 0) {
       return (
-        <div>
-          <div className="home body-content-with-top-margin">
-            <div className="text-center">
-              <h3>Alright, let's do this!</h3>
-              <p>I am going to ask you some questions.
-                <br/>
-                Questions will get harder as you go.
-                <br/>
-                There will be games, and fun, and places to study if you struggle.
-              </p>
-              {!isAuthenticated && <p className="secondaryText">If you <a href="/#login" onClick={handleLoginClick}>Sign In</a>, your points and level will be saved.</p>}
-              <button onClick={setUserHasBeenWelcomed}>SWEET, I AM READY</button>
-            </div>
-          </div>
-        </div>
+        <InitialUserWelcome
+          isAuthenticated={isAuthenticated}
+          handleLoginClick={handleLoginClick}
+          setUserHasBeenWelcomed={setUserHasBeenWelcomed}
+        />
       )
     }
 
+    // if this is a returning user, show the returning welcome screen
     if (!userHasBeenWelcomed) {
       return (
-        <div>
-          <div className="home body-content-with-top-margin">
-            <div className="text-center">
-              <h3>Welcome back!</h3>
-              <p>Wow, you already have {user.score} points! That's big time.
-                <br/>
-                Let's continue your fast track to world domination.
-              </p>
-              <button onClick={setUserHasBeenWelcomed}>LET US DO THIS</button>
-            </div>
-          </div>
-        </div>
+        <ReturningUserWelcome
+          score={user.score}
+          setUserHasBeenWelcomed={setUserHasBeenWelcomed}
+        />
       )
     }
 
@@ -73,27 +52,11 @@ class Play extends Component {
     // check for no question state
     if (!question) return (<div>No question found</div>);
 
-    console.log(question);
-
     return (
-      <div className="home body-content-with-top-margin">
-        <div className="text-center">
-          <h3>{question.text}</h3>
-          <div style={{display: 'flex', width: '400px', maxWidth: '95%', justifyContent: 'center', margin: '0 auto 2rem'}}>
-            <div style={{marginRight: '3rem'}}>
-              <StaffWithNotes notes={question.staff} />
-            </div>
-            <Fretboard notes={question.fretboard} />
-          </div>
-          <AnswerButtons
-            answers={question.answers}
-            isLimbo={false}
-            isCorrectLimbo={false}
-            incorrectAnswerText={'you messed up'}
-            onClick={this.handleAnswer}
-          />
-        </div>
-      </div>
+      <QuestionDisplay
+        question={question}
+        saveAnswer={saveAnswer}
+      />
     );
   }
 }
