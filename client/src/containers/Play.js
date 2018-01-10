@@ -73,6 +73,8 @@ class Play extends Component {
     // check for no question state
     if (!question) return (<div>No question found</div>);
 
+    console.log(question);
+
     return (
       <div className="home body-content-with-top-margin">
         <div className="text-center">

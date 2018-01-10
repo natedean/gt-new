@@ -14,6 +14,12 @@ export const setUser = (user) => (dispatch, getState) => {
 export const saveAnswer = (questionID, isCorrect) => (dispatch, getState) => {
   const user = getState().root.user.data;
 
+  dispatch({
+    type: 'OPTIMISTIC_SAVE_ANSWER',
+    questionID,
+    isCorrect
+  });
+
   // update server
   services.saveAnswer(user.id, questionID, isCorrect)
     .then(res => {

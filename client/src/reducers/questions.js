@@ -38,6 +38,18 @@ const allIDs = (state = initialAppState.questions.allIDs, action) => {
   switch(action.type) {
     case 'FETCH_QUESTIONS_SUCCESS':
       return Object.keys(action.questionDict);
+    case 'OPTIMISTIC_SAVE_ANSWER':
+      return action.isCorrect ?
+        state.filter(id => id !== action.questionID) : state;
+    default:
+      return state;
+  }
+};
+
+const prevQuestionID = (state = initialAppState.questions.prevQuestionID, action) => {
+  switch (action.type) {
+    case 'OPTIMISTIC_SAVE_ANSWER':
+      return action.questionID;
     default:
       return state;
   }
@@ -47,19 +59,23 @@ export default combineReducers({
   isLoading,
   isError,
   byID,
-  allIDs
+  allIDs,
+  prevQuestionID
 });
 
 // Selectors
 export const getCurrentQuestion = (state) => {
   const questionDict = state.byID;
-  const allIDs = state.allIDs;
+  const {allIDs, prevQuestionID} = state;
 
-  if (!questionDict) return null;
+  const _allIDs = allIDs.length > 1 ?
+    allIDs.filter(id => id !== prevQuestionID) : allIDs;
 
-  const numQuestions = allIDs.length;
+  if (!questionDict || !_allIDs.length) return null;
+
+  const numQuestions = _allIDs.length;
   const randIndex = Math.floor(Math.random() * numQuestions);
-  const questionID = allIDs[randIndex];
+  const questionID = _allIDs[randIndex];
 
   return {id: questionID, ...questionDict[questionID]};
 };

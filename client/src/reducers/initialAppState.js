@@ -7,8 +7,9 @@ export default {
   questions: {
     byID: null,
     allIDs: [],
+    prevQuestionID: null,
     isLoading: false,
-    isError: false
+    isError: false,
   },
   userHasBeenWelcomed: false
 }
