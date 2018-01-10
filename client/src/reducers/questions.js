@@ -1,6 +1,5 @@
 import {combineReducers} from 'redux';
 import initialAppState from './initialAppState';
-import shuffle from 'lodash.shuffle';
 
 const isLoading = (state = initialAppState.questions.isLoading, action) => {
   switch(action.type) {
