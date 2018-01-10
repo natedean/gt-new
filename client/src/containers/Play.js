@@ -1,16 +1,20 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {saveAnswer, setUserHasBeenWelcomed, fetchQuestions} from '../actions';
+import {saveAnswer, setUserHasBeenWelcomed, fetchQuestions, unsetReconciliationState, setRandCurrQuestion} from '../actions';
 import {getCurrentQuestion, getQuestionsIsLoading} from '../reducers';
 import InitialUserWelcome from '../components/InitialUserWelcome';
 import ReturningUserWelcome from '../components/ReturningUserWelcome';
 import QuestionDisplay from '../components/QuestionDisplay';
+import ReconciliationDisplay from '../components/ReconciliationDisplay';
 
 class Play extends Component {
 
   componentWillMount() {
-    this.props.fetchQuestions();
+    this.props.fetchQuestions()
+      .then(() => {
+        this.props.setRandCurrQuestion();
+      });
   }
 
   render() {
@@ -22,7 +26,9 @@ class Play extends Component {
       userHasBeenWelcomed,
       question,
       isQuestionsLoading,
-      saveAnswer
+      saveAnswer,
+      reconciliationState,
+      unsetReconciliationState
     } = this.props;
 
     // if this is a brand new user, show the initial welcome screen
@@ -52,6 +58,14 @@ class Play extends Component {
     // check for no question state
     if (!question) return (<div>No question found</div>);
 
+    if (reconciliationState !== null) return (
+      <ReconciliationDisplay
+        question={question}
+        isCorrect={reconciliationState}
+        unsetReconciliationState={unsetReconciliationState}
+      />
+    );
+
     return (
       <QuestionDisplay
         question={question}
@@ -64,14 +78,17 @@ class Play extends Component {
 const mapStateToProps = (state) => ({
   user: state.root.user.data,
   userHasBeenWelcomed: state.root.userHasBeenWelcomed,
+  reconciliationState: state.root.reconciliationState,
   isQuestionsLoading: getQuestionsIsLoading(state.root),
-  question: getCurrentQuestion(state.root)
+  question: getCurrentQuestion(state.root),
 });
 
 const mapDispatchToProps = {
   saveAnswer,
   setUserHasBeenWelcomed,
-  fetchQuestions
+  fetchQuestions,
+  unsetReconciliationState,
+  setRandCurrQuestion
 };
 
 Play.propTypes = {
@@ -82,7 +99,10 @@ Play.propTypes = {
   setUserHasBeenWelcomed: PropTypes.func.isRequired,
   userHasBeenWelcomed: PropTypes.bool.isRequired,
   question: PropTypes.object,
-  isQuestionsLoading: PropTypes.bool.isRequired
+  isQuestionsLoading: PropTypes.bool.isRequired,
+  unsetReconciliationState: PropTypes.func.isRequired,
+  setRandCurrQuestion: PropTypes.func.isRequired,
+  reconciliationState: PropTypes.bool
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Play);

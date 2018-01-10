@@ -39,7 +39,7 @@ const allIDs = (state = initialAppState.questions.allIDs, action) => {
   switch(action.type) {
     case 'FETCH_QUESTIONS_SUCCESS':
       return Object.keys(action.questionDict);
-    case 'OPTIMISTIC_SAVE_ANSWER':
+    case 'UNSET_RECONCILIATION_STATE':
       return action.isCorrect ?
         state.filter(id => id !== action.questionID) : state;
     default:
@@ -49,8 +49,17 @@ const allIDs = (state = initialAppState.questions.allIDs, action) => {
 
 const prevQuestionID = (state = initialAppState.questions.prevQuestionID, action) => {
   switch (action.type) {
-    case 'OPTIMISTIC_SAVE_ANSWER':
+    case 'UNSET_RECONCILIATION_STATE':
       return action.questionID;
+    default:
+      return state;
+  }
+};
+
+const currQuestion = (state = initialAppState.questions.currQuestion, action) => {
+  switch (action.type) {
+    case 'SET_CURR_QUESTION':
+      return action.question;
     default:
       return state;
   }
@@ -61,29 +70,11 @@ export default combineReducers({
   isError,
   byID,
   allIDs,
-  prevQuestionID
+  prevQuestionID,
+  currQuestion
 });
 
 // Selectors
-export const getCurrentQuestion = (state) => {
-  const questionDict = state.byID;
-  const {allIDs, prevQuestionID} = state;
-
-  const _allIDs = allIDs.length > 1 ?
-    allIDs.filter(id => id !== prevQuestionID) : allIDs;
-
-  if (!questionDict || !_allIDs.length) return null;
-
-  const numQuestions = _allIDs.length;
-  const randIndex = Math.floor(Math.random() * numQuestions);
-  const questionID = _allIDs[randIndex];
-  const question = questionDict[questionID];
-
-  return {
-    id: questionID,
-    ...question,
-    answers: shuffle(question.answers)
-  };
-};
+export const getCurrentQuestion = (state) => state.currQuestion;
 
 export const getQuestionsIsLoading = (state) => state.isLoading;

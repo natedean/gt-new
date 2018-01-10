@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import StaffWithNotes from './StaffWithNotes';
-import Fretboard from './Fretboard';
 import AnswerButtons from './AnswerButtons';
+import QuestionDiagrams from './QuestionDiagrams';
 
 class QuestionDisplay extends Component {
 
@@ -17,12 +16,9 @@ class QuestionDisplay extends Component {
       <div className="home body-content-with-top-margin">
         <div className="text-center">
           <h3>{question.text}</h3>
-          <div style={{display: 'flex', width: '400px', maxWidth: '95%', justifyContent: 'center', margin: '0 auto 2rem'}}>
-            <div style={{marginRight: '3rem'}}>
-              <StaffWithNotes notes={question.staff} />
-            </div>
-            <Fretboard notes={question.fretboard} />
-          </div>
+          <QuestionDiagrams
+            question={question}
+          />
           <AnswerButtons
             answers={question.answers}
             isLimbo={false}

@@ -8,8 +8,10 @@ export default {
     byID: null,
     allIDs: [],
     prevQuestionID: null,
+    currQuestion: null,
     isLoading: false,
     isError: false,
   },
-  userHasBeenWelcomed: false
+  userHasBeenWelcomed: false,
+  reconciliationState: null
 }
