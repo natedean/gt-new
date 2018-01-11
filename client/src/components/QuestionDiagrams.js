@@ -9,7 +9,7 @@ class QuestionDiagrams extends Component {
     const {question} = this.props;
 
     return (
-      <div style={{display: 'flex', width: '400px', maxWidth: '95%', justifyContent: 'center', margin: '0 auto 2rem'}}>
+      <div style={{display: 'flex', justifyContent: 'center', margin: '0 auto 2rem'}}>
         <div style={{marginRight: '3rem'}}>
           <StaffWithNotes notes={question.staff} />
         </div>

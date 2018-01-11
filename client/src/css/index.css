@@ -42,6 +42,27 @@ button a {
   color: var(--color-red);
 }
 
+.answerButton {
+  padding: 0 2em;
+  margin-left: 1.5em;
+  transition: all 0.4s;
+  text-transform: none;
+}
+
+.answerButton:first-of-type {
+  margin-left: 0;
+}
+
+.answerButton[disabled]:hover {
+  border: 1px solid #bbb;
+}
+
+.answerButton--correct,
+.answerButton.answerButton--correct:hover {
+  color: var(--color-green);
+  border: 1px solid var(--color-green);
+}
+
 .body-content-with-top-margin {
   margin: 10vh auto 0;
 }

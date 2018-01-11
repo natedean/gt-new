@@ -14,16 +14,14 @@ class QuestionDisplay extends Component {
 
     return (
       <div className="home body-content-with-top-margin">
-        <div className="text-center">
+        <div style={{width: '400px', maxWidth: '95%', textAlign: 'center', margin: '0 auto'}}>
           <h3>{question.text}</h3>
           <QuestionDiagrams
             question={question}
           />
           <AnswerButtons
+            questionID={question.id}
             answers={question.answers}
-            isLimbo={false}
-            isCorrectLimbo={false}
-            incorrectAnswerText={'you messed up'}
             onClick={this.handleAnswer}
           />
         </div>

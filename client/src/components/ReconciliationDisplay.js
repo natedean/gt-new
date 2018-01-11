@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import QuestionDiagrams from './QuestionDiagrams';
+import ReconciliationAnswerButtons from './ReconciliationAnswerButtons';
 
 class ReconciliationDisplay extends Component {
 
@@ -16,14 +17,15 @@ class ReconciliationDisplay extends Component {
 
     return (
       <div className="home body-content-with-top-margin">
-        <div className="text-center">
-          <h3 className={isCorrect ? 'color-success' : 'color-failure'}>
+        <div style={{width: '400px', maxWidth: '95%', textAlign: 'center', margin: '0 auto'}}>
+          <h3 className={isCorrect ? 'color-success' : ''}>
             {isCorrect ? 'Correct!' : 'Incorrect'}
           </h3>
           <QuestionDiagrams
             question={question}
           />
-          <button onClick={this.handleClick}>Next</button>
+          <ReconciliationAnswerButtons questionID={question.id} answers={question.answers} />
+          <button style={{width: '100%'}} onClick={this.handleClick}>Next</button>
         </div>
       </div>
     );
