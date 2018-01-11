@@ -5,8 +5,8 @@ import QuestionDiagrams from './QuestionDiagrams';
 
 class QuestionDisplay extends Component {
 
-  handleAnswer = (isCorrect, answerText) => {
-    this.props.saveAnswer(this.props.question.id, isCorrect, 10000, answerText)
+  handleAnswer = (isCorrect) => {
+    this.props.saveAnswer(this.props.question.id, isCorrect, 10000)
   };
 
   render() {

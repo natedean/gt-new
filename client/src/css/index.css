@@ -34,9 +34,13 @@ button a {
   width: 25rem;
 }
 
-/*.vertical-button-array button:last-of-type {*/
-  /*margin-bottom: 0;*/
-/*}*/
+.color-success {
+  color: var(--color-green);
+}
+
+.color-failure {
+  color: var(--color-red);
+}
 
 .body-content-with-top-margin {
   margin: 10vh auto 0;

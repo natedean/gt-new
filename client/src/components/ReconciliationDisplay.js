@@ -17,7 +17,9 @@ class ReconciliationDisplay extends Component {
     return (
       <div className="home body-content-with-top-margin">
         <div className="text-center">
-          <h3>{isCorrect ? 'Correct!' : 'Incorrect'}</h3>
+          <h3 className={isCorrect ? 'color-success' : 'color-failure'}>
+            {isCorrect ? 'Correct!' : 'Incorrect'}
+          </h3>
           <QuestionDiagrams
             question={question}
           />

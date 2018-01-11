@@ -83,5 +83,42 @@ module.exports = {
         "isCorrect": false
       }
     ]
+  },
+  'chord-Dm0': {
+    text: 'What chord is this?',
+    difficulty: 2,
+    staff: [
+      { name: 'D3', yOffset: '30' },
+      { name: 'A3', yOffset: '50'},
+      { name: 'D4', yOffset: '65'},
+      { name: 'D4', yOffset: '65'},
+      { name: 'F4', yOffset: '75'},
+    ],
+    fretboard: [
+      {fret: 0, finger: 'x'},
+      {fret: 0, finger: 'x'},
+      {fret: 0, finger: 0},
+      {fret: 2, finger: 2},
+      {fret: 3, finger: 3},
+      {fret: 1, finger: 1},
+    ],
+    answers: [
+      {
+        "text": 'D minor',
+        "isCorrect": true
+      },
+      {
+        "text": 'E minor',
+        "isCorrect": false
+      },
+      {
+        "text": 'G minor',
+        "isCorrect": false
+      },
+      {
+        "text": 'B minor',
+        "isCorrect": false
+      }
+    ]
   }
 };
