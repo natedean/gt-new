@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import AnswerButtons from './AnswerButtons';
 import QuestionDiagrams from './QuestionDiagrams';
+import ReconciliationDisplay from './ReconciliationDisplay';
+import ReconciliationAnswerButtons from './ReconciliationAnswerButtons';
 
 class QuestionDisplay extends Component {
 
@@ -10,7 +12,7 @@ class QuestionDisplay extends Component {
   };
 
   render() {
-    const {question} = this.props;
+    const {question, reconciliationState, unsetReconciliationState} = this.props;
 
     return (
       <div className="home body-content-with-top-margin">
@@ -19,11 +21,20 @@ class QuestionDisplay extends Component {
           <QuestionDiagrams
             question={question}
           />
-          <AnswerButtons
-            questionID={question.id}
-            answers={question.answers}
-            onClick={this.handleAnswer}
-          />
+          {reconciliationState !== null &&
+            <ReconciliationDisplay
+              question={question}
+              unsetReconciliationState={unsetReconciliationState}
+              isCorrect={reconciliationState}
+            />}
+          {reconciliationState === null ?
+            <AnswerButtons
+              questionID={question.id}
+              answers={question.answers}
+              onClick={this.handleAnswer}
+            /> :
+            <ReconciliationAnswerButtons questionID={question.id} answers={question.answers}/>
+          }
         </div>
       </div>
     )
@@ -33,7 +44,9 @@ class QuestionDisplay extends Component {
 
 QuestionDisplay.propTypes = {
   question: PropTypes.object.isRequired,
-  saveAnswer: PropTypes.func.isRequired
+  saveAnswer: PropTypes.func.isRequired,
+  reconciliationState: PropTypes.bool,
+  unsetReconciliationState: PropTypes.func.isRequired
 };
 
 export default QuestionDisplay;

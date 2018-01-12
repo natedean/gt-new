@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import QuestionDiagrams from './QuestionDiagrams';
-import ReconciliationAnswerButtons from './ReconciliationAnswerButtons';
 
 class ReconciliationDisplay extends Component {
 
@@ -50,26 +48,14 @@ class ReconciliationDisplay extends Component {
   };
 
   render() {
-    const {question, isCorrect} = this.props;
-    const text = question.answers.find(a => a.isCorrect).text;
+    const {isCorrect} = this.props;
 
     return (
-      <div className="home body-content-with-top-margin">
-        <div style={{width: '500px', maxWidth: '95%', textAlign: 'center', margin: '0 auto', position: 'relative'}}>
-          <h3>
-            {text}
-          </h3>
-          <QuestionDiagrams
-            question={question}
-          />
-          <div style={{position: 'absolute', marginTop: '-2.8rem', width: '100%', textAlign: 'center'}}>
-            <span className={isCorrect ? 'color-success' : 'color-failure'}>
-              {this.setIsCorrectMessage()}
-            </span>
-          </div>
-          <ReconciliationAnswerButtons questionID={question.id} answers={question.answers} />
+        <div style={{position: 'absolute', marginTop: '-2.8rem', width: '100%', textAlign: 'center'}}>
+          <span className={isCorrect ? 'color-success' : 'color-failure'}>
+            {this.setIsCorrectMessage()}
+          </span>
         </div>
-      </div>
     );
   }
 
