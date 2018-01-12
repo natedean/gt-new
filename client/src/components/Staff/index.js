@@ -52,3 +52,28 @@ export const notes = [
   { name: 'D5', yOffset: '100'},
   { name: 'E5', yOffset: '105'}
 ];
+
+export const yOffsetMap = {
+  E2: 0,
+  F2: 5,
+  G2: 10,
+  A2: 15,
+  B2: 20,
+  C3: 25,
+  D3: 30,
+  E3: 35,
+  F3: 40,
+  G3: 45,
+  A3: 50,
+  B3: 55,
+  C4: 60,
+  D4: 65,
+  E4: 70,
+  F4: 75,
+  G4: 80,
+  A4: 85,
+  B4: 90,
+  C5: 95,
+  D5: 100,
+  E5: 105
+};

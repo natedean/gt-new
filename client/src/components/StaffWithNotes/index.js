@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import Staff from "../Staff";
+import Staff, {yOffsetMap} from "../Staff";
 
 class StaffWithNotes extends Component {
   staffHeight = 120;
@@ -8,12 +8,14 @@ class StaffWithNotes extends Component {
   render() {
     const {notes} = this.props;
 
+    console.log(yOffsetMap[notes[0]], typeof yOffsetMap[notes[0]]);
+
     return (
       <Staff>
         {notes.map((note, i) =>
           <ellipse key={i} className="staff--quarterNoteBody"
               cx="60"
-              cy={this.staffHeight - note.yOffset - 5}
+              cy={this.staffHeight - yOffsetMap[note] - 5}
               rx="6"
               ry="5"
           />)}
@@ -23,7 +25,7 @@ class StaffWithNotes extends Component {
 }
 
 StaffWithNotes.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired
+  notes: PropTypes.arrayOf(PropTypes.string).isRequired
 };
 
 export default StaffWithNotes;
