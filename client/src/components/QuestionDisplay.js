@@ -17,7 +17,7 @@ class QuestionDisplay extends Component {
     return (
       <div className="home body-content-with-top-margin">
         <div style={{width: '500px', maxWidth: '95%', textAlign: 'center', margin: '0 auto', position: 'relative'}}>
-          <h3>{question.text}</h3>
+          <h3>{reconciliationState === null ? question.text : question.answers.find(a => a.isCorrect).text}</h3>
           <QuestionDiagrams
             question={question}
           />
