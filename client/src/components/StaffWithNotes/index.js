@@ -8,8 +8,6 @@ class StaffWithNotes extends Component {
   render() {
     const {notes} = this.props;
 
-    console.log(yOffsetMap[notes[0]], typeof yOffsetMap[notes[0]]);
-
     return (
       <Staff>
         {notes.map((note, i) =>

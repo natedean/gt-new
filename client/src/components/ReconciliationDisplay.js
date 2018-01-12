@@ -62,7 +62,7 @@ class ReconciliationDisplay extends Component {
           <QuestionDiagrams
             question={question}
           />
-          <div style={{position: 'absolute', marginTop: '-2.5rem', width: '100%', textAlign: 'center'}}>
+          <div style={{position: 'absolute', marginTop: '-2.8rem', width: '100%', textAlign: 'center'}}>
             <span className={isCorrect ? 'color-success' : 'color-failure'}>
               {this.setIsCorrectMessage()}
             </span>
