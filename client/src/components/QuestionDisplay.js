@@ -4,11 +4,12 @@ import AnswerButtons from './AnswerButtons';
 import QuestionDiagrams from './QuestionDiagrams';
 import ReconciliationDisplay from './ReconciliationDisplay';
 import ReconciliationAnswerButtons from './ReconciliationAnswerButtons';
+import {Motion, spring, presets} from 'react-motion';
 
 class QuestionDisplay extends Component {
 
   timer;
-  reconciliationCounterSpeed = 750;
+  reconciliationCounterSpeed = 1000;
 
   constructor(props) {
     super(props);
@@ -39,10 +40,9 @@ class QuestionDisplay extends Component {
   };
 
   incrementReconciliationCounter = () => {
-    const limit = this.props.reconciliationState ? 1 : 4;
+    const limit = this.props.reconciliationState ? 1 : 2;
 
     if (this.state.reconciliationCounter >= limit) {
-      console.log('you hit the limit, bro', this.state.reconciliationCounter);
       this.handleUnsetReconciliationMessagePhase();
       return;
     }
@@ -100,10 +100,24 @@ class QuestionDisplay extends Component {
     return (
       <div className="home body-content-with-top-margin">
         <div style={{width: '500px', maxWidth: '95%', textAlign: 'center', margin: '0 auto', position: 'relative'}}>
-          <h3>{reconciliationState === null ? question.text : question.answers.find(a => a.isCorrect).text}</h3>
-          <QuestionDiagrams
+          <Motion defaultStyle={{opacity: 0}} style={{opacity: spring(1, presets.gentle)}}>
+            {(interpolatedStyle) => (
+              <h3 style={interpolatedStyle}>
+                {reconciliationState === null ? question.text : question.answers.find(a => a.isCorrect).text}
+              </h3>
+            )}
+          </Motion>
+          {reconciliationState === null ? <Motion defaultStyle={{x: 75}} style={{x: spring(0, presets.gentle)}}>
+            {(interpolatedStyle) => (
+              <div style={{transform: `translateX(${interpolatedStyle.x}px)`}}>
+                <QuestionDiagrams
+                  question={question}
+                />
+              </div>
+            )}
+          </Motion> : <QuestionDiagrams
             question={question}
-          />
+          />}
           {isReconciliationMessagePhase &&
             <ReconciliationDisplay
               question={question}
@@ -112,14 +126,26 @@ class QuestionDisplay extends Component {
           {isReconciliationMessagePhase &&
             <ReconciliationAnswerButtons questionID={question.id} answers={question.answers}/>
           }
-          {isQuestionPhase && <AnswerButtons
-              questionID={question.id}
-              answers={question.answers}
-              onClick={this.handleAnswer}
-            />}
-          {isReconciliationWaitPhase && <button onClick={this.handleUnsetReconciliationState}>
-            Next
-          </button>}
+          {isQuestionPhase && <Motion defaultStyle={{opacity: 0}} style={{opacity: spring(1, presets.gentle)}}>
+            {(interpolatedStyle) => (
+              <div style={interpolatedStyle}>
+                <AnswerButtons
+                  questionID={question.id}
+                  answers={question.answers}
+                  onClick={this.handleAnswer}
+                />
+              </div>
+            )}
+          </Motion>}
+          {isReconciliationWaitPhase && <Motion defaultStyle={{y: 50}} style={{y: spring(0, presets.gentle)}}>
+            {(interpolatedStyle) => (
+              <button
+                style={{width: '100%', transform: `translateY(${interpolatedStyle.y}px)`}}
+                onClick={this.handleUnsetReconciliationState}>
+                Next
+              </button>
+            )}
+          </Motion>}
         </div>
       </div>
     )
