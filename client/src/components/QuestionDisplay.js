@@ -26,7 +26,7 @@ class QuestionDisplay extends Component {
 
     this.props.unsetReconciliationState(
       this.props.question.id,
-      this.props.isCorrect
+      this.props.reconciliationState
     );
   };
 
