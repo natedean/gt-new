@@ -1,16 +1,18 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
+import {Motion, spring, presets} from 'react-motion';
 
 class ReconciliationDisplay extends Component {
 
   timer;
+  counterSpeed = 750;
 
   state = {
     counter: 0
   };
 
   componentDidMount() {
-    this.timer = setInterval(this.incrementCounter, 1000);
+    this.timer = setInterval(this.incrementCounter, this.counterSpeed);
   }
 
   componentWillUnmount() {
@@ -31,12 +33,11 @@ class ReconciliationDisplay extends Component {
 
   setIsCorrectMessage = () => {
     const {isCorrect} = this.props;
-    const {counter} = this.state;
 
     if (isCorrect) {
       return `Correct! +1`
     } else {
-      return `Incorrect ${Array(counter).fill('.').join(' ')}`;
+      return `Incorrect`;
     }
   };
 
@@ -49,11 +50,18 @@ class ReconciliationDisplay extends Component {
 
   render() {
     const {isCorrect} = this.props;
+    const initialX = isCorrect ? 200 : -200;
 
     return (
         <div style={{position: 'absolute', marginTop: '-2.8rem', width: '100%', textAlign: 'center'}}>
           <span className={isCorrect ? 'color-success' : 'color-failure'}>
-            {this.setIsCorrectMessage()}
+            <Motion defaultStyle={{ x: initialX }} style={{ x: spring(0, presets.wobbly) }} >
+              {(interpolatedStyles) =>
+                <div style={{ transform: `translateX(${interpolatedStyles.x}px)` }}>
+                  {this.setIsCorrectMessage()}
+                </div>
+              }
+            </Motion>
           </span>
         </div>
     );

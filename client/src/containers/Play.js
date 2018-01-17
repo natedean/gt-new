@@ -58,14 +58,6 @@ class Play extends Component {
     // check for no question state
     if (!question) return (<div>No question found</div>);
 
-    // if (reconciliationState !== null) return (
-    //   <ReconciliationDisplay
-    //     question={question}
-    //     isCorrect={reconciliationState}
-    //     unsetReconciliationState={unsetReconciliationState}
-    //   />
-    // );
-
     return (
       <QuestionDisplay
         reconciliationState={reconciliationState}
