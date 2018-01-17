@@ -7,12 +7,95 @@ import ReconciliationAnswerButtons from './ReconciliationAnswerButtons';
 
 class QuestionDisplay extends Component {
 
-  handleAnswer = (isCorrect) => {
-    this.props.saveAnswer(this.props.question.id, isCorrect, 10000)
+  timer;
+  reconciliationCounterSpeed = 750;
+
+  constructor(props) {
+    super(props);
+
+    this.state = this.getDefaultState();
+  }
+
+  componentWillUnmount() {
+    this.clearReconciliationTimer()
+  }
+
+  handleUnsetReconciliationState = () => {
+    this.setState(() => this.getDefaultState());
+
+    this.props.unsetReconciliationState(
+      this.props.question.id,
+      this.props.isCorrect
+    );
   };
 
+  handleSetReconciliationWaitPhase = () => {
+    this.setState(this.getReconciliationWaitState());
+  };
+
+  clearReconciliationTimer = () => {
+    console.log('clearing reconciliation timer', this.timer);
+    clearInterval(this.reconciliationTimer);
+  };
+
+  incrementReconciliationCounter = () => {
+    const limit = this.props.reconciliationState ? 1 : 4;
+
+    if (this.state.reconciliationCounter >= limit) {
+      console.log('you hit the limit, bro', this.state.reconciliationCounter);
+      this.handleUnsetReconciliationMessagePhase();
+      return;
+    }
+
+    this.setState((prevState) => ({reconciliationCounter: prevState.reconciliationCounter + 1}));
+  };
+
+  handleAnswer = (isCorrect) => {
+    // save answer event
+    this.props.saveAnswer(this.props.question.id, isCorrect, 10000);
+
+    // set isReconciliationMessagePhase
+    this.setState(() => this.getReconciliationMessageState());
+
+    // set reconciliationTimer
+    this.reconciliationTimer = setInterval(this.incrementReconciliationCounter, this.reconciliationCounterSpeed);
+  };
+
+  handleUnsetReconciliationMessagePhase = () => {
+    if (this.props.reconciliationState === true) {
+      this.handleUnsetReconciliationState();
+    } else {
+      this.handleSetReconciliationWaitPhase();
+    }
+    this.clearReconciliationTimer();
+  };
+
+  getDefaultState = () => ({
+    isQuestionPhase: true,
+    isReconciliationMessagePhase: false,
+    isReconciliationWaitPhase: false,
+    reconciliationCounter: 0
+  });
+
+  getReconciliationMessageState = () => ({
+    isQuestionPhase: false,
+    isReconciliationMessagePhase: true,
+    isReconciliationWaitPhase: false,
+    reconciliationCounter: 0
+  });
+
+  getReconciliationWaitState = () => ({
+    isReconciliationMessagePhase: false,
+    isReconciliationWaitPhase: true,
+    reconciliationCounter: 0
+  });
+
   render() {
-    const {question, reconciliationState, unsetReconciliationState} = this.props;
+    const { isQuestionPhase,
+            isReconciliationMessagePhase,
+            isReconciliationWaitPhase
+          } = this.state;
+    const {question, reconciliationState} = this.props;
 
     return (
       <div className="home body-content-with-top-margin">
@@ -21,20 +104,22 @@ class QuestionDisplay extends Component {
           <QuestionDiagrams
             question={question}
           />
-          {reconciliationState !== null &&
+          {isReconciliationMessagePhase &&
             <ReconciliationDisplay
               question={question}
-              unsetReconciliationState={unsetReconciliationState}
               isCorrect={reconciliationState}
             />}
-          {reconciliationState === null ?
-            <AnswerButtons
+          {isReconciliationMessagePhase &&
+            <ReconciliationAnswerButtons questionID={question.id} answers={question.answers}/>
+          }
+          {isQuestionPhase && <AnswerButtons
               questionID={question.id}
               answers={question.answers}
               onClick={this.handleAnswer}
-            /> :
-            <ReconciliationAnswerButtons questionID={question.id} answers={question.answers}/>
-          }
+            />}
+          {isReconciliationWaitPhase && <button onClick={this.handleUnsetReconciliationState}>
+            Next
+          </button>}
         </div>
       </div>
     )

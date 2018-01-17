@@ -3,34 +3,6 @@ import PropTypes from 'prop-types';
 import {Motion, spring, presets} from 'react-motion';
 
 class ReconciliationDisplay extends Component {
-
-  timer;
-  counterSpeed = 750;
-
-  state = {
-    counter: 0
-  };
-
-  componentDidMount() {
-    this.timer = setInterval(this.incrementCounter, this.counterSpeed);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-
-  componentWillUpdate() {
-    const limit = this.props.isCorrect ? 1 : 4;
-
-    if (this.state.counter >= limit) {
-      this.handleClick();
-    }
-  }
-
-  incrementCounter = () => {
-    this.setState((prevState) => ({counter: prevState.counter + 1}));
-  };
-
   setIsCorrectMessage = () => {
     const {isCorrect} = this.props;
 
@@ -39,13 +11,6 @@ class ReconciliationDisplay extends Component {
     } else {
       return `Incorrect`;
     }
-  };
-
-  handleClick = () => {
-    this.props.unsetReconciliationState(
-      this.props.question.id,
-      this.props.isCorrect
-    );
   };
 
   render() {
@@ -72,7 +37,6 @@ class ReconciliationDisplay extends Component {
 ReconciliationDisplay.propTypes = {
   question: PropTypes.object.isRequired,
   isCorrect: PropTypes.bool.isRequired,
-  unsetReconciliationState: PropTypes.func.isRequired
 };
 
 export default ReconciliationDisplay;
