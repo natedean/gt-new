@@ -15,14 +15,13 @@ class ReconciliationDisplay extends Component {
 
   render() {
     const {isCorrect} = this.props;
-    const initialX = isCorrect ? 200 : -200;
 
     return (
         <div style={{position: 'absolute', marginTop: '-2.8rem', width: '100%', textAlign: 'center'}}>
           <span className={isCorrect ? 'color-success' : 'color-failure'}>
-            <Motion defaultStyle={{ x: initialX }} style={{ x: spring(0, presets.wobbly) }} >
-              {(interpolatedStyles) =>
-                <div style={{ transform: `translateX(${interpolatedStyles.x}px)` }}>
+            <Motion defaultStyle={{ opacity: 0 }} style={{ opacity: spring(1) }} >
+              {(interpolatedStyle) =>
+                <div style={interpolatedStyle}>
                   {this.setIsCorrectMessage()}
                 </div>
               }
