@@ -39,8 +39,17 @@ const allIDs = (state = initialAppState.questions.allIDs, action) => {
     case 'FETCH_QUESTIONS_SUCCESS':
       return Object.keys(action.questionDict);
     case 'UNSET_RECONCILIATION_STATE':
-      return action.isCorrect ?
-        state.filter(id => id !== action.questionID) : state;
+      // if the answer was incorrect... do nothing...
+      if (!action.isCorrect) return state;
+
+      // if blended-mode answer, remove blended mode and sub-in non
+      const newQuestionIDs = action.questionID.includes('/') ? [] : [
+        `${action.questionID}/staff`, `${action.questionID}/fretboard`
+      ];
+
+      return state
+        .filter(id => id !== action.questionID)
+        .concat(newQuestionIDs);
     default:
       return state;
   }

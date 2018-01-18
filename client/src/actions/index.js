@@ -92,7 +92,8 @@ export const setRandCurrQuestion = () => (dispatch, getState) => {
   const numQuestions = _allIDs.length;
   const randIndex = Math.floor(Math.random() * numQuestions);
   const questionID = _allIDs[randIndex];
-  const question = byID[questionID];
+  const baseQuestionID = questionID.split('/')[0];
+  const question = byID[baseQuestionID];
 
   dispatch({
     type: 'SET_CURR_QUESTION',

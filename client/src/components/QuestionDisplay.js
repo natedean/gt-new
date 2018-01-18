@@ -89,11 +89,6 @@ class QuestionDisplay extends Component {
     reconciliationCounter: 0
   });
 
-  willLeave = () => {
-    console.log('LEAVING!');
-    return {x: spring(-400)}
-  };
-
   render() {
     const { isQuestionPhase,
             isReconciliationMessagePhase,

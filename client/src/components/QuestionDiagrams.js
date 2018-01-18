@@ -7,13 +7,18 @@ class QuestionDiagrams extends Component {
 
   render() {
     const {question} = this.props;
+    const mode = question.id.split('/')[1] || 'blended';
 
     return (
       <div style={{display: 'flex', justifyContent: 'center', margin: '0 auto 3rem'}}>
-        <div style={{marginRight: '3rem'}}>
-          <StaffWithNotes notes={question.staff} />
-        </div>
-        <Fretboard notes={question.fretboard} />
+        {(mode === 'blended' || mode === 'staff') &&
+          <div className="diagramContainer">
+            <StaffWithNotes notes={question.staff} />
+          </div>}
+        {(mode === 'blended' || mode === 'fretboard')
+        && <div className="diagramContainer">
+          <Fretboard notes={question.fretboard} />
+        </div>}
       </div>
     )
   }
