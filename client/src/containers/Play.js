@@ -6,7 +6,6 @@ import {getCurrentQuestion, getQuestionsIsLoading} from '../reducers';
 import InitialUserWelcome from '../components/InitialUserWelcome';
 import ReturningUserWelcome from '../components/ReturningUserWelcome';
 import QuestionDisplay from '../components/QuestionDisplay';
-import ReconciliationDisplay from '../components/ReconciliationDisplay';
 
 class Play extends Component {
 

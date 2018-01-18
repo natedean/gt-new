@@ -4,12 +4,12 @@ import AnswerButtons from './AnswerButtons';
 import QuestionDiagrams from './QuestionDiagrams';
 import ReconciliationDisplay from './ReconciliationDisplay';
 import ReconciliationAnswerButtons from './ReconciliationAnswerButtons';
-import {Motion, TransitionMotion, spring, presets} from 'react-motion';
+import {Motion, spring, presets} from 'react-motion';
 
 class QuestionDisplay extends Component {
 
   timer;
-  reconciliationCounterSpeed = 750;
+  reconciliationCounterSpeed = 800;
 
   constructor(props) {
     super(props);
@@ -101,14 +101,19 @@ class QuestionDisplay extends Component {
           } = this.state;
 
     const {question, reconciliationState} = this.props;
-    const startingX = Math.random() > 0.5 ? -20 : 20;
+    const startingX = Math.random() > 0.5 ? -70 : 70;
 
     return (
       <div className="home body-content-with-top-margin">
         <div style={{width: '500px', maxWidth: '95%', textAlign: 'center', margin: '0 auto', position: 'relative'}}>
+          <p style={{ fontSize: '1.3rem', marginTop: '-1rem', marginBottom: '1rem' }}>
+            Difficulty: {question.difficulty}
+            <br />
+            Category: {question.category}
+          </p>
           {isQuestionPhase ? <Motion
               defaultStyle={{ x: startingX, opacity: 0 }}
-              style={{x: spring(0, presets.wobbly), opacity: spring(1)}}>
+              style={{x: spring(0, presets.gentle), opacity: spring(1)}}>
               {(interpolatedStyle) => (
                 <div style={{transform: `translateX(${interpolatedStyle.x}px)`, opacity: interpolatedStyle.opacity}}>
                   <h3>

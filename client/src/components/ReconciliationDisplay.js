@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import {Motion, spring, presets} from 'react-motion';
+import {Motion, spring} from 'react-motion';
 
 class ReconciliationDisplay extends Component {
   setIsCorrectMessage = () => {
