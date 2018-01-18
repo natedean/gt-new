@@ -17,6 +17,10 @@ button a {
   text-align: center;
 }
 
+.mb1 {
+  margin-bottom: 1rem;
+}
+
 .button-array button {
   margin-right: 1rem;
 }

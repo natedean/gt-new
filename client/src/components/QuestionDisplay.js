@@ -111,7 +111,7 @@ class QuestionDisplay extends Component {
               style={{x: spring(0, presets.gentle), opacity: spring(1)}}>
               {(interpolatedStyle) => (
                 <div style={{transform: `translateX(${interpolatedStyle.x}px)`, opacity: interpolatedStyle.opacity}}>
-                  <h3>
+                  <h3 className="mb1">
                     {reconciliationState === null ? question.text : question.answers.find(a => a.isCorrect).text}
                   </h3>
                   <QuestionDiagrams
@@ -124,7 +124,7 @@ class QuestionDisplay extends Component {
                   />
                 </div>)}
           </Motion> : <div>
-            <h3>
+            <h3 className="mb1">
               {reconciliationState === null ? question.text : question.answers.find(a => a.isCorrect).text}
             </h3>
             <QuestionDiagrams
