@@ -17,16 +17,10 @@ class ReconciliationDisplay extends Component {
     const {isCorrect} = this.props;
 
     return (
-        <div style={{position: 'absolute', marginTop: '-2.8rem', width: '100%', textAlign: 'center'}}>
-          <span className={isCorrect ? 'color-success' : 'color-failure'}>
-            <Motion defaultStyle={{ opacity: 0 }} style={{ opacity: spring(1) }} >
-              {(interpolatedStyle) =>
-                <div style={interpolatedStyle}>
-                  {this.setIsCorrectMessage()}
-                </div>
-              }
-            </Motion>
-          </span>
+        <div
+          className={isCorrect ? 'color-success' : 'color-failure'}
+          style={{ marginBottom: '2.5rem' }}>
+          <span className="fadeIn">{this.setIsCorrectMessage()}</span>
         </div>
     );
   }

@@ -101,22 +101,17 @@ class QuestionDisplay extends Component {
     return (
       <div className="home body-content-with-top-margin">
         <div style={{width: '500px', maxWidth: '95%', textAlign: 'center', margin: '0 auto', position: 'relative'}}>
-          <p style={{ fontSize: '1.3rem', marginTop: '-1rem', marginBottom: '1rem' }}>
-            Difficulty: {question.difficulty}
-            <br />
-            Category: {question.category}
-          </p>
           {isQuestionPhase ? <Motion
               defaultStyle={{ x: startingX, opacity: 0 }}
               style={{x: spring(0, presets.gentle), opacity: spring(1)}}>
               {(interpolatedStyle) => (
                 <div style={{transform: `translateX(${interpolatedStyle.x}px)`, opacity: interpolatedStyle.opacity}}>
-                  <h3 className="mb1">
-                    {reconciliationState === null ? question.text : question.answers.find(a => a.isCorrect).text}
-                  </h3>
                   <QuestionDiagrams
                     question={question}
                   />
+                  <p>
+                    {reconciliationState === null ? question.text : question.answers.find(a => a.isCorrect).text}
+                  </p>
                   <AnswerButtons
                     questionID={question.id}
                     answers={question.answers}
@@ -124,20 +119,19 @@ class QuestionDisplay extends Component {
                   />
                 </div>)}
           </Motion> : <div>
-            <h3 className="mb1">
-              {reconciliationState === null ? question.text : question.answers.find(a => a.isCorrect).text}
-            </h3>
             <QuestionDiagrams
               question={question}
             />
-            {isReconciliationMessagePhase &&
-            <ReconciliationDisplay
-              question={question}
-              isCorrect={reconciliationState}
-            />}
-            {isReconciliationMessagePhase &&
-            <ReconciliationAnswerButtons questionID={question.id} answers={question.answers}/>
-            }
+            {isReconciliationMessagePhase && <div>
+              <ReconciliationDisplay
+                question={question}
+                isCorrect={reconciliationState}
+              />
+              <ReconciliationAnswerButtons questionID={question.id} answers={question.answers}/>
+            </div>}
+            {isReconciliationWaitPhase && <p>
+              {question.answers.find(a => a.isCorrect).text}
+            </p>}
             {isReconciliationWaitPhase && <Motion defaultStyle={{y: 150}} style={{y: spring(0, presets.gentle)}}>
               {(interpolatedStyle) => (
                 <button
