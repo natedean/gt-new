@@ -7,7 +7,7 @@ class QuestionDiagrams extends Component {
 
   render() {
     const {question} = this.props;
-    const mode = question.id.split('/')[1] || 'blended';
+    const mode = 'blended'; // TODO: change mode??
 
     return (
       <div style={{display: 'flex', justifyContent: 'center', margin: '0 auto 3rem'}}>
