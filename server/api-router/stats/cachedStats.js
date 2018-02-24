@@ -66,7 +66,7 @@
 //   const dateString = date.toLocaleDateString();
 //
 //   getCollection('dailyStats').then(({collection, db}) => {
-//     const update = Object.assign({}, stats, { dateString, _updated_at: date });
+//     const update = Object.assign({}, stats, { dateString, timestamp: date });
 //     collection.findOneAndUpdate(
 //         { dateString },
 //         { $set: update },

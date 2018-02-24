@@ -18,5 +18,5 @@ module.exports = router;
 // util
 function transformQuestionsWithAverages(averages) {
   // we get back an object with avg answer stats, but need to also include question attributes
-  return averages.map(avg => ({ ...avg, ...questions.find(q => q.id === avg.questionId) }));
+  return averages.map(avg => ({ ...avg, ...questions.find(q => q.id === avg.questionID) }));
 }

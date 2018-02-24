@@ -44,12 +44,12 @@ const getTopUsers = () =>
         totalIncorrect: 1,
         skill: 1,
         _created_at: 1,
-        _updated_at: 1
+        timestamp: 1
       };
 
       return collection
-        .find({ totalCorrect: {$gt: 0} , _updated_at: {$gte: timeframe } }, fieldsToRetrieve)
-        .sort({ _updated_at: -1 })
+        .find({ totalCorrect: {$gt: 0} , timestamp: {$gte: timeframe } }, fieldsToRetrieve)
+        .sort({ timestamp: -1 })
         .limit(300)
         .toArray()
         .then(users => {
@@ -65,8 +65,8 @@ const getAnswerAverages = async () => {
     $project: {
       _id: 0,
       isCorrect: { $cond : [ '$isCorrect', 1, 0 ]  },
-      questionId: 1,
-      userId: 1,
+      questionID: 1,
+      userID: 1,
       milliseconds: 1 }
   };
 
@@ -82,7 +82,7 @@ const getAnswerAverages = async () => {
   const secondProjection = {
     $project: {
       _id: 0,
-      questionId: '$_id',
+      questionID: '$_id',
       avgCorrect: 1,
       avgTime: 1,
       totalAnswers: '$count'

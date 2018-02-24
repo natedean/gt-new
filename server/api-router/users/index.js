@@ -8,7 +8,7 @@ router.get('/', (req, res) => {
   const pageOffset = page <= 1 ? 0 : page * limit;
   const sortDirection = req.query.sortDirection || 'desc';
   const sortCode = sortDirection === 'desc' ? -1 : 1;
-  const sortField = req.query.sortField || '_updated_at';
+  const sortField = req.query.sortField || 'timestamp';
 
   db.getUsers(pageOffset, limit, sortField, sortCode)
     .then(users => res.send(users))
