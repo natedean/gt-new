@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const questions = require('../data/questions');
-const db = require('../db');
+const db = require('../../db');
 
 router.get('/', (req, res) => {
   res.send(questions);

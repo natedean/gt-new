@@ -6,7 +6,7 @@ const {MongoClient, ObjectID} = MongoDB;
 
 if (!MONGO_URI) throw('MONGO_URI environment variable must be set');
 
-const questions = require('./data/questions');
+const questions = require('./api-router/data/questions');
 
 const getUsers = (pageOffset, limit, sortField, sortCode) =>
   MongoClient.connect(MONGO_URI)
