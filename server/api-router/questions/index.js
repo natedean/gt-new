@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const questions = require('../data/questions');
-const db = require('../../db');
+const db = require('./db');
+const {transformQuestionsWithAverages} = require('./util');
 
 router.get('/', (req, res) => {
   res.send(questions);
@@ -14,9 +15,3 @@ router.get('/ranked-list', (req, res) => {
 });
 
 module.exports = router;
-
-// util
-function transformQuestionsWithAverages(averages) {
-  // we get back an object with avg answer stats, but need to also include question attributes
-  return averages.map(avg => ({ ...avg, ...questions.find(q => q.id === avg.questionID) }));
-}
